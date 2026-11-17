@@ -3,29 +3,27 @@
 <no-index/>
 
 
-In this chapter, you'll explore special Kotlin functions that make your code more concise and readable. Learn how they
-can help you use efficient design patterns to take your projects to the next level.
+Neste capítulo, você vai explorar funções especiais do Kotlin que deixam seu código mais conciso e legível. Veja como elas podem ajudar você a usar padrões de design eficientes e levar seus projetos para o próximo nível.
 
-## Extension functions
+## Extension functions {id="extension-functions"}
 
-In software development, you often need to modify a program's behavior without changing the original source code. 
-For example, you might want to add extra functionality to a class from a third-party library.
+No desenvolvimento de software, muitas vezes você precisa modificar o comportamento de um programa sem alterar o código-fonte original.
+Por exemplo, talvez você queira adicionar funcionalidades extras a uma classe de uma biblioteca de terceiros.
 
-You can do this by adding _extension functions_ to extend a class. You call extension functions the same way 
-you call member functions of a class, using a period `.`.
+Você pode fazer isso adicionando _extension functions_ para estender uma classe. Você chama extension functions da mesma forma que chama funções membro de uma classe, usando um ponto `.`.
 
-Before introducing the complete syntax for extension functions, you need to understand what a **receiver** is.
-The receiver is what the function is called on. In other words, the receiver is where or with whom the information is shared.
+Antes de apresentar a sintaxe completa das extension functions, você precisa entender o que é um **receiver**.
+O receiver é aquilo sobre o qual a função é chamada. Em outras palavras, o receiver é onde, ou com quem, a informação é compartilhada.
 
-![An example of sender and receiver](receiver-highlight.png){width="500"}
+![Um exemplo de sender e receiver](receiver-highlight.png){width="500"}
 
-In this example, the `main()` function calls the [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) function to return the first element in a list.
-The `.first()` function is called **on** the `readOnlyShapes` variable, so the `readOnlyShapes` variable is the receiver.
+Neste exemplo, a função `main()` chama a função [`.first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) para retornar o primeiro elemento de uma lista.
+A função `.first()` é chamada **sobre** a variável `readOnlyShapes`, então a variável `readOnlyShapes` é o receiver.
 
-To create an extension function, write the name of the class that you want to extend followed by a `.` and the name of
-your function. Continue with the rest of the function declaration, including its parameters and return type.
+Para criar uma extension function, escreva o nome da classe que você quer estender, seguido de um `.` e do nome da função.
+Continue com o restante da declaração da função, incluindo seus parâmetros e o tipo de retorno.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun String.bold(): String = "<b>$this</b>"
@@ -38,23 +36,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-extension-function"}
 
-In this example:
+Neste exemplo:
 
-* `String` is the extended class.
-* `bold` is the name of the extension function. 
-* The `.bold()` extension function's return type is `String`.
-* `"hello"`, an instance of `String`, as the receiver.
-* The receiver is accessed inside the body by the [keyword](keyword-reference.md): `this`.
-* A string template (`$`) is used to access the value of `this`.
-* The `.bold()` extension function takes a string and returns it in a `<b>` HTML element for bold text.
+* `String` é a classe estendida.
+* `bold` é o nome da extension function.
+* O tipo de retorno da extension function `.bold()` é `String`.
+* `"hello"`, uma instância de `String`, é o receiver.
+* O receiver é acessado dentro do corpo pela [palavra-chave](keyword-reference.md): `this`.
+* Um template de string (`$`) é usado para acessar o valor de `this`.
+* A extension function `.bold()` recebe uma string e a retorna dentro de um elemento HTML `<b>`, usado para texto em negrito.
 
-## Extension-oriented design
+## Design orientado a extension functions {id="extension-oriented-design"}
 
-You can define extension functions anywhere, which enables you to create extension-oriented designs. These designs separate 
-core functionality from useful but non-essential features, making your code easier to read and maintain.
+Você pode definir extension functions em qualquer lugar, o que permite criar designs orientados a extension functions. Esses designs separam a funcionalidade central de recursos úteis, mas não essenciais, tornando o código mais fácil de ler e manter.
 
-A good example is the [`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) class from the Ktor library, which helps perform network requests. The core of
-its functionality is a single function `request()`, which takes all the information needed for an HTTP request:
+Um bom exemplo é a classe [`HttpClient`](https://api.ktor.io/ktor-client-core/io.ktor.client/-http-client/index.html) da biblioteca Ktor, que ajuda a fazer requisições de rede. O núcleo da funcionalidade dela é uma única função `request()`, que recebe todas as informações necessárias para uma requisição HTTP:
 
 ```kotlin
 class HttpClient {
@@ -65,9 +61,7 @@ class HttpClient {
 ```
 {validate="false"}
 
-In practice, the most popular HTTP requests are GET or POST requests. It makes sense for the library to provide shorter
-names for these common use cases. However, these don't require writing new network code, only a specific request call.
-In other words, they are perfect candidates to be defined as separate `.get()` and `.post()` extension functions:
+Na prática, as requisições HTTP mais populares são as requisições GET e POST. Faz sentido para a biblioteca fornecer nomes mais curtos para esses casos de uso comuns. No entanto, eles não exigem escrever código de rede novo, apenas uma chamada específica de requisição. Em outras palavras, são candidatos perfeitos para serem definidos como extension functions separadas `.get()` e `.post()`:
 
 ```kotlin
 fun HttpClient.get(url: String): HttpResponse = request("GET", url, emptyMap())
@@ -75,9 +69,7 @@ fun HttpClient.post(url: String): HttpResponse = request("POST", url, emptyMap()
 ```
 {validate="false"}
 
-These `.get()` and `.post()` functions extend the `HttpClient` class. They can directly use the `request()` function from the `HttpClient` class
-because they're called on an instance of the `HttpClient` class as the receiver. You can use these extension functions to
-call the `request()` function with the appropriate HTTP method, which simplifies your code and makes it easier to understand:
+Essas funções `.get()` e `.post()` estendem a classe `HttpClient`. Elas podem usar diretamente a função `request()` da classe `HttpClient`, porque são chamadas sobre uma instância da classe `HttpClient` como receiver. Você pode usar essas extension functions para chamar a função `request()` com o método HTTP apropriado, o que simplifica seu código e facilita o entendimento:
 
 ```kotlin
 class HttpClient {
@@ -102,18 +94,16 @@ fun main() {
 ```
 {validate="false"}
 
-This extension-oriented approach is widely used in Kotlin's [standard library](https://kotlinlang.org/api/latest/jvm/stdlib/)
-and other libraries. For example, the `String` class has many [extension functions](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/#extension-functions)
-to help you work with strings.
+Essa abordagem orientada a extension functions é amplamente usada na [biblioteca padrão](https://kotlinlang.org/api/latest/jvm/stdlib/) do Kotlin e em outras bibliotecas. Por exemplo, a classe `String` tem muitas [extension functions](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/#extension-functions) para ajudar você a trabalhar com strings.
 
-For more information about extension functions, see [Extensions](extensions.md).
+Para mais informações sobre extension functions, consulte [Extensões](extensions.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Check whether an integer is positive" id="extension-functions-exercise-1">
+<def title="Verifique se um inteiro é positivo" id="extension-functions-exercise-1">
 
-Write an extension function called `isPositive` that takes an integer and checks whether it is positive.
+Escreva uma extension function chamada `isPositive` que recebe um inteiro e verifica se ele é positivo.
 
 ```kotlin
 fun Int.// Write your code here
@@ -133,17 +123,17 @@ fun main() {
     // true
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/IsPositiveTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-extension-functions-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/IsPositiveTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-extension-functions-solution-1"}
 
 </def>
-<def title="Convert a string to lowercase" id="extension-functions-exercise-2">
+<def title="Converta uma string para minúsculas" id="extension-functions-exercise-2">
 
-Write an extension function called `toLowercaseString` that takes a string and returns a lowercase version.
+Escreva uma extension function chamada `toLowercaseString` que recebe uma string e retorna uma versão em minúsculas.
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Use the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/lowercase.html"> <code>.lowercase()</code>
-        </a> function for the <code>String</code> type. 
+    <def title="Dica">
+        Use a função <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/lowercase.html"> <code>.lowercase()</code>
+        </a> do tipo <code>String</code>. 
     </def>
 </deflist>
 
@@ -165,7 +155,7 @@ fun main() {
     // hello world!
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ToLowercaseStringTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-extension-functions-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ToLowercaseStringTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-extension-functions-solution-2"}
 
 </def>
 </deflist>
@@ -174,9 +164,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-null-safety.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-null-safety.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-scope-functions.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-scope-functions.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

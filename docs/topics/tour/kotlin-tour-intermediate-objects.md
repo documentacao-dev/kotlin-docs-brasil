@@ -1,37 +1,38 @@
-[//]: # (title: Objects)
+[//]: # (title: Objetos)
 
 <no-index/>
 
 
-In this chapter, you'll expand your understanding of classes by exploring object declarations. This knowledge will help 
-you efficiently manage behavior across your projects.
+Neste capítulo, você vai ampliar sua compreensão sobre classes explorando declarações de object. Esse conhecimento vai
+ajudar você a gerenciar comportamento de forma eficiente nos seus projetos.
 
-## Object declarations
+## Declarações de object {id="object-declarations"}
 
-In Kotlin, you can use **object declarations** to declare a class with a single instance. In a sense, you declare the 
-class and create the single instance _at the same time_. Object declarations are useful when you want to create a class to
-use as a single reference point for your program or to coordinate behavior across a system.
+No Kotlin, você pode usar **declarações de object** para declarar uma classe com uma única instância. De certa forma,
+você declara a classe e cria a instância única _ao mesmo tempo_. Declarações de object são úteis quando você quer criar
+uma classe para usar como um ponto de referência único no seu programa ou para coordenar comportamento em todo um sistema.
 
-> A class that has only one instance that is easily accessible is called a **singleton**.
+> Uma classe que tem apenas uma instância, facilmente acessível, é chamada de **singleton**.
 >
 {style="tip"}
 
-Objects in Kotlin are **lazy**, meaning they are created only when accessed. Kotlin also ensures that all
-objects are created in a thread-safe manner so that you don't have to check this manually.
+Objects no Kotlin são **lazy**, ou seja, são criados somente quando acessados. O Kotlin também garante que todos os
+objects sejam criados de forma thread-safe, para que você não precise verificar isso manualmente.
 
-To create an object declaration, use the `object` keyword:
+Para criar uma declaração de object, use a palavra-chave `object`:
 
 ```kotlin
 object DoAuth {}
 ```
 
-Following the name of your `object`, add any properties or member functions within the object body defined by curly braces `{}`.
+Depois do nome do seu `object`, adicione quaisquer propriedades ou funções membro dentro do corpo do object, definido
+por chaves `{}`.
 
-> Objects can't have constructors, so they don't have headers like classes.
+> Objects não podem ter construtores, então não têm cabeçalhos como as classes.
 >
 {style="note"}
 
-For example, let's say that you wanted to create an object called `DoAuth` that is responsible for authentication:
+Por exemplo, suponha que você queira criar um object chamado `DoAuth` responsável pela autenticação:
 
 ```kotlin
 object DoAuth {
@@ -48,10 +49,10 @@ fun main(){
 ```
 {kotlin-runnable="true" id="kotlin-tour-object-declarations"}
 
-The object has a member function called `takeParams` that accepts `username` and `password` variables as parameters
-and prints a string to the console. The `DoAuth` object is only created when the function is called for the first time.
+O object tem uma função membro chamada `takeParams`, que aceita as variáveis `username` e `password` como parâmetros e
+imprime uma string no console. O object `DoAuth` só é criado quando a função é chamada pela primeira vez.
 
-> Objects can inherit from classes and interfaces. For example:
+> Objects podem herdar de classes e interfaces. Por exemplo:
 > 
 > ```kotlin
 > interface Auth {
@@ -69,22 +70,22 @@ and prints a string to the console. The `DoAuth` object is only created when the
 
 #### Data objects
 
-To make it easier to print the contents of an object declaration, Kotlin has **data** objects. Similar to data classes,
-which you learned about in the beginner tour, data objects automatically come with additional member functions: 
-`toString()` and `equals()`.
+Para facilitar a impressão do conteúdo de uma declaração de object, o Kotlin tem **data objects**. Assim como as data
+classes, que você conheceu no tour para iniciantes, os data objects vêm automaticamente com funções membro adicionais:
+`toString()` e `equals()`.
 
-> Unlike data classes, data objects do not come automatically with the `copy()` member function because they only have
-> a single instance that can't be copied.
+> Diferente das data classes, os data objects não vêm automaticamente com a função membro `copy()`, porque têm uma única
+> instância que não pode ser copiada.
 >
 {type ="note"}
 
-To create a data object, use the same syntax as for object declarations but prefix it with the `data` keyword:
+Para criar um data object, use a mesma sintaxe das declarações de object, mas com o prefixo da palavra-chave `data`:
 
 ```kotlin
 data object AppConfig {}
 ```
 
-For example:
+Por exemplo:
 
 ```kotlin
 data object AppConfig {
@@ -102,27 +103,28 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-data-objects"}
 
-For more information about data objects, see [](object-declarations.md#data-objects).
+Para mais informações sobre data objects, veja [](object-declarations.md#data-objects).
 
 #### Companion objects
 
-In Kotlin, a class can have an object: a **companion** object. You can only have **one** companion object per class.
-A companion object is created only when its class is referenced for the first time.
+No Kotlin, uma classe pode ter um object: um **companion** object. Você só pode ter **um** companion object por classe.
+Um companion object é criado somente quando a sua classe é referenciada pela primeira vez.
 
-Any properties or functions declared inside a companion object are shared across all class instances.
+Quaisquer propriedades ou funções declaradas dentro de um companion object são compartilhadas por todas as instâncias
+da classe.
 
-To create a companion object within a class, use the same syntax for an object declaration but prefix it with the `companion`
-keyword:
+Para criar um companion object dentro de uma classe, use a mesma sintaxe de uma declaração de object, mas com o prefixo
+da palavra-chave `companion`:
 
 ```kotlin
 companion object Bonger {}
 ```
 
-> A companion object doesn't have to have a name. If you don't define one, the default is `Companion`.
+> Um companion object não precisa ter nome. Se você não definir um, o padrão é `Companion`.
 > 
 {style="note"}
 
-To access any properties or functions of the companion object, reference the class name. For example:
+Para acessar qualquer propriedade ou função do companion object, referencie o nome da classe. Por exemplo:
 
 ```kotlin
 class BigBen {
@@ -142,22 +144,22 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-classes-companion-object"}
 
-This example creates a class called `BigBen` that contains a companion object called `Bonger`. The companion object
-has a member function called `getBongs()` that accepts an integer and prints `"BONG"` to the console the same number of times
-as the integer.
+Este exemplo cria uma classe chamada `BigBen` que contém um companion object chamado `Bonger`. O companion object tem uma
+função membro chamada `getBongs()`, que aceita um inteiro e imprime `"BONG"` no console o mesmo número de vezes que o
+inteiro.
 
-In the `main()` function, the `getBongs()` function is called by referring to the class name. The companion object is created
-at this point. The `getBongs()` function is called with parameter `12`.
+Na função `main()`, a função `getBongs()` é chamada referenciando o nome da classe. Neste momento, o companion object é
+criado. A função `getBongs()` é chamada com o parâmetro `12`.
 
-For more information, see [](object-declarations.md#companion-objects).
+Para mais informações, veja [](object-declarations.md#companion-objects).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Implement a data object for order tracking" id="objects-exercise-1">
+<def title="Implementar um data object para rastreamento de pedidos" id="objects-exercise-1">
 
-You run a coffee shop and have a system for tracking customer orders. Consider the code below and complete the declaration
-of the second data object so that the following code in the `main()` function runs successfully:
+Você administra uma cafeteria e tem um sistema para rastrear os pedidos dos clientes. Considere o código abaixo e complete
+a declaração do segundo data object para que o código a seguir, na função `main()`, seja executado com sucesso:
 
 ```kotlin
 interface Order {
@@ -239,14 +241,14 @@ fun main() {
     // Do the orders have the same customer name? false
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/OrderTwoTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-objects-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/OrderTwoTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-objects-solution-1"}
 
 </def>
-<def title="Create an object declaration" id="objects-exercise-2">
+<def title="Criar uma declaração de object" id="objects-exercise-2">
 
-Create an object declaration that inherits from the `Vehicle` interface to create a unique vehicle type: `FlyingSkateboard`.
-Implement the `name` property and the `move()` function in your object so that the following code in the `main()` function runs 
-successfully:
+Crie uma declaração de object que herde da interface `Vehicle` para criar um tipo de veículo único: `FlyingSkateboard`.
+Implemente a propriedade `name` e a função `move()` no seu object para que o código a seguir, na função `main()`, seja
+executado com sucesso:
 
 ```kotlin
 interface Vehicle {
@@ -285,20 +287,20 @@ fun main() {
     // Flying Skateboard: Woooooooo
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FlyingSkateboardTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-objects-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FlyingSkateboardTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-objects-solution-2"}
 
 </def>
-<def title="Validate an email address before creating a user" id="objects-exercise-3">
+<def title="Validar um endereço de e-mail antes de criar um usuário" id="objects-exercise-3">
 
-You are building a user registration module for an app. You want to keep email validation associated with the `User`
-class but don't want to create an unnecessary `User` instance if the email address is invalid.
+Você está construindo um módulo de cadastro de usuários para um app. Você quer manter a validação de e-mail associada à
+classe `User`, mas não quer criar uma instância `User` desnecessária se o endereço de e-mail for inválido.
 
-For this exercise, consider an email address valid if it contains both `@` and `.`. Complete the data class so that the
-following code in the `main()` function runs successfully:
+Neste exercício, considere um endereço de e-mail válido se ele contiver `@` e `.`. Complete a data class para que o código
+a seguir, na função `main()`, seja executado com sucesso:
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Add an email validation function in a companion object for the `User` class so that you can call the function directly on `User`.
+    <def title="Dica">
+        Adicione uma função de validação de e-mail em um companion object da classe `User`, para que você possa chamar a função diretamente em `User`.
     </def>
 </deflist>
 
@@ -353,10 +355,11 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/UserTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-objects-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/UserTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-objects-solution-3"}
 
-> As an extension of this exercise, try using functions in companion objects as factory methods to construct
-> instances of a class. For an example and more information about this pattern, see [](object-declarations.md#companion-objects).
+> Como extensão deste exercício, experimente usar funções em companion objects como métodos factory para construir
+> instâncias de uma classe. Para um exemplo e mais informações sobre esse padrão, veja
+> [](object-declarations.md#companion-objects).
 >
 {style="tip"}
 
@@ -367,9 +370,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-classes-interfaces.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-classes-interfaces.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-open-special-classes.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-open-special-classes.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

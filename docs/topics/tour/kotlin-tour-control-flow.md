@@ -1,28 +1,27 @@
-[//]: # (title: Control flow)
+[//]: # (title: Controle de fluxo)
 
 <no-index/>
 
 
-Like other programming languages, Kotlin is capable of making decisions based on whether a piece of code is evaluated to
-be true. Such pieces of code are called **conditional expressions**. Kotlin is also able to create and iterate
-through loops.
+Assim como outras linguagens de programação, o Kotlin consegue tomar decisões conforme um trecho de código seja verdadeiro ou não. Esses trechos de código são chamados de **expressões condicionais**. O Kotlin também consegue criar e percorrer
+laços de repetição.
 
-## Conditional expressions
+## Expressões condicionais {id="conditional-expressions"}
 
-Kotlin provides `if` and `when` for checking conditional expressions. 
+O Kotlin oferece `if` e `when` para verificar expressões condicionais. 
 
-> If you have to choose between `if` and `when`, we recommend using `when` because it:
+> Se você precisar escolher entre `if` e `when`, recomendamos usar `when`, porque ele:
 > 
-> * Makes your code easier to read.
-> * Makes it easier to add another branch.
-> * Leads to fewer mistakes in your code.
+> * Deixa seu código mais fácil de ler.
+> * Facilita adicionar outro ramo.
+> * Gera menos erros no código.
 > 
 {style="note"}
 
 ### If
 
-To use `if`, add the conditional expression within parentheses `()` and the action to take if the result is true within 
-curly braces `{}`:
+Para usar `if`, coloque a expressão condicional entre parênteses `()` e a ação a ser executada caso o resultado seja verdadeiro
+entre chaves `{}`:
 
 ```kotlin
 fun main() {
@@ -43,8 +42,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-if"}
 
-There is no ternary operator `condition ? then : else` in Kotlin. Instead, `if` can be used as an expression. If there is
-only one line of code per action, the curly braces `{}` are optional:
+O Kotlin não tem o operador ternário `condition ? then : else`. Em vez disso, `if` pode ser usado como expressão. Se houver
+apenas uma linha de código por ação, as chaves `{}` são opcionais:
 
 ```kotlin
 fun main() { 
@@ -60,18 +59,17 @@ fun main() {
 
 ### When
 
-Use `when` when you have a conditional expression with multiple branches.
+Use `when` quando você tiver uma expressão condicional com vários ramos.
 
-To use `when`:
+Para usar `when`:
 
-* Place the value you want to evaluate within parentheses `()`.
-* Place the branches within curly braces `{}`.
-* Use `->` in each branch to separate each check from the action to take if the check is successful.
+* Coloque o valor que você quer avaliar entre parênteses `()`.
+* Coloque os ramos entre chaves `{}`.
+* Use `->` em cada ramo para separar cada verificação da ação a ser executada se a verificação for bem-sucedida.
 
-`when` can be used either as a statement or as an expression. A **statement** doesn't return anything but performs actions
-instead.
+`when` pode ser usado como **instrução** ou como expressão. Uma instrução não retorna nada, mas executa ações.
 
-Here is an example of using `when` as a statement:
+Veja um exemplo de uso de `when` como instrução:
 
 ```kotlin
 fun main() {
@@ -92,15 +90,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-when-statement"}
 
-> Note that all branch conditions are checked sequentially until one of them is satisfied. So only the first suitable 
-> branch is executed.
+> Observe que todas as condições dos ramos são verificadas em sequência até que uma delas seja satisfeita. Assim, apenas o primeiro
+> ramo adequado é executado.
 >
 {style="note"}
 
-An **expression** returns a value that can be used later in your code.
+Uma **expressão** retorna um valor que pode ser usado depois no código.
 
-Here is an example of using `when` as an expression. The `when` expression is assigned immediately to a variable which is
-later used with the `println()` function:
+Veja um exemplo de uso de `when` como expressão. A expressão `when` é atribuída imediatamente a uma variável, que é usada
+depois com a função `println()`:
 
 ```kotlin
 fun main() {
@@ -122,9 +120,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-when-expression"}
 
-The examples of `when` that you've seen so far both had a subject: `obj`. But `when` can also be used without a subject.
+Os exemplos de `when` que você viu até agora tinham um sujeito: `obj`. Mas `when` também pode ser usado sem sujeito.
 
-This example uses a `when` expression **without** a subject to check a chain of Boolean expressions:
+Este exemplo usa uma expressão `when` **sem** sujeito para verificar uma cadeia de expressões booleanas:
 
 ```kotlin
 fun main() {
@@ -143,7 +141,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-when-expression-boolean"}
 
-However, you can have the same code but with `trafficLightState` as the subject:
+No entanto, você pode ter o mesmo código com `trafficLightState` como sujeito:
 
 ```kotlin
 fun main() {
@@ -162,26 +160,26 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-when-expression-boolean-subject"}
 
-Using `when` with a subject makes your code easier to read and maintain. When you use a subject with a `when` expression, 
-it also helps Kotlin check that all possible cases are covered. Otherwise, if you don't use a subject with a 
-`when` expression, you need to provide an else branch.
+Usar `when` com um sujeito deixa seu código mais fácil de ler e de manter. Quando você usa um sujeito em uma expressão `when`,
+o Kotlin também ajuda a verificar se todos os casos possíveis estão cobertos. Caso contrário, se você não usar um sujeito em uma
+expressão `when`, precisa fornecer um ramo `else`.
 
-## Practice: Conditional expressions
+## Prática: expressões condicionais {id="practice-conditional-expressions"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Check whether two dice rolls match" id="conditional-expressions-exercise-1">
+<def title="Verifique se dois dados dão o mesmo resultado" id="conditional-expressions-exercise-1">
 
-Create a simple game where you win if throwing two dice results in the same number. Use `if` to print `You win :)`
-if the dice match or `You lose :(` otherwise.
+Crie um jogo simples em que você ganha se, ao jogar dois dados, o resultado for o mesmo número. Use `if` para imprimir `You win :)`
+se os dados baterem ou `You lose :(` caso contrário.
 
-> In this exercise, you import a package so that you can use the `Random.nextInt()` function to give you a random `Int`.
-> For more information about importing packages, see [Packages and imports](packages.md).
+> Neste exercício, você importa um pacote para usar a função `Random.nextInt()`, que retorna um `Int` aleatório.
+> Para mais informações sobre como importar pacotes, veja [Pacotes e imports](packages.md).
 >
 {style="tip"}
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Use the <a href="operator-overloading.md#equality-and-inequality-operators">equality operator</a> (<code>==</code>) to compare the dice results. 
+    <def title="Dica">
+        Use o <a href="operator-overloading.md#equality-and-inequality-operators">operador de igualdade</a> (<code>==</code>) para comparar os resultados dos dados. 
     </def>
 </deflist>
 
@@ -208,21 +206,21 @@ fun main() {
         println("You lose :(")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowConditionalExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-control-flow-conditional-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowConditionalExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-control-flow-conditional-solution-1"}
 
 </def>
-<def title="Print the action for a game console button" id="conditional-expressions-exercise-2">
+<def title="Imprima a ação de um botão de console de videogame" id="conditional-expressions-exercise-2">
 
-Using a `when` expression, update the following program so that it prints the corresponding action for any game console
-button in the table. The initial value of `button` is `"A"` but you can change it to try other buttons.
+Usando uma expressão `when`, atualize o programa a seguir para que ele imprima a ação correspondente a qualquer botão de
+console de videogame da tabela. O valor inicial de `button` é `"A"`, mas você pode mudá-lo para testar outros botões.
 
-| **Button** | **Action**              |
-|------------|-------------------------|
-| A          | Yes                     |
-| B          | No                      |
-| X          | Menu                    |
-| Y          | Nothing                 |
-| Other      | There is no such button |
+| **Botão** | **Ação**                |
+|-----------|-------------------------|
+| A         | Sim                     |
+| B         | Não                     |
+| X         | Menu                    |
+| Y         | Nada                    |
+| Outro     | Não existe esse botão   |
 
 ```kotlin
 var button = "A"
@@ -250,41 +248,41 @@ fun main() {
     )
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowConditionalExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-control-flow-conditional-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowConditionalExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-control-flow-conditional-solution-2"}
 
 </def>
 </deflist>
 
-## Ranges
+## Intervalos {id="ranges"}
 
-Before talking about loops, it's useful to know how to construct ranges for loops to iterate over.
+Antes de falar sobre laços de repetição, é útil saber como construir intervalos sobre os quais os laços vão iterar.
 
-The most common way to create a range in Kotlin is to use the `..` operator. For example, `1..4` is equivalent to `1, 2, 3, 4`.
+A forma mais comum de criar um intervalo no Kotlin é usar o operador `..`. Por exemplo, `1..4` é equivalente a `1, 2, 3, 4`.
 
-To declare a range that doesn't include the end value, use the `..<` operator. For example, `1..<4` is equivalent to `1, 2, 3`.
+Para declarar um intervalo que não inclui o valor final, use o operador `..<`. Por exemplo, `1..<4` é equivalente a `1, 2, 3`.
 
-To declare a range in reverse order, use [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html). For example, `4 downTo 1` is equivalent to `4, 3, 2, 1`.
+Para declarar um intervalo em ordem decrescente, use [`downTo`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/down-to.html). Por exemplo, `4 downTo 1` é equivalente a `4, 3, 2, 1`.
 
-To declare a range that increments in a step that isn't 1, use [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) and your desired increment value.
-For example, `1..5 step 2` is equivalent to `1, 3, 5`.
+Para declarar um intervalo que incrementa em um passo diferente de 1, use [`step`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/step.html) e o valor de incremento desejado.
+Por exemplo, `1..5 step 2` é equivalente a `1, 3, 5`.
 
-You can also do the same with `Char` ranges:
+Você também pode fazer o mesmo com intervalos de `Char`:
 
-* `'a'..'d'` is equivalent to `'a', 'b', 'c', 'd'`
-* `'z' downTo 's' step 2` is equivalent to `'z', 'x', 'v', 't'`
+* `'a'..'d'` é equivalente a `'a', 'b', 'c', 'd'`
+* `'z' downTo 's' step 2` é equivalente a `'z', 'x', 'v', 't'`
 
-## Loops
+## Laços de repetição {id="loops"}
 
-The two most common loop structures in programming are `for` and `while`. Use `for` to iterate over a range of 
-values and perform an action. Use `while` to continue an action until a particular condition is satisfied.
+As duas estruturas de laço mais comuns na programação são `for` e `while`. Use `for` para percorrer um intervalo de
+valores e executar uma ação. Use `while` para continuar uma ação até que uma condição específica seja satisfeita.
 
 ### For
 
-Using your new knowledge of ranges, you can create a `for` loop that iterates over numbers 1 to 5 and prints the number 
-each time.
+Usando o que você acabou de aprender sobre intervalos, você pode criar um laço `for` que percorre os números de 1 a 5 e imprime
+o número a cada iteração.
 
-Place the iterator and range within parentheses `()` with keyword `in`. Add the action you want to complete within curly
-braces `{}`:
+Coloque o iterador e o intervalo entre parênteses `()`, com a palavra-chave `in`. Adicione a ação que você quer executar entre
+chaves `{}`:
 
 ```kotlin
 fun main() {
@@ -299,7 +297,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-for-loop"}
 
-Collections can also be iterated over by loops:
+Coleções também podem ser percorridas por laços:
 
 ```kotlin
 fun main() { 
@@ -319,18 +317,18 @@ fun main() {
 
 ### While
 
-`while` can be used in two ways:
+`while` pode ser usado de duas formas:
 
-  * To execute a code block while a conditional expression is true. (`while`)
-  * To execute the code block first and then check the conditional expression. (`do-while`)
+  * Para executar um bloco de código enquanto uma expressão condicional for verdadeira. (`while`)
+  * Para executar o bloco de código primeiro e só depois verificar a expressão condicional. (`do-while`)
 
-In the first use case (`while`):
+No primeiro caso de uso (`while`):
 
-* Declare the conditional expression for your while loop to continue within parentheses `()`. 
-* Add the action you want to complete within curly braces `{}`.
+* Declare a expressão condicional para o laço while continuar, entre parênteses `()`. 
+* Adicione a ação que você quer executar entre chaves `{}`.
 
-> The following examples use the [increment operator](operator-overloading.md#increments-and-decrements) `++` to
-> increment the value of the `cakesEaten` variable.
+> Os exemplos a seguir usam o [operador de incremento](operator-overloading.md#increments-and-decrements) `++` para
+> incrementar o valor da variável `cakesEaten`.
 >
 {style="tip"}
 
@@ -350,10 +348,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-while-loop"}
 
-In the second use case (`do-while`):
+No segundo caso de uso (`do-while`):
 
-* Declare the conditional expression for your while loop to continue within parentheses `()`.
-* Define the action you want to complete within curly braces `{}` with the keyword `do`.
+* Declare a expressão condicional para o laço while continuar, entre parênteses `()`.
+* Defina a ação que você quer executar entre chaves `{}`, com a palavra-chave `do`.
 
 ```kotlin
 fun main() {
@@ -379,19 +377,19 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-while-do-loop"}
 
-For more information and examples of conditional expressions and loops, see [Conditions and loops](control-flow.md).
+Para mais informações e exemplos de expressões condicionais e laços, veja [Condições e laços](control-flow.md).
 
-Now that you know the fundamentals of Kotlin control flow, it's time to learn how to write your own [functions](kotlin-tour-functions.md).
+Agora que você conhece os fundamentos do controle de fluxo no Kotlin, é hora de aprender a escrever suas próprias [funções](kotlin-tour-functions.md).
 
-## Practice: Loops {completion-point="true"}
+## Prática: laços de repetição {id="practice-loops" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Count pizza slices using while and do-while loops" id="loops-exercise-1">
+<def title="Conte fatias de pizza com laços while e do-while" id="loops-exercise-1">
 
-You have a program that counts pizza slices until there's a whole pizza with 8 slices. Refactor this program in two ways:
+Você tem um programa que conta fatias de pizza até haver uma pizza inteira, com 8 fatias. Refatore esse programa de duas formas:
 
-* Use a `while` loop.
-* Use a `do-while` loop.
+* Use um laço `while`.
+* Use um laço `do-while`.
 
 ```kotlin
 fun main() {
@@ -429,7 +427,7 @@ fun main() {
     println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 1" id="kotlin-tour-control-flow-loops-exercise-1-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 1" id="kotlin-tour-control-flow-loops-exercise-1-solution-1"}
 
 ```kotlin
 fun main() {
@@ -442,26 +440,26 @@ fun main() {
     println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 2" id="kotlin-tour-control-flow-loops-exercise-1-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 2" id="kotlin-tour-control-flow-loops-exercise-1-solution-2"}
 
 </def>
-<def title="Play the Fizz buzz game" id="loops-exercise-2">
+<def title="Jogue Fizz buzz" id="loops-exercise-2">
 
-Write a program that simulates the [Fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) game. Your task is to print 
-numbers from 1 to 100 incrementally, replacing any number divisible by three with the word "fizz", and any number 
-divisible by five with the word "buzz". Any number divisible by both 3 and 5 must be replaced with the word "fizzbuzz".
+Escreva um programa que simule o jogo [Fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz). Sua tarefa é imprimir os
+números de 1 a 100 em ordem crescente, substituindo qualquer número divisível por três pela palavra "fizz" e qualquer número
+divisível por cinco pela palavra "buzz". Qualquer número divisível por 3 e por 5 deve ser substituído pela palavra "fizzbuzz".
 
 <deflist collapsible="true">
-    <def title="Hint 1">
-        Use a <code>for</code> loop to count numbers and a <code>when</code> expression to decide what to print at each
-        step. 
+    <def title="Dica 1">
+        Use um laço <code>for</code> para contar os números e uma expressão <code>when</code> para decidir o que imprimir em cada
+        passo. 
     </def>
 </deflist>
 
 <deflist collapsible="true">
-    <def title="Hint 2">
-        Use the modulo operator (<code>%</code>) to return the remainder of a number being divided. Use the <a href="operator-overloading.md#equality-and-inequality-operators">equality operator</a> 
-        (<code>==</code>) to check if the remainder equals zero.
+    <def title="Dica 2">
+        Use o operador de módulo (<code>%</code>) para retornar o resto da divisão de um número. Use o <a href="operator-overloading.md#equality-and-inequality-operators">operador de igualdade</a> 
+        (<code>==</code>) para verificar se o resto é igual a zero.
     </def>
 </deflist>
 
@@ -486,17 +484,17 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-control-flow-loops-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-control-flow-loops-solution-2"}
 
 </def>
-<def title="Print words that start with a given letter" id="loops-exercise-3">
+<def title="Imprima as palavras que começam com uma letra" id="loops-exercise-3">
 
-You have a list of words. Use `for` and `if` to print only the words that start with the letter `l`.
+Você tem uma lista de palavras. Use `for` e `if` para imprimir apenas as palavras que começam com a letra `l`.
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Use the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/starts-with.html"> <code>.startsWith()</code>
-        </a> function for <code>String</code> type. 
+    <def title="Dica">
+        Use a função <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/starts-with.html"> <code>.startsWith()</code>
+        </a> do tipo <code>String</code>. 
     </def>
 </deflist>
 
@@ -517,7 +515,7 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise3Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-control-flow-loops-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/ControlFlowLoopsExercise3Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-control-flow-loops-solution-3"}
 
 </def>
 </deflist>
@@ -526,9 +524,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-collections.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-collections.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-functions.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-functions.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

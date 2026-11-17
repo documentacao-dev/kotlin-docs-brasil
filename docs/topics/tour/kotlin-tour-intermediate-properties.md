@@ -1,29 +1,29 @@
-[//]: # (title: Properties)
+[//]: # (title: Propriedades)
 
 <no-index/>
 
 
-In the beginner tour, you learned how properties are used to declare characteristics of class instances and how to access
-them. This chapter digs deeper into how properties work in Kotlin and explores other ways that you can use them in your code.
+No tour para iniciantes, você aprendeu como as propriedades são usadas para declarar características de instâncias de classes e como acessá-las.
+Este capítulo aprofunda como as propriedades funcionam em Kotlin e explora outras maneiras de usá-las no seu código.
 
-## Backing fields
+## Campos de suporte {id="backing-fields"}
 
-In Kotlin, properties have default `get()` and `set()` functions, known as property accessors, which handle retrieving 
-and modifying their values. While these default functions are not explicitly visible in the code, the compiler automatically
-generates them to manage property access behind the scenes. These accessors use a **backing field** to store 
-the actual property value.
+Em Kotlin, as propriedades têm funções `get()` e `set()` padrão, conhecidas como acessores de propriedade, que cuidam de obter e modificar
+os seus valores. Embora essas funções padrão não fiquem explicitamente visíveis no código, o compilador as gera automaticamente
+para gerenciar o acesso à propriedade nos bastidores. Esses acessores usam um **campo de suporte** para armazenar
+o valor real da propriedade.
 
-Backing fields exist if either of the following is true:
+Campos de suporte existem se uma das duas condições a seguir for verdadeira:
 
-* You use the default `get()` or `set()` functions for the property.
-* You try to access the property value in code by using the `field` keyword.
+* Você usa as funções padrão `get()` ou `set()` da propriedade.
+* Você tenta acessar o valor da propriedade no código usando a palavra-chave `field`.
 
-> `get()` and `set()` functions are also called getters and setters.
+> As funções `get()` e `set()` também são chamadas de getters e setters.
 >
 {style="tip"}
 
-For example, this code has the `category` property that has no custom `get()` or `set()` functions and therefore uses the
-default implementations:
+Por exemplo, este código tem a propriedade `category`, que não tem funções `get()` ou `set()` personalizadas e, por isso, usa
+as implementações padrão:
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
@@ -31,7 +31,7 @@ class Contact(val id: Int, var email: String) {
 }
 ```
 
-Under the hood, this is equivalent to this pseudocode:
+Nos bastidores, isso é equivalente a este pseudocódigo:
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
@@ -44,13 +44,13 @@ class Contact(val id: Int, var email: String) {
 ```
 {validate="false"}
 
-In this example:
+Neste exemplo:
 
-* The `get()` function retrieves the property value from the field: `""`.
-* The `set()` function accepts `value` as a parameter and assigns it to the field, where `value` is `""`. 
+* A função `get()` obtém o valor da propriedade a partir do campo: `""`.
+* A função `set()` aceita `value` como parâmetro e o atribui ao campo, em que `value` é `""`.
 
-Access to the backing field is useful when you want to add extra logic in your `get()` or `set()` functions 
-without causing an infinite loop. For example, you have a `Person` class with a `name` property:
+O acesso ao campo de suporte é útil quando você quer adicionar lógica extra nas funções `get()` ou `set()`
+sem causar um loop infinito. Por exemplo, você tem uma classe `Person` com a propriedade `name`:
 
 
 ```kotlin
@@ -59,11 +59,11 @@ class Person {
 }
 ```
 
-You want to ensure that the first letter of the `name` property is capitalized, so you create a custom `set()` function
-that uses the [`.replaceFirstChar()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace-first-char.html) 
-and [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase-char.html) extension functions. 
-However, if you refer to the property directly in your `set()` function, you create an infinite loop and see a `StackOverflowError`
-at runtime:
+Você quer garantir que a primeira letra da propriedade `name` seja maiúscula, então cria uma função `set()` personalizada
+que usa as funções de extensão [`.replaceFirstChar()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/replace-first-char.html)
+e [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase-char.html).
+No entanto, se você se referir à propriedade diretamente na função `set()`, cria um loop infinito e recebe um `StackOverflowError`
+em tempo de execução:
 
 ```kotlin
 class Person {
@@ -83,7 +83,7 @@ fun main() {
 ```
 {validate="false" kotlin-runnable="true" id="kotlin-tour-properties-stackoverflow"}
 
-To fix this, you can use the backing field in your `set()` function instead by referencing it with the `field` keyword:
+Para corrigir isso, use o campo de suporte na função `set()`, referenciando-o com a palavra-chave `field`:
 
 ```kotlin
 class Person {
@@ -102,38 +102,38 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-properties-backingfield"}
 
-Backing fields are also useful when you want to add logging, send notifications when a property value changes,
-or use additional logic that compares the old and new property values.
+Campos de suporte também são úteis quando você quer adicionar logging, enviar notificações quando o valor de uma propriedade muda,
+ou usar lógica adicional que compara os valores antigo e novo da propriedade.
 
-For more information, see [Backing fields](properties.md#backing-fields).
+Para mais informações, veja [Campos de suporte](properties.md#backing-fields).
 
-## Extension properties
+## Propriedades de extensão {id="extension-properties"}
 
-Just like extension functions, there are also extension properties. Extension properties allow you to add new properties
-to existing classes without modifying their source code. However, extension properties in Kotlin do **not** have backing
-fields. This means that you need to write the `get()` and `set()` functions yourself. Additionally, the lack of a backing
-field means that they can't hold any state.
+Assim como as funções de extensão, também existem propriedades de extensão. Elas permitem adicionar novas propriedades
+a classes existentes sem modificar o código-fonte delas. No entanto, propriedades de extensão em Kotlin **não** têm campos de suporte.
+Isso significa que você precisa escrever as funções `get()` e `set()` por conta própria. Além disso, a ausência de campo de suporte
+faz com que elas não possam armazenar nenhum estado.
 
-To declare an extension property, write the name of the class that you want to extend followed by a `.` and the name of
-your property. Just like with normal class properties, you need to declare a type for your property. 
-For example:
+Para declarar uma propriedade de extensão, escreva o nome da classe que você quer estender, seguido de `.` e do nome da
+sua propriedade. Assim como nas propriedades comuns de classe, você precisa declarar um tipo para a sua propriedade.
+Por exemplo:
 
 ```kotlin
 val String.lastChar: Char
 ```
 {validate="false"}
 
-Extension properties are most useful when you want a property to contain a computed value without using inheritance.
-You can think of extension properties working like a function with only one parameter: the receiver.
+Propriedades de extensão são mais úteis quando você quer que uma propriedade contenha um valor calculado sem usar herança.
+Você pode pensar nas propriedades de extensão como uma função com apenas um parâmetro: o receiver.
 
-For example, let's say that you have a data class called `Person` with two properties: `firstName` and `lastName`.
+Por exemplo, suponha que você tenha uma data class chamada `Person` com duas propriedades: `firstName` e `lastName`.
 
 ```kotlin
 data class Person(val firstName: String, val lastName: String)
 ```
 
-You want to be able to access the person's full name without modifying the `Person` data class or inheriting from it.
-You can do this by creating an extension property with a custom `get()` function:
+Você quer poder acessar o nome completo da pessoa sem modificar a data class `Person` nem herdar dela.
+Você pode fazer isso criando uma propriedade de extensão com uma função `get()` personalizada:
 
 ```kotlin
 data class Person(val firstName: String, val lastName: String)
@@ -152,34 +152,34 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-properties-extension"}
 
-> Extension properties can't override existing properties of a class.
-> 
+> Propriedades de extensão não podem sobrescrever propriedades existentes de uma classe.
+>
 {style="note"}
 
-Just like with extension functions, the Kotlin standard library uses extension properties widely. For example,
-see the [`lastIndex` property](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html) for a `CharSequence`.
+Assim como acontece com as funções de extensão, a biblioteca padrão do Kotlin usa propriedades de extensão amplamente. Por exemplo,
+veja a [propriedade `lastIndex`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/last-index.html) de um `CharSequence`.
 
-## Delegated properties
+## Propriedades delegadas {id="delegated-properties"}
 
-You already learned about delegation in the [Classes and interfaces](kotlin-tour-intermediate-classes-interfaces.md#delegation) chapter. You can
-also use delegation with properties to delegate their property accessors to another object. This is useful
-when you have more complex requirements for storing properties that a simple backing field can't handle, such as storing
-values in a database table, browser session, or map. Using delegated properties also reduces boilerplate code because the
-logic for getting and setting your properties is contained only in the object that you delegate to.
+Você já aprendeu sobre delegação no capítulo [Classes e interfaces](kotlin-tour-intermediate-classes-interfaces.md#delegation). Você também
+pode usar delegação com propriedades para delegar os acessores de propriedade a outro objeto. Isso é útil
+quando você tem requisitos mais complexos para armazenar propriedades que um simples campo de suporte não consegue tratar, como guardar
+valores em uma tabela de banco de dados, em uma sessão do navegador ou em um map. Usar propriedades delegadas também reduz código repetitivo, porque a
+lógica de obter e definir as propriedades fica contida somente no objeto para o qual você delega.
 
-The syntax is similar to using delegation with classes but operates on a different level. Declare your property, followed by
-the `by` keyword and the object you want to delegate to. For example:
+A sintaxe é parecida com a de delegação em classes, mas atua em outro nível. Declare sua propriedade, seguida da
+palavra-chave `by` e do objeto para o qual você quer delegar. Por exemplo:
 
 ```kotlin
 val displayName: String by Delegate
 ```
 
-Here, the delegated property `displayName` refers to the `Delegate` object for its property accessors.
+Aqui, a propriedade delegada `displayName` se refere ao objeto `Delegate` para os seus acessores de propriedade.
 
-Every object you delegate to **must** have a `getValue()` operator function, which Kotlin uses to retrieve the value of 
-the delegated property. If the property is mutable, it must also have a `setValue()` operator function for Kotlin to set its value.
+Todo objeto para o qual você delega **deve** ter uma função de operador `getValue()`, que o Kotlin usa para obter o valor
+da propriedade delegada. Se a propriedade for mutável, ele também deve ter uma função de operador `setValue()` para que o Kotlin possa definir o seu valor.
 
-By default, the `getValue()` and `setValue()` functions have the following construction:
+Por padrão, as funções `getValue()` e `setValue()` têm a seguinte construção:
 
 ```kotlin
 operator fun getValue(thisRef: Any?, property: KProperty<*>): String {}
@@ -188,23 +188,23 @@ operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {}
 ```
 {validate="false"}
 
-In these functions:
+Nessas funções:
 
-* The `operator` keyword marks these functions as operator functions, enabling them to overload the `get()` and `set()` functions.
-* The `thisRef` parameter refers to the object **containing** the delegated property. By default, the type is set to `Any?`, but you may need to declare a more specific type.
-* The `property` parameter refers to the property whose value is accessed or changed. You can use this parameter to access information
-like the property's name or type. By default, the type is set to `KProperty<*>` but you can also use `Any?`. You don't need to worry about changing this in your code.
+* A palavra-chave `operator` marca essas funções como funções de operador, permitindo que elas sobrecarreguem as funções `get()` e `set()`.
+* O parâmetro `thisRef` se refere ao objeto **que contém** a propriedade delegada. Por padrão, o tipo é definido como `Any?`, mas você pode precisar declarar um tipo mais específico.
+* O parâmetro `property` se refere à propriedade cujo valor é acessado ou alterado. Você pode usar esse parâmetro para acessar informações
+como o nome ou o tipo da propriedade. Por padrão, o tipo é definido como `KProperty<*>`, mas você também pode usar `Any?`. Você não precisa se preocupar em alterar isso no código.
 
-The `getValue()` function has a return type of `String` by default, but you can adjust this if you want.
+A função `getValue()` tem o tipo de retorno `String` por padrão, mas você pode ajustar isso se quiser.
 
-The `setValue()` function has an additional parameter `value`, which is used to hold the new value that's assigned to the
-property.
+A função `setValue()` tem um parâmetro adicional `value`, que guarda o novo valor atribuído à
+propriedade.
 
-So, how does this look in practice? Suppose you want to have a computed property, like a user's display name, that is calculated
-only once because the operation is expensive and your application is performance-sensitive. You can use a delegated property
-to cache the display name so that it is only computed once but can be accessed anytime without performance impact.
+Então, como isso fica na prática? Suponha que você queira ter uma propriedade calculada, como o nome de exibição de um usuário, que é calculada
+apenas uma vez porque a operação é cara e o seu app é sensível a desempenho. Você pode usar uma propriedade delegada
+para guardar em cache o nome de exibição, de modo que ele seja calculado apenas uma vez, mas possa ser acessado a qualquer momento sem impacto no desempenho.
 
-First, you need to create the object to delegate to. In this case, the object will be an instance of the `CachedStringDelegate` class:
+Primeiro, você precisa criar o objeto para o qual vai delegar. Neste caso, o objeto será uma instância da classe `CachedStringDelegate`:
 
 ```kotlin
 class CachedStringDelegate {
@@ -212,8 +212,8 @@ class CachedStringDelegate {
 }
 ```
 
-The `cachedValue` property contains the cached value. Within the `CachedStringDelegate` class, add the behavior that you
-want from the `get()` function of the delegated property to the `getValue()` operator function body:
+A propriedade `cachedValue` contém o valor em cache. Dentro da classe `CachedStringDelegate`, adicione à função de operador `getValue()`
+o comportamento que você quer da função `get()` da propriedade delegada:
 
 ```kotlin
 class CachedStringDelegate {
@@ -231,12 +231,12 @@ class CachedStringDelegate {
 }
 ```
 
-The `getValue()` function checks whether the `cachedValue` property is `null`. If it is, the function assigns the
-`"Default value"` and prints a string for logging purposes. If the `cachedValue` property has already been computed, the
-property isn't `null`. In this case, another string is printed for logging purposes. Finally, the function uses the Elvis
-operator to return the cached value or `"Unknown"` if the value is `null`.
+A função `getValue()` verifica se a propriedade `cachedValue` é `null`. Se for, a função atribui
+`"Default value"` e imprime uma string para fins de log. Se a propriedade `cachedValue` já foi calculada, ela
+não é `null`. Nesse caso, outra string é impressa para fins de log. Por fim, a função usa o operador Elvis
+para retornar o valor em cache ou `"Unknown"` se o valor for `null`.
 
-Now you can delegate the property that you want to cache (`val displayName`) to an instance of the `CachedStringDelegate` class:
+Agora você pode delegar a propriedade que quer guardar em cache (`val displayName`) para uma instância da classe `CachedStringDelegate`:
 
 ```kotlin
 class CachedStringDelegate {
@@ -273,34 +273,33 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-properties-delegated"}
 
-This example:
+Este exemplo:
 
-* Creates a `User` class that has two properties in the header, `firstName`, and `lastName`, and one property in the
-class body, `displayName`.
-* Delegates the `displayName` property to an instance of the `CachedStringDelegate` class.
-* Creates an instance of the `User` class called `user`.
-* Prints the result of accessing the `displayName` property on the `user` instance.
+* Cria uma classe `User` que tem duas propriedades no cabeçalho, `firstName` e `lastName`, e uma propriedade no corpo da classe, `displayName`.
+* Delega a propriedade `displayName` para uma instância da classe `CachedStringDelegate`.
+* Cria uma instância da classe `User` chamada `user`.
+* Imprime o resultado de acessar a propriedade `displayName` na instância `user`.
 
-Note that in the `getValue()` function, the type for the `thisRef` parameter is narrowed from `Any?` type to the object
-type: `User`. This is so that the compiler can access the `firstName` and `lastName` properties of the `User` class.
+Observe que, na função `getValue()`, o tipo do parâmetro `thisRef` é restringido de `Any?` para o tipo do objeto:
+`User`. Isso é para que o compilador consiga acessar as propriedades `firstName` e `lastName` da classe `User`.
 
-### Standard delegates
+### Delegates padrão {id="standard-delegates"}
 
-The Kotlin standard library provides some useful delegates for you so you don't have to always create yours from scratch.
-If you use one of these delegates, you don't need to define `getValue()` and `setValue()` functions because the standard
-library automatically provides them.
+A biblioteca padrão do Kotlin oferece alguns delegates úteis para que você nem sempre precise criar os seus do zero.
+Se você usar um desses delegates, não precisa definir as funções `getValue()` e `setValue()`, porque a biblioteca padrão
+as fornece automaticamente.
 
-#### Lazy properties
+#### Propriedades lazy {id="lazy-properties"}
 
-To initialize a property only when it's first accessed, use a lazy property. The standard library provides the `Lazy`
-interface for delegation. 
+Para inicializar uma propriedade somente quando ela é acessada pela primeira vez, use uma propriedade lazy. A biblioteca padrão oferece a
+interface `Lazy` para delegação.
 
-To create an instance of the `Lazy` interface, use the `lazy()` function by providing it
-with a lambda expression to execute when the `get()` function is called for the first time. Any further calls of the `get()`
-function return the same result that was provided on the first call. Lazy properties use the [trailing lambda](kotlin-tour-functions.md#trailing-lambdas) syntax
-to pass the lambda expression.
+Para criar uma instância da interface `Lazy`, use a função `lazy()`, fornecendo a ela
+uma expressão lambda a ser executada quando a função `get()` for chamada pela primeira vez. Chamadas seguintes da função `get()`
+retornam o mesmo resultado fornecido na primeira chamada. Propriedades lazy usam a sintaxe de [lambda final](kotlin-tour-functions.md#trailing-lambdas)
+para passar a expressão lambda.
 
-For example:
+Por exemplo:
 
 ```kotlin
 class Database {
@@ -337,39 +336,39 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-properties-lazy"}
 
-In this example:
+Neste exemplo:
 
-* There is a `Database` class with `connect()` and `query()` member functions. 
-* The `connect()` function prints a string to the console, and the `query()` function accepts an SQL query and returns a list.
-* There is a `databaseConnection` property that is a lazy property.
-* The lambda expression provided to the `lazy()` function:
-  * Creates an instance of the `Database` class.
-  * Calls the `connect()` member function on this instance (`db`).
-  * Returns the instance.
-* There is a `fetchData()` function that:
-  * Creates an SQL query by calling the `query()` function on the `databaseConnection` property.
-  * Assigns the SQL query to the `data` variable.
-  * Prints the `data` variable to the console.
-* The `main()` function calls the `fetchData()` function. The first time it is called, the lazy property is initialized.
-The second time, the same result is returned as the first call.
+* Há uma classe `Database` com as funções membro `connect()` e `query()`.
+* A função `connect()` imprime uma string no console, e a função `query()` aceita uma consulta SQL e retorna uma lista.
+* Há uma propriedade `databaseConnection`, que é uma propriedade lazy.
+* A expressão lambda fornecida à função `lazy()`:
+  * Cria uma instância da classe `Database`.
+  * Chama a função membro `connect()` nessa instância (`db`).
+  * Retorna a instância.
+* Há uma função `fetchData()` que:
+  * Cria uma consulta SQL chamando a função `query()` na propriedade `databaseConnection`.
+  * Atribui a consulta SQL à variável `data`.
+  * Imprime a variável `data` no console.
+* A função `main()` chama a função `fetchData()`. Na primeira vez que ela é chamada, a propriedade lazy é inicializada.
+Na segunda vez, é retornado o mesmo resultado da primeira chamada.
 
-Lazy properties are useful not only when initialization is resource-intensive but also when a property might not be used
-in your code. Additionally, lazy properties are thread-safe by default, which is particularly beneficial if you are working
-in a concurrent environment.
+Propriedades lazy são úteis não só quando a inicialização consome muitos recursos, mas também quando uma propriedade pode não ser usada
+no seu código. Além disso, propriedades lazy são thread-safe por padrão, o que é especialmente útil se você estiver trabalhando
+em um ambiente concorrente.
 
-For more information, see [Lazy properties](delegated-properties.md#lazy-properties).
+Para mais informações, veja [Propriedades lazy](delegated-properties.md#lazy-properties).
 
-#### Observable properties
+#### Propriedades observáveis {id="observable-properties"}
 
-To monitor whether the value of a property changes, use an observable property. An observable property is useful when
-you want to detect a change in the property value and use this knowledge to trigger a reaction. The standard library provides
-the `Delegates` object for delegation.
+Para monitorar se o valor de uma propriedade muda, use uma propriedade observável. Uma propriedade observável é útil quando
+você quer detectar uma mudança no valor da propriedade e usar essa informação para disparar uma reação. A biblioteca padrão oferece
+o objeto `Delegates` para delegação.
 
-To create an observable property, you must first import `kotlin.properties.Delegates.observable`. Then, use the `observable()` function
-and provide it with a lambda expression to execute whenever the property changes. Just like with lazy properties, observable
-properties use the [trailing lambda](kotlin-tour-functions.md#trailing-lambdas) syntax to pass the lambda expression.
+Para criar uma propriedade observável, primeiro você precisa importar `kotlin.properties.Delegates.observable`. Depois, use a função `observable()`
+e forneça a ela uma expressão lambda a ser executada sempre que a propriedade mudar. Assim como nas propriedades lazy,
+propriedades observáveis usam a sintaxe de [lambda final](kotlin-tour-functions.md#trailing-lambdas) para passar a expressão lambda.
 
-For example:
+Por exemplo:
 
 ```kotlin
 import kotlin.properties.Delegates.observable
@@ -395,46 +394,46 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-properties-observable"}
 
-In this example:
+Neste exemplo:
 
-* There is a `Thermostat` class that contains an observable property: `temperature`.
-* The `observable()` function accepts `20.0` as a parameter and uses it to initialize the property.
-* The lambda expression provided to the `observable()` function:
-  * Has three parameters:
-    * `_`, which refers to the property itself.
-    * `old`, which is the old value of the property.
-    * `new`, which is the new value of the property.
-  * Checks if the `new` parameter is greater than `25` and, depending on the result, prints a string to console.
-* The `main()` function:
-  * Creates an instance of the `Thermostat` class called `thermostat`.
-  * Updates the value of the `temperature` property of the instance to `22.5`, which triggers a print statement with a temperature update.
-  * Updates the value of the `temperature` property of the instance to `27.0`, which triggers a print statement with a warning.
+* Há uma classe `Thermostat` que contém uma propriedade observável: `temperature`.
+* A função `observable()` aceita `20.0` como parâmetro e o usa para inicializar a propriedade.
+* A expressão lambda fornecida à função `observable()`:
+  * Tem três parâmetros:
+    * `_`, que se refere à própria propriedade.
+    * `old`, que é o valor antigo da propriedade.
+    * `new`, que é o valor novo da propriedade.
+  * Verifica se o parâmetro `new` é maior que `25` e, dependendo do resultado, imprime uma string no console.
+* A função `main()`:
+  * Cria uma instância da classe `Thermostat` chamada `thermostat`.
+  * Atualiza o valor da propriedade `temperature` da instância para `22.5`, o que dispara um print com a atualização da temperatura.
+  * Atualiza o valor da propriedade `temperature` da instância para `27.0`, o que dispara um print com um aviso.
 
-Observable properties are useful not only for logging and debugging purposes. You can also use them for use cases like
-updating a UI or to perform additional checks, like verifying the validity of data.
+Propriedades observáveis são úteis não só para fins de logging e depuração. Você também pode usá-las em casos como
+atualizar uma interface gráfica ou fazer verificações adicionais, como validar a consistência dos dados.
 
-For more information, see [Observable properties](delegated-properties.md#observable-properties).
+Para mais informações, veja [Propriedades observáveis](delegated-properties.md#observable-properties).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Find out-of-stock books" id="properties-exercise-1">
+<def title="Encontre livros esgotados" id="properties-exercise-1">
 
-You manage an inventory system at a bookstore. The inventory is stored in a list where each item represents the quantity
-of a specific book. For example, `listOf(3, 0, 7, 12)` means the store has 3 copies of the first book, 0 of the second,
-7 of the third, and 12 of the fourth.
+Você gerencia um sistema de estoque de uma livraria. O estoque é armazenado em uma lista em que cada item representa a quantidade
+de um livro específico. Por exemplo, `listOf(3, 0, 7, 12)` significa que a loja tem 3 exemplares do primeiro livro, 0 do segundo,
+7 do terceiro e 12 do quarto.
 
-Write a function called `findOutOfStockBooks()` that returns a list of indices for all the books that are out of stock.
+Escreva uma função chamada `findOutOfStockBooks()` que retorna uma lista com os índices de todos os livros que estão esgotados.
 
 <deflist collapsible="true">
-    <def title="Hint 1">
-        Use the <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/indices.html"><code>indices</code></a> extension property from the standard library.
+    <def title="Dica 1">
+        Use a propriedade de extensão <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/indices.html"><code>indices</code></a> da biblioteca padrão.
     </def>
 </deflist>
 
 <deflist collapsible="true">
-    <def title="Hint 2">
-        You can use the <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/build-list.html"><code>buildList()</code></a> function to create and manage a list instead of manually creating and returning a mutable list. The <code>buildList()</code> function uses a lambda with a receiver, which you learned about in earlier chapters.
+    <def title="Dica 2">
+        Você pode usar a função <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/build-list.html"><code>buildList()</code></a> para criar e gerenciar uma lista em vez de criar e retornar manualmente uma lista mutável. A função <code>buildList()</code> usa uma lambda com receiver, que você aprendeu nos capítulos anteriores.
     </def>
 </deflist>
 
@@ -468,7 +467,7 @@ fun main() {
     // [1, 3]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FindOutOfStockBooksTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 1" id="kotlin-tour-properties-solution-1-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FindOutOfStockBooksTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução 1" id="kotlin-tour-properties-solution-1-1"}
 
 ```kotlin
 fun findOutOfStockBooks(inventory: List<Int>): List<Int> = buildList {
@@ -485,21 +484,21 @@ fun main() {
     // [1, 3]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FindOutOfStockBooksTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 2" id="kotlin-tour-properties-solution-1-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FindOutOfStockBooksTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução 2" id="kotlin-tour-properties-solution-1-2"}
 
 </def>
-<def title="Convert kilometers to miles" id="properties-exercise-2">
+<def title="Converta quilômetros em milhas" id="properties-exercise-2">
 
-You have a travel app that needs to display distances in both kilometers and miles. Create an extension property for the
-`Double` type called `asMiles` to convert a distance in kilometers to miles:
+Você tem um app de viagens que precisa exibir distâncias em quilômetros e em milhas. Crie uma propriedade de extensão para o tipo
+`Double` chamada `asMiles` para converter uma distância em quilômetros para milhas:
 
-> The formula to convert kilometers to miles is `miles = kilometers * 0.621371`.
+> A fórmula para converter quilômetros em milhas é `miles = kilometers * 0.621371`.
 >
 {style="note"}
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Remember that extension properties need a custom <code>get()</code> function.
+    <def title="Dica">
+        Lembre-se de que propriedades de extensão precisam de uma função <code>get()</code> personalizada.
     </def>
 </deflist>
 
@@ -532,14 +531,14 @@ fun main() {
     // 42.195 km is 26.218749345 miles
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/AsMilesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-properties-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/AsMilesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-properties-solution-2"}
 
 </def>
-<def title="Initialize health checks lazily" id="properties-exercise-3">
+<def title="Inicialize verificações de saúde de forma lazy" id="properties-exercise-3">
 
-You have a system health checker that can determine the state of a cloud system. However, the two functions it can run 
-to perform a health check are performance intensive. Use lazy properties to initialize the checks so that the expensive
-functions are only run when needed:
+Você tem um verificador de saúde de sistema que pode determinar o estado de um sistema em nuvem. No entanto, as duas funções que ele pode executar
+para fazer uma verificação de saúde consomem muitos recursos. Use propriedades lazy para inicializar as verificações, de modo que as
+funções custosas só sejam executadas quando necessário:
 
 ```kotlin
 fun checkAppServer(): Boolean {
@@ -590,17 +589,17 @@ fun main() {
    // Application server is online and healthy
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/LazyHealthCheckTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-properties-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/LazyHealthCheckTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-properties-solution-3"}
 
 </def>
-<def title="Track budget changes" id="properties-exercise-4">
+<def title="Acompanhe mudanças de orçamento" id="properties-exercise-4">
 
-You're building a simple budget tracker app. The app needs to observe changes to the user's remaining budget and notify
-them whenever it goes below a certain threshold. You have a `Budget` class that is initialized with a `totalBudget` property
-that contains the initial budget amount. Within the class, create an observable property called `remainingBudget` that prints:
+Você está criando um app simples de controle de orçamento. O app precisa observar as mudanças no orçamento restante do usuário e avisá-lo
+sempre que ele ficar abaixo de um certo limite. Você tem uma classe `Budget` que é inicializada com a propriedade `totalBudget`,
+que contém o valor inicial do orçamento. Dentro da classe, crie uma propriedade observável chamada `remainingBudget` que imprime:
 
-* A warning when the value is lower than 20% of the initial budget.
-* An encouraging message when the budget is increased from the previous value.
+* Um aviso quando o valor for menor que 20% do orçamento inicial.
+* Uma mensagem de incentivo quando o orçamento aumentar em relação ao valor anterior.
 
 ```kotlin
 import kotlin.properties.Delegates.observable
@@ -646,7 +645,7 @@ fun main() {
     // Good news: Your remaining budget increased to 300.
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/BudgetTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-properties-solution-4"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/BudgetTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-properties-solution-4"}
 
 </def>
 </deflist>
@@ -655,9 +654,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-open-special-classes.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-open-special-classes.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-null-safety.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-null-safety.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

@@ -1,35 +1,34 @@
-[//]: # (title: Lambda expressions with receiver)
+[//]: # (title: Expressões lambda com receiver)
 
 <no-index/>
 
 
-In this chapter, you'll learn how to use receivers with another type of function, lambda expressions, and how they
-can help you create a domain-specific language.
+Neste capítulo, você vai aprender a usar receivers com outro tipo de função, as expressões lambda, e como elas podem
+ajudar a criar uma linguagem específica de domínio (DSL).
 
-## Lambda expressions with receiver
+## Expressões lambda com receiver {id="lambda-expressions-with-receiver"}
 
-In the beginner tour, you learned how to use [lambda expressions](kotlin-tour-functions.md#lambda-expressions). Lambda expressions can also have a receiver. 
-In this case, lambda expressions can access any member functions or properties of the receiver without having
-to explicitly specify the receiver each time. Without these additional references, your code is easier to read and maintain.
+No tour para iniciantes, você aprendeu a usar [expressões lambda](kotlin-tour-functions.md#lambda-expressions). Expressões lambda também podem ter um receiver. 
+Nesse caso, elas podem acessar quaisquer funções ou propriedades membro do receiver sem precisar especificar o receiver explicitamente a cada vez. Sem essas referências extras, seu código fica mais fácil de ler e de manter.
 
-> Lambda expressions with receiver are also known as function literals with receiver.
+> Expressões lambda com receiver também são conhecidas como literais de função com receiver.
 >
 {style="tip"}
 
-The syntax for a lambda expression with receiver is different when you define the function type. First, write the receiver
-that you want to extend. Next, put a `.` and then complete the rest of your function type definition. For example:
+A sintaxe de uma expressão lambda com receiver é diferente na definição do tipo da função. Primeiro, escreva o receiver
+que você quer estender. Em seguida, coloque um `.` e complete o restante da definição do tipo da função. Por exemplo:
 
 ```kotlin
 MutableList<Int>.() -> Unit
 ```
 
-This function type has:
+Esse tipo de função tem:
 
-* `MutableList<Int>` as the receiver.
-* No function parameters within the parentheses `()`.
-* No return value: `Unit`.
+* `MutableList<Int>` como receiver.
+* Nenhum parâmetro de função dentro dos parênteses `()`.
+* Nenhum valor de retorno: `Unit`.
 
-Consider this example that draws shapes on a canvas:
+Considere este exemplo que desenha formas em um canvas:
 
 ```kotlin
 class Canvas {
@@ -56,24 +55,24 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-intermediate-tour-lambda-expression-with-receiver"}
 
-In this example:
+Neste exemplo:
 
-* The `Canvas` class has two functions that simulate drawing a circle or a square.
-* The `render()` function takes a `block` parameter and returns an instance of the `Canvas` class.
-* The `block` parameter is a lambda expression with receiver, where the `Canvas` class is the receiver.
-* The `render()` function creates an instance of the `Canvas` class and calls the `block()` lambda expression on the `canvas` instance, using it as the receiver.
-* The `main()` function calls the `render()` function with a lambda expression, which is passed to the `block` parameter.
-* Inside the lambda passed to the `render()` function, the program calls the `drawCircle()` and `drawSquare()` functions on an instance of the `Canvas` class.
+* A classe `Canvas` tem duas funções que simulam o desenho de um círculo ou de um quadrado.
+* A função `render()` recebe um parâmetro `block` e retorna uma instância da classe `Canvas`.
+* O parâmetro `block` é uma expressão lambda com receiver, em que a classe `Canvas` é o receiver.
+* A função `render()` cria uma instância da classe `Canvas` e chama a expressão lambda `block()` na instância `canvas`, usando-a como receiver.
+* A função `main()` chama a função `render()` com uma expressão lambda, que é passada para o parâmetro `block`.
+* Dentro da lambda passada para a função `render()`, o programa chama as funções `drawCircle()` e `drawSquare()` em uma instância da classe `Canvas`.
 
-  Because the `drawCircle()` and `drawSquare()` functions are called in the lambda expression with receiver, they can be called
-  directly as if they are inside the `Canvas` class.
+  Como as funções `drawCircle()` e `drawSquare()` são chamadas na expressão lambda com receiver, elas podem ser chamadas
+  diretamente, como se estivessem dentro da classe `Canvas`.
 
-Lambda expressions with receiver are helpful when you want to create a domain-specific language (DSL). Since you have
-access to the receiver's member functions and properties without explicitly referencing the receiver, your code 
-becomes leaner.
+Expressões lambda com receiver são úteis quando você quer criar uma linguagem específica de domínio (DSL). Como você tem
+acesso às funções e propriedades membro do receiver sem referenciar o receiver explicitamente, seu código fica mais enxuto.
 
-To demonstrate this, consider an example that configures items in a menu. Let's begin with a `MenuItem` class and a 
-`Menu` class that contains a function to add items to the menu called `item()`, as well as a list of all menu items `items`:
+Para demonstrar isso, considere um exemplo que configura itens em um menu. Vamos começar com uma classe `MenuItem` e uma
+classe `Menu` que contém uma função para adicionar itens ao menu, chamada `item()`, além de uma lista com todos os itens
+do menu, `items`:
 
 ```kotlin
 class MenuItem(val name: String)
@@ -87,8 +86,8 @@ class Menu(val name: String) {
 }
 ```
 
-Let's use a lambda expression with receiver passed as a function parameter (`init`) to the `menu()` function that builds 
-a menu as a starting point:
+Vamos usar uma expressão lambda com receiver passada como parâmetro de função (`init`) para a função `menu()`, que monta
+um menu como ponto de partida:
 
 ```kotlin
 fun menu(name: String, init: Menu.() -> Unit): Menu {
@@ -100,7 +99,7 @@ fun menu(name: String, init: Menu.() -> Unit): Menu {
 }
 ```
 
-Now you can use the DSL to configure a menu and create a `printMenu()` function to print the menu structure to the console:
+Agora você pode usar a DSL para configurar um menu e criar uma função `printMenu()` para imprimir a estrutura do menu no console:
 
 ```kotlin
 class MenuItem(val name: String)
@@ -146,27 +145,27 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-intermediate-tour-lambda-expression-with-receiver-dsl"}
 
-As you can see, using a lambda expression with receiver greatly simplifies the code needed to create your menu. Lambda 
-expressions are not only useful for setup and creation but also for configuration. They are commonly used in building 
-DSLs for APIs, UI frameworks, and configuration builders to produce streamlined code, allowing you to focus more easily 
-on the underlying code structure and logic.
+Como você pode ver, usar uma expressão lambda com receiver simplifica bastante o código necessário para criar seu menu.
+Expressões lambda são úteis não só para criação e montagem, mas também para configuração. Elas são comumente usadas na
+construção de DSLs para APIs, frameworks de UI e builders de configuração, produzindo código enxuto e permitindo que você
+se concentre mais facilmente na estrutura e na lógica do código subjacente.
 
-Kotlin's ecosystem has many examples of this design pattern, such as in the [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)
-and [`buildString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) functions from the 
-standard library.
+O ecossistema do Kotlin tem vários exemplos desse padrão de design, como as funções [`buildList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html)
+e [`buildString()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/build-string.html) da biblioteca padrão.
 
-> Lambda expressions with receivers can be combined with **type-safe builders** in Kotlin to make DSLs that detect any problems
-> with types at compile time rather than at runtime. To learn more, see [Type-safe builders](type-safe-builders.md).
+> Expressões lambda com receivers podem ser combinadas com **builders com segurança de tipos** em Kotlin para criar DSLs
+> que detectam problemas de tipo em tempo de compilação, em vez de em tempo de execução. Para saber mais, veja
+> [Builders com segurança de tipos](type-safe-builders.md).
 >
 {style="tip"}
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Process data with a lambda expression with receiver" id="lambda-receivers-exercise-1">
+<def title="Processar dados com uma expressão lambda com receiver" id="lambda-receivers-exercise-1">
 
-You have a `fetchData()` function that accepts a lambda expression with receiver. Update the lambda expression to use 
-the `append()` function so that the output of your code is: `Data received - Processed`.
+Você tem uma função `fetchData()` que aceita uma expressão lambda com receiver. Atualize a expressão lambda para usar
+a função `append()`, de modo que a saída do código seja: `Data received - Processed`.
 
 ```kotlin
 fun fetchData(callback: StringBuilder.() -> Unit) {
@@ -197,13 +196,13 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FetchDataTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambda-receivers-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/FetchDataTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-lambda-receivers-solution-1"}
 
 </def>
-<def title="Handle a double-click event" id="lambda-receivers-exercise-2">
+<def title="Tratar um evento de clique duplo" id="lambda-receivers-exercise-2">
 
-You have a `Button` class and `ButtonEvent` and `Position` data classes. Write some code that triggers the `onEvent()`
-member function of the `Button` class to trigger a double-click event. Your code should print `"Double click!"`.
+Você tem uma classe `Button` e as data classes `ButtonEvent` e `Position`. Escreva um código que dispare a função membro
+`onEvent()` da classe `Button` para acionar um evento de clique duplo. Seu código deve imprimir `"Double click!"`.
 
 ```kotlin
 class Button {
@@ -267,13 +266,13 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ButtonEventTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambda-receivers-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ButtonEventTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-lambda-receivers-solution-2"}
 
 </def>
-<def title="Create an incremented list" id="lambda-receivers-exercise-3">
+<def title="Criar uma lista incrementada" id="lambda-receivers-exercise-3">
 
-Write a function that creates a copy of a list of integers where every element is incremented by 1. Use the provided 
-function skeleton that extends `List<Int>` with an `incremented` function.
+Escreva uma função que crie uma cópia de uma lista de inteiros em que cada elemento seja incrementado em 1. Use o
+esqueleto de função fornecido, que estende `List<Int>` com uma função `incremented`.
 
 ```kotlin
 fun List<Int>.incremented(): List<Int> {
@@ -307,7 +306,7 @@ fun main() {
     // [2, 3, 4]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/IncrementedTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambda-receivers-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/IncrementedTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-lambda-receivers-solution-3"}
 
 </def>
 </deflist>
@@ -316,9 +315,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-scope-functions.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-scope-functions.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-classes-interfaces.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-classes-interfaces.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

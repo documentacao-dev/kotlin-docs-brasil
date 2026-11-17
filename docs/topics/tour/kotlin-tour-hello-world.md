@@ -1,9 +1,9 @@
-[//]: # (title: Hello world)
+[//]: # (title: Olá, mundo)
 
 <no-index/>
 
 
-Here is a simple program that prints "Hello, world!":
+Aqui está um programa simples que imprime "Hello, world!":
 
 ```kotlin
 fun main() {
@@ -13,31 +13,29 @@ fun main() {
 ```
 {kotlin-runnable="true" id="hello-world-kotlin"}
 
-In Kotlin:
+Em Kotlin:
 
-* `fun` is used to declare a function
-* The `main()` function is where your program starts from
-* The body of a function is written within curly braces `{}`
-* [`println()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) and [`print()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/print.html) functions print their arguments to standard output
+* `fun` é usado para declarar uma função
+* A função `main()` é onde o programa começa
+* O corpo de uma função é escrito entre chaves `{}`
+* As funções [`println()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/println.html) e [`print()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/print.html) imprimem seus argumentos na saída padrão
 
-A function is a set of instructions that performs a specific task. Once you create a function, you can use it whenever 
-you need to perform that task, without having to write the instructions all over again. Functions are discussed in more
-detail in a couple of chapters. Until then, all examples use the `main()` function.
+Uma função é um conjunto de instruções que executa uma tarefa específica. Depois de criar uma função, você pode usá-la sempre que precisar executar essa tarefa, sem precisar escrever as instruções de novo. Falaremos mais sobre funções daqui a alguns capítulos. Até lá, todos os exemplos usam a função `main()`.
 
-## Variables
+## Variáveis {id="variables"}
 
-All programs need to be able to store data, and variables help you to do just that. In Kotlin, you can declare:
+Todos os programas precisam armazenar dados, e as variáveis ajudam você a fazer exatamente isso. Em Kotlin, você pode declarar:
 
-* Read-only variables with `val`
-* Mutable variables with `var`
+* Variáveis somente leitura com `val`
+* Variáveis mutáveis com `var`
 
-> You can't change a read-only variable once you have given it a value.
+> Você não pode alterar uma variável somente leitura depois de atribuir um valor a ela.
 >
 {style="note"}
 
-To assign a value, use the assignment operator `=`.
+Para atribuir um valor, use o operador de atribuição `=`.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun main() { 
@@ -55,27 +53,25 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-variables"}
 
-> Variables can be declared outside the `main()` function at the beginning of your program. Variables declared in this way
-> are said to be declared at **top level**.
+> As variáveis podem ser declaradas fora da função `main()`, no início do programa. Variáveis declaradas assim ficam no **nível superior** (top level).
 > 
 {style="tip"}
 
-As `customers` is a mutable variable, its value can be reassigned after declaration.
+Como `customers` é uma variável mutável, dá para reatribuir o valor dela depois da declaração.
 
-> We recommend declaring all variables as read-only (`val`) by default. Only use mutable variables (`var`) if you really
-> need to. That way, you're less likely to accidentally change something that wasn't meant to change.
+> Recomendamos declarar todas as variáveis como somente leitura (`val`) por padrão. Use variáveis mutáveis (`var`) apenas quando realmente precisar. Assim, é menos provável que você altere sem querer algo que não deveria mudar.
 > 
 {style="note"}
 
-## String templates
+## Templates de string {id="string-templates"}
 
-It's useful to know how to print the contents of variables to standard output. You can do this with **string templates**. 
-You can use template expressions to access data stored in variables and other objects, and convert them into strings.
-A string value is a sequence of characters in double quotes `"`. Template expressions always start with a dollar sign `$`.
+É útil saber como imprimir o conteúdo de variáveis na saída padrão. Você pode fazer isso com **templates de string**.
+Você pode usar expressões de template para acessar dados armazenados em variáveis e outros objetos e convertê-los em strings.
+Um valor string é uma sequência de caracteres entre aspas duplas `"`. Expressões de template sempre começam com um cifrão `$`.
 
-To evaluate a piece of code in a template expression, place the code within curly braces `{}` after the dollar sign `$`.
+Para avaliar um trecho de código em uma expressão de template, coloque o código entre chaves `{}` depois do cifrão `$`.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun main() { 
@@ -91,17 +87,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-string-templates"}
 
-For more information, see [String templates](strings.md#string-templates).
+Para mais informações, consulte [Templates de string](strings.md#string-templates).
 
-You will notice that there aren't any types declared for variables. Kotlin has inferred the type itself: `Int`. This tour
-explains the different Kotlin basic types and how to declare them in the [next chapter](kotlin-tour-basic-types.md).
+Você vai notar que não há tipos declarados para as variáveis. O próprio Kotlin inferiu o tipo: `Int`. Este tour explica os diferentes tipos básicos do Kotlin e como declará-los no [próximo capítulo](kotlin-tour-basic-types.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true">
-<def title="Print a statement using string templates" id="hello-world-exercise-1">
+<def title="Imprima uma frase usando templates de string" id="hello-world-exercise-1">
 
-Complete the code to make the program print `"Mary is 20 years old"` to standard output:
+Complete o código para que o programa imprima `"Mary is 20 years old"` na saída padrão:
 
 ```kotlin
 fun main() {
@@ -119,7 +114,7 @@ fun main() {
     println("$name is $age years old")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/HelloWorldTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-hello-world-solution"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/HelloWorldTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-hello-world-solution"}
 
 </def>
 </deflist>
@@ -128,7 +123,8 @@ fun main() {
 
 <list id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-basic-types.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-basic-types.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
 
+<!-- ia-translate: true -->

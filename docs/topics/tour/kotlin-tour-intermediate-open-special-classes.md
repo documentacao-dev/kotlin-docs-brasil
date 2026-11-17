@@ -1,22 +1,22 @@
-[//]: # (title: Open and special classes)
+[//]: # (title: Classes abertas e especiais)
 
 <no-index/>
 
 
-In this chapter, you'll learn about open classes, how they work with interfaces, and other special
-types of classes available in Kotlin.
+Neste capítulo, você vai aprender sobre classes abertas, como elas funcionam com interfaces e outros tipos especiais
+de classes disponíveis em Kotlin.
 
-## Open classes
+## Classes abertas {id="open-classes"}
 
-If you can't use interfaces or abstract classes, you can explicitly make a class inheritable by declaring it as **open**.
-To do this, use the `open` keyword before your class declaration:
+Se você não puder usar interfaces ou classes abstratas, pode tornar uma classe explicitamente herdável declarando-a
+como **open**. Para isso, use a palavra-chave `open` antes da declaração da classe:
 
 ```kotlin
 open class Vehicle(val make: String, val model: String)
 ```
 
-To create a class that inherits from another, add a colon after your class header followed by a call to the constructor
-of the parent class that you want to inherit from. In this example, the `Car` class inherits from the `Vehicle` class:
+Para criar uma classe que herda de outra, adicione dois-pontos depois do cabeçalho da classe, seguidos de uma chamada
+ao construtor da classe pai da qual você quer herdar. Neste exemplo, a classe `Car` herda da classe `Vehicle`:
 
 ```kotlin
 open class Vehicle(val make: String, val model: String)
@@ -34,34 +34,36 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-classes-open-class"}
 
-Just like when creating a normal class instance, if your class inherits from a parent class, then it must initialize
-all the parameters declared in the parent class header. So in the example, the `car` instance of the `Car` class initializes
-the parent class parameters: `make` and `model`.
+Assim como ao criar uma instância de uma classe normal, se sua classe herda de uma classe pai, ela precisa inicializar
+todos os parâmetros declarados no cabeçalho da classe pai. Então, no exemplo, a instância `car` da classe `Car` inicializa
+os parâmetros da classe pai: `make` e `model`.
 
-### Overriding inherited behavior
+### Sobrescrever comportamentos herdados {id="overriding-inherited-behavior"}
 
-If you want to inherit from a class but change some of the behavior, you can override the inherited behavior.
+Se você quer herdar de uma classe, mas mudar parte do comportamento, pode sobrescrever o comportamento herdado.
 
-By default, it's not possible to override a member function or property of a parent class. Just like with abstract classes,
-you need to add special keywords.
+Por padrão, não é possível sobrescrever uma função ou propriedade membro da classe pai. Assim como nas classes abstratas,
+você precisa adicionar palavras-chave especiais.
 
-#### Member functions
+#### Funções membro {id="member-functions"}
 
-To allow a function in the parent class to be overridden, use the `open` keyword before its declaration in the parent class:
+Para permitir que uma função da classe pai seja sobrescrita, use a palavra-chave `open` antes da declaração dela na
+classe pai:
 
 ```kotlin
 open fun displayInfo() {}
 ```
 {validate="false"}
 
-To override an inherited member function, use the `override` keyword before the function declaration in the child class:
+Para sobrescrever uma função membro herdada, use a palavra-chave `override` antes da declaração da função na classe
+filha:
 
 ```kotlin
 override fun displayInfo() {}
 ```
 {validate="false"}
 
-For example:
+Por exemplo:
 
 ```kotlin
 open class Vehicle(val make: String, val model: String) {
@@ -89,22 +91,22 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-class-override-function"}
 
-This example:
+Este exemplo:
 
-* Creates two instances of the `Car` class that inherit from the `Vehicle` class: `car1` and `car2`.
-* Overrides the `displayInfo()` function in the `Car` class to also print the number of doors.
-* Calls the overridden `displayInfo()` function on `car1` and `car2` instances.
+* Cria duas instâncias da classe `Car`, que herda da classe `Vehicle`: `car1` e `car2`.
+* Sobrescreve a função `displayInfo()` na classe `Car` para também imprimir o número de portas.
+* Chama a função `displayInfo()` sobrescrita nas instâncias `car1` e `car2`.
 
-#### Properties
+#### Propriedades {id="properties"}
 
-In Kotlin, it's not common practice to make a property inheritable by using the `open` keyword and overriding it later. Most of the
-time, you use an abstract class or an interface where properties are inheritable by default.
+Em Kotlin, não é prática comum tornar uma propriedade herdável usando a palavra-chave `open` e sobrescrevê-la depois.
+Na maioria das vezes, você usa uma classe abstrata ou uma interface, em que as propriedades são herdáveis por padrão.
 
-Properties inside open classes are accessible by their child class. In general, it's better to access them directly rather
-than override them with a new property.
+As propriedades dentro de classes abertas são acessíveis pela classe filha. Em geral, é melhor acessá-las diretamente
+do que sobrescrevê-las com uma nova propriedade.
 
-For example, let's say that you have a property called `transmissionType` that you want to override later. The syntax for
-overriding properties is exactly the same as for overriding member functions. You can do this:
+Por exemplo, suponha que você tenha uma propriedade chamada `transmissionType` que quer sobrescrever depois. A sintaxe
+para sobrescrever propriedades é exatamente a mesma usada para funções membro. Você pode fazer assim:
 
 ```kotlin
 open class Vehicle(val make: String, val model: String) {
@@ -116,8 +118,8 @@ class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, m
 }
 ```
 
-However, this is not good practice. Instead, you can add the property to the constructor of your inheritable class and 
-declare its value when you create the `Car` child class:
+No entanto, essa não é uma boa prática. Em vez disso, você pode adicionar a propriedade ao construtor da classe
+herdável e declarar o valor dela ao criar a classe filha `Car`:
 
 ```kotlin
 open class Vehicle(val make: String, val model: String, val transmissionType: String = "Manual")
@@ -125,16 +127,16 @@ open class Vehicle(val make: String, val model: String, val transmissionType: St
 class Car(make: String, model: String, val numberOfDoors: Int) : Vehicle(make, model, "Automatic")
 ```
 
-Accessing properties directly, instead of overriding them, leads to simpler and more readable code. By declaring properties
-once in the parent class and passing their values through the constructor, you eliminate the need for unnecessary overrides
-in child classes.
+Acessar propriedades diretamente, em vez de sobrescrevê-las, deixa o código mais simples e legível. Ao declarar as
+propriedades uma vez na classe pai e passar os valores pelo construtor, você elimina a necessidade de sobrescritas
+desnecessárias nas classes filhas.
 
-For more information about class inheritance and overriding class behavior, see [Inheritance](inheritance.md).
+Para mais informações sobre herança de classes e sobrescrita de comportamento, consulte [Herança](inheritance.md).
 
-### Open classes and interfaces
+### Classes abertas e interfaces {id="open-classes-and-interfaces"}
 
-You can create a class that inherits a class **and** implements multiple interfaces. In this case, you must declare
-the parent class first, after the colon, before listing the interfaces:
+Você pode criar uma classe que herda de uma classe **e** implementa várias interfaces. Nesse caso, você precisa declarar
+a classe pai primeiro, depois dos dois-pontos, antes de listar as interfaces:
 
 ```kotlin
 // Define interfaces
@@ -165,30 +167,30 @@ class ElectricCar(
 }
 ```
 
-## Special classes
+## Classes especiais {id="special-classes"}
 
-In addition to abstract, open, and data classes, Kotlin has special types of classes designed for various purposes, such 
-as restricting specific behavior or reducing the performance impact of creating small objects.
+Além de classes abstratas, abertas e de dados, Kotlin tem tipos especiais de classes projetados para diversas finalidades,
+como restringir comportamentos específicos ou reduzir o impacto no desempenho ao criar objetos pequenos.
 
 ### Sealed classes
 
-There may be times when you want to restrict inheritance. You can do this with sealed classes. Sealed classes are a special
-type of [abstract class](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes). Once you declare that a class is sealed, you can only create child classes 
-from it within the same package. It's not possible to inherit from the sealed class outside of this scope.
+Às vezes, você quer restringir a herança. Isso pode ser feito com sealed classes. Sealed classes são um tipo especial de
+[classe abstrata](kotlin-tour-intermediate-classes-interfaces.md#abstract-classes). Depois de declarar que uma classe é
+sealed, você só pode criar classes filhas dela dentro do mesmo pacote. Não é possível herdar da sealed class fora desse escopo.
 
-> A package is a collection of code with related classes and functions, typically within a directory. To learn more about
-> packages in Kotlin, see [Packages and imports](packages.md).
+> Um pacote é uma coleção de código com classes e funções relacionadas, normalmente dentro de um diretório. Para saber
+> mais sobre pacotes em Kotlin, consulte [Pacotes e importações](packages.md).
 > 
 {style="tip"}
 
-To create a sealed class, use the `sealed` keyword:
+Para criar uma sealed class, use a palavra-chave `sealed`:
 
 ```kotlin
 sealed class Mammal
 ```
 
-Sealed classes are particularly useful when combined with a `when` expression. By using a `when` expression, you can
-define the behavior for all possible child classes. For example:
+Sealed classes são especialmente úteis combinadas com uma expressão `when`. Usando uma expressão `when`, você pode
+definir o comportamento para todas as classes filhas possíveis. Por exemplo:
 
 ```kotlin
 sealed class Mammal(val name: String)
@@ -210,36 +212,34 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-sealed-classes"}
 
-In the example:
+No exemplo:
 
-* There is a sealed class called `Mammal` that has the `name` parameter in the constructor.
-* The `Cat` class inherits from the `Mammal` sealed class and uses the `catName` parameter in its own constructor as
-  the `name` parameter from the `Mammal` class.
-* The `Human` class inherits from the `Mammal` sealed class and uses the `humanName` parameter in its own constructor as
-  the `name` parameter from the `Mammal` class. It also has the `job` parameter in its constructor.
-* The `greetMammal()` function accepts an argument of `Mammal` type and returns a string.
-* Within the `greetMammal()` function body, there's a `when` expression that uses the [`is` operator](typecasts.md#is-and-is-operators) to check the type of `mammal` and decide which action to perform.
-* The `main()` function calls the `greetMammal()` function with an instance of the `Cat` class and `name` parameter called `Snowy`.
+* Há uma sealed class chamada `Mammal` que tem o parâmetro `name` no construtor.
+* A classe `Cat` herda da sealed class `Mammal` e usa o parâmetro `catName` do próprio construtor como o parâmetro `name` da classe `Mammal`.
+* A classe `Human` herda da sealed class `Mammal` e usa o parâmetro `humanName` do próprio construtor como o parâmetro `name` da classe `Mammal`. Ela também tem o parâmetro `job` no construtor.
+* A função `greetMammal()` aceita um argumento do tipo `Mammal` e retorna uma string.
+* Dentro do corpo da função `greetMammal()`, há uma expressão `when` que usa o [operador `is`](typecasts.md#is-and-is-operators) para verificar o tipo de `mammal` e decidir qual ação executar.
+* A função `main()` chama a função `greetMammal()` com uma instância da classe `Cat` e o parâmetro `name` com o valor `Snowy`.
 
-> This tour discusses the `is` operator in more detail in the [Null safety](kotlin-tour-intermediate-null-safety.md) chapter.
+> Este tour aborda o operador `is` com mais detalhes no capítulo [Null safety](kotlin-tour-intermediate-null-safety.md).
 > 
 {style ="tip"}
 
-For more information about sealed classes and their recommended use cases, see [Sealed classes and interfaces](sealed-classes.md).
+Para mais informações sobre sealed classes e seus casos de uso recomendados, consulte [Sealed classes e interfaces](sealed-classes.md).
 
 ### Enum classes
 
-Enum classes are useful when you want to represent a finite set of distinct values in a class. An enum class contains enum
-constants, which are themselves instances of the enum class.
+Enum classes são úteis quando você quer representar um conjunto finito de valores distintos em uma classe. Uma enum class
+contém constantes de enum, que são, elas mesmas, instâncias da enum class.
 
-To create an enum class, use the `enum` keyword:
+Para criar uma enum class, use a palavra-chave `enum`:
 
 ```kotlin
 enum class State
 ```
 
-Let's say that you want to create an enum class that contains the different states of a process. Each enum constant must
-be separated by a comma `,`:
+Imagine que você quer criar uma enum class que contém os diferentes estados de um processo. Cada constante de enum deve
+ser separada por vírgula `,`:
 
 ```kotlin
 enum class State {
@@ -247,14 +247,14 @@ enum class State {
 }
 ```
 
-The `State` enum class has enum constants: `IDLE`, `RUNNING`, and `FINISHED`. To access an enum constant, use the
-class name followed by a `.` and the name of the enum constant:
+A enum class `State` tem as constantes de enum `IDLE`, `RUNNING` e `FINISHED`. Para acessar uma constante de enum, use o
+nome da classe seguido de `.` e o nome da constante:
 
 ```kotlin
 val state = State.RUNNING
 ```
 
-You can use this enum class with a `when` expression to define the action to take depending on the value of the enum constant:
+Você pode usar essa enum class com uma expressão `when` para definir a ação a tomar de acordo com o valor da constante de enum:
 
 ```kotlin
 enum class State {
@@ -274,11 +274,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-enum-classes"}
 
-Enum classes can have properties and member functions just like normal classes. 
+Enum classes podem ter propriedades e funções membro, assim como classes normais.
 
-For example, let's say you're working with HTML and you want to create an enum class containing some colors. 
-You want each color to have a property, let's call it `rgb`, that contains their RGB value as a hexadecimal. 
-When creating the enum constants, you must initialize it with this property:
+Por exemplo, imagine que você está trabalhando com HTML e quer criar uma enum class com algumas cores. Você quer que cada
+cor tenha uma propriedade, vamos chamá-la de `rgb`, que contém o valor RGB dela em hexadecimal. Ao criar as constantes de
+enum, você precisa inicializá-las com essa propriedade:
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -289,11 +289,11 @@ enum class Color(val rgb: Int) {
 }
 ```
 
-> Kotlin stores hexadecimals as integers, so the `rgb` property has the `Int` type, not the `String` type.
+> O Kotlin armazena valores hexadecimais como inteiros, então a propriedade `rgb` tem o tipo `Int`, e não o tipo `String`.
 >
 {style="note"}
 
-To add a member function to this class, separate it from the enum constants with a semicolon `;`:
+Para adicionar uma função membro a essa classe, separe-a das constantes de enum com um ponto e vírgula `;`:
 
 ```kotlin
 enum class Color(val rgb: Int) {
@@ -322,32 +322,32 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-enum-classes-members"}
 
-In this example, the `containsRed()` member function accesses the value of the enum constant's `rgb` property using the
-`this` keyword and checks if the hexadecimal value contains `FF` as its first bits to return a boolean value.
+Neste exemplo, a função membro `containsRed()` acessa o valor da propriedade `rgb` da constante de enum usando a palavra-chave
+`this` e verifica se o valor hexadecimal contém `FF` nos primeiros bits, para retornar um valor booleano.
 
-For more information, see [Enum classes](enum-classes.md).
+Para mais informações, consulte [Enum classes](enum-classes.md).
 
 ### Inline value classes
 
-Sometimes in your code, you may want to create small objects from classes and use them only briefly. This approach can
-have a performance impact. Inline value classes are a special type of class that avoids this performance impact. However,
-they can only contain values.
+Às vezes, você talvez queira criar pequenos objetos a partir de classes e usá-los só por um instante. Essa
+abordagem pode ter impacto no desempenho. Inline value classes são um tipo especial de classe que evita esse impacto.
+No entanto, elas só podem conter valores.
 
-To create an inline value class, use the `value` keyword and the `@JvmInline` annotation:
+Para criar uma inline value class, use a palavra-chave `value` e a anotação `@JvmInline`:
 
 ```kotlin
 @JvmInline
 value class Email
 ```
 
-> The `@JvmInline` annotation instructs Kotlin to optimize the code when it is compiled. To learn more,
-> see [Annotations](annotations.md).
+> A anotação `@JvmInline` instrui o Kotlin a otimizar o código quando ele é compilado. Para saber mais,
+> consulte [Anotações](annotations.md).
 > 
 {style="tip"}
 
-An inline value class **must** have a single property initialized in the class header.
+Uma inline value class **precisa** ter uma única propriedade inicializada no cabeçalho da classe.
 
-Let's say that you want to create a class that collects an email address:
+Imagine que você quer criar uma classe que armazena um endereço de e-mail:
 
 ```kotlin
 // The address property is initialized in the class header.
@@ -366,27 +366,28 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-inline-value-class"}
 
-In the example:
+No exemplo:
 
-* `Email` is an inline value class that has one property in the class header: `address`.
-* The `sendEmail()` function accepts objects with type `Email` and prints a string to the standard output.
-* The `main()` function:
-    * Creates an instance of the `Email` class called `myEmail`.
-    * Calls the `sendEmail()` function on the `myEmail` object.
+* `Email` é uma inline value class que tem uma propriedade no cabeçalho da classe: `address`.
+* A função `sendEmail()` aceita objetos do tipo `Email` e imprime uma string na saída padrão.
+* A função `main()`:
+    * Cria uma instância da classe `Email` chamada `myEmail`.
+    * Chama a função `sendEmail()` no objeto `myEmail`.
 
-By using an inline value class, you make the class inlined and can use it directly in your code without creating an object.
-This can significantly reduce memory footprint and improve your code's runtime performance.
+Ao usar uma inline value class, você torna a classe inline e pode usá-la diretamente no código sem criar um objeto.
+Isso pode reduzir significativamente o consumo de memória e melhorar o desempenho do código em tempo de execução.
 
-For more information about inline value classes, see [Inline value classes](inline-classes.md).
+Para mais informações sobre inline value classes, consulte [Inline value classes](inline-classes.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Model delivery statuses with a sealed class" id="special-classes-exercise-1">
+<def title="Modele os status de entrega com uma sealed class" id="special-classes-exercise-1">
 
-You manage a delivery service and need a way to track the status of packages. Create a sealed class called `DeliveryStatus`,
-containing data classes to represent the following statuses: `Pending`, `InTransit`, `Delivered`, `Canceled`. Complete
-the `DeliveryStatus` class declaration so that the code in the `main()` function runs successfully:
+Você administra um serviço de entregas e precisa de uma forma de acompanhar o status dos pacotes. Crie uma sealed class
+chamada `DeliveryStatus`, que contenha data classes para representar os seguintes status: `Pending`, `InTransit`,
+`Delivered` e `Canceled`. Complete a declaração da classe `DeliveryStatus` para que o código da função `main()` rode
+com sucesso:
 
 ```kotlin
 sealed class // Write your code here
@@ -467,14 +468,14 @@ fun main() {
     // The delivery was canceled due to: Address not found.
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/DeliveryStatusTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/DeliveryStatusTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-special-classes-solution-1"}
 
 </def>
-<def title="Define problem types with an enum class" id="special-classes-exercise-2">
+<def title="Defina tipos de problema com uma enum class" id="special-classes-exercise-2">
 
-In your program, you want to be able to handle different statuses and types of errors. You have a sealed class to capture
-the different statuses which are declared in data classes or objects. Complete the code below by creating an enum class 
-called `Problem` that represents the different problem types: `NETWORK`, `TIMEOUT`, and `UNKNOWN`.
+Em um programa, você quer tratar diferentes status e tipos de erro. Você tem uma sealed class para capturar os
+diferentes status, que são declarados em data classes ou objects. Complete o código abaixo criando uma enum class chamada
+`Problem` que representa os diferentes tipos de problema: `NETWORK`, `TIMEOUT` e `UNKNOWN`.
 
 ```kotlin
 sealed class Status {
@@ -546,7 +547,7 @@ fun main() {
     // Data received: [Data1, Data2]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/StatusProblemTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-special-classes-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/StatusProblemTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-special-classes-solution-2"}
 
 </def>
 </deflist>
@@ -555,9 +556,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-objects.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-objects.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-properties.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-properties.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

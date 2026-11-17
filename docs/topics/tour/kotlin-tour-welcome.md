@@ -1,23 +1,25 @@
-[//]: # (title: Welcome to our tour of Kotlin!)
+[//]: # (title: Bem-vindo ao nosso tour pelo Kotlin!)
 
-<web-summary>Take the Kotlin tour to quickly grasp the fundamentals of the Kotlin programming language.</web-summary>
+<web-summary>Faça o tour pelo Kotlin para entender rapidamente os fundamentos da linguagem de programação Kotlin.</web-summary>
 
-> These tours can be completed entirely within your browser. There is no installation required.
+> Esses tours podem ser concluídos inteiramente no seu navegador. Não é necessário instalar nada.
 > 
 { style = "note" }
 
-Quickly learn the essentials of the Kotlin programming language through our tours.
+Aprenda rapidamente o essencial da linguagem de programação Kotlin com nossos tours.
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements -->
 <panels columns="2" id="kotlin-tour-starting-page">
     <panel>
-        <title>Beginner</title>
-        <p>Grasp the fundamentals.</p>
-        <a href="kotlin-tour-hello-world.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-beginner">Start</a>
+        <title>Iniciante</title>
+        <p>Entenda os fundamentos.</p>
+        <a href="kotlin-tour-hello-world.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-beginner">Começar</a>
     </panel>
     <panel>
-        <title>Intermediate</title>
-        <p>Take your understanding of Kotlin to&nbsp;the next level.</p>
-        <a href="kotlin-tour-intermediate-extension-functions.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-intermediate">Start</a>
+        <title>Intermediário</title>
+        <p>Leve seu conhecimento de Kotlin&nbsp;para o próximo nível.</p>
+        <a href="kotlin-tour-intermediate-extension-functions.md" as="button" icon="arrow-right" icon-position="right" progress-aware="true" id="kotlin-tour-start-intermediate">Começar</a>
     </panel>
 </panels>
+
+<!-- ia-translate: true -->

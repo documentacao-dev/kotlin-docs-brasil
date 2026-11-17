@@ -1,91 +1,93 @@
-[//]: # (title: Get started with Kotlin)
+[//]: # (title: Primeiros passos com o Kotlin)
 
 <tldr>
-<p>Latest Kotlin release: <b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
+<p>Versão mais recente do Kotlin: <b><a href="%kotlinLatestWhatsnew%">%kotlinVersion%</a></b></p>
 </tldr>
 
-Kotlin is a modern language that's concise, multiplatform, and interoperable with Java and other languages.
+O Kotlin é uma linguagem moderna, concisa, multiplataforma e interoperável com Java e outras linguagens.
 
-New to Kotlin? Take our tour to learn the fundamentals directly in your browser.
+Está começando com o Kotlin? Faça nosso tour para aprender os fundamentos diretamente no seu navegador.
 
-<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Start the Kotlin tour</a>
+<a href="kotlin-tour-welcome.md" as="button" mode="classic" icon="arrow-right" icon-position="right">Comece o tour pelo Kotlin</a>
 
-## Install Kotlin
+## Instale o Kotlin {id="install-kotlin"}
 
-Kotlin is included in each [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) and [Android Studio](https://developer.android.com/studio) release.
-Download and install one of these IDEs to start using Kotlin.
+O Kotlin já vem incluído em cada versão do [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) e do [Android Studio](https://developer.android.com/studio).
+Baixe e instale uma dessas IDEs para começar a usar o Kotlin.
 
-## Choose your Kotlin use case
+## Escolha seu caso de uso do Kotlin {id="choose-your-kotlin-use-case"}
  
 <tabs>
 
 <tab id="console" title="Console">
 
-Here you'll learn how to develop a console application and create unit tests with Kotlin.
+Aqui você vai aprender a desenvolver um app de console e a criar testes unitários com Kotlin.
 
-1. **[Create a basic JVM application with the IntelliJ IDEA project wizard](jvm-get-started.md).**
+1. **[Crie um app básico para JVM com o assistente de projetos do IntelliJ IDEA](jvm-get-started.md).**
 
-2. **[Write your first unit test](jvm-test-using-junit.md).**
+2. **[Escreva seu primeiro teste unitário](jvm-test-using-junit.md).**
 
 </tab>
 
 <tab id="backend" title="Backend">
 
-Here you'll learn how to develop a backend application with Kotlin server-side.
+Aqui você vai aprender a desenvolver um app de backend com Kotlin no lado do servidor.
 
-* **Introduce Kotlin to your Java project:**
+* **Introduza o Kotlin no seu projeto Java:**
 
-  * [Configure a Java project to work with Kotlin](mixing-java-kotlin-intellij.md)
-  * [Add Kotlin tests to your Java Maven project](jvm-test-using-junit.md)
+  * [Configure um projeto Java para funcionar com Kotlin](mixing-java-kotlin-intellij.md)
+  * [Adicione testes em Kotlin ao seu projeto Java com Maven](jvm-test-using-junit.md)
 
-* **Create a backend app from scratch with Kotlin:**
+* **Crie um app de backend do zero com Kotlin:**
 
-  * [Create a RESTful web service with Spring Boot](jvm-get-started-spring-boot.md)
-  * [Create HTTP APIs with Ktor](https://ktor.io/docs/creating-http-apis.html)
+  * [Crie um serviço web RESTful com Spring Boot](jvm-get-started-spring-boot.md)
+  * [Crie APIs HTTP com Ktor](https://ktor.io/docs/creating-http-apis.html)
 
 </tab>
 
-<tab id="cross-platform-mobile" title="Cross-platform">
+<tab id="cross-platform-mobile" title="Multiplataforma">
 
-Here you'll learn how to develop a cross-platform application using [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
+Aqui você vai aprender a desenvolver um app multiplataforma usando [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform/get-started.html).
 
-1. **[Set up your environment for cross-platform development](https://kotlinlang.org/docs/multiplatform/quickstart.html).**
+1. **[Configure seu ambiente para desenvolvimento multiplataforma](https://kotlinlang.org/docs/multiplatform/quickstart.html).**
 
-2. **Create your first application for iOS and Android:**
+2. **Crie seu primeiro app para iOS e Android:**
 
-   * Create a cross-platform application from scratch and:
-     * [Share business logic while keeping the UI native](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
-     * [Share business logic and UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
-   * [Make your existing Android application work on iOS](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
-   * [Create a cross-platform application using Ktor and SQLdelight](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
+   * Crie um app multiplataforma do zero e:
+     * [Compartilhe a lógica de negócio mantendo a UI nativa](https://kotlinlang.org/docs/multiplatform/multiplatform-create-first-app.html)
+     * [Compartilhe a lógica de negócio e a UI](https://kotlinlang.org/docs/multiplatform/compose-multiplatform-create-first-app.html)
+   * [Faça seu app Android existente funcionar no iOS](https://kotlinlang.org/docs/multiplatform/multiplatform-integrate-in-existing-app.html)
+   * [Crie um app multiplataforma usando Ktor e SQLdelight](https://kotlinlang.org/docs/multiplatform/multiplatform-ktor-sqldelight.html)
 
-3. **Explore [sample projects](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html)**.
+3. **Explore os [projetos de exemplo](https://kotlinlang.org/docs/multiplatform/multiplatform-samples.html)**.
 
 </tab>
 
 <tab id="android" title="Android">
 
-To start using Kotlin for Android development, read [Google's recommendation for getting started with Kotlin on Android](https://developer.android.com/kotlin/get-started).
+Para começar a usar Kotlin no desenvolvimento Android, leia a [recomendação do Google para primeiros passos com Kotlin no Android](https://developer.android.com/kotlin/get-started).
 
 </tab>
 
-<tab id="data-analysis" title="Data analysis">
+<tab id="data-analysis" title="Análise de dados">
 
-From building data pipelines to productionizing machine learning models, Kotlin is a great choice for working with data and getting the most out of it.
+Da criação de pipelines de dados à colocação de modelos de machine learning em produção, o Kotlin é uma ótima escolha para trabalhar com dados e tirar o máximo proveito deles.
 
-1. **Explore and experiment with your data:**
+1. **Explore e experimente com seus dados:**
 
-   * [DataFrame](https://kotlin.github.io/dataframe/overview.html) – a library for data analysis and manipulation.
-   * [Kandy](https://kotlin.github.io/kandy/welcome.html) – a plotting tool for data visualization.
+   * [DataFrame](https://kotlin.github.io/dataframe/overview.html) – uma biblioteca para análise e manipulação de dados.
+   * [Kandy](https://kotlin.github.io/kandy/welcome.html) – uma ferramenta de plotagem para visualização de dados.
 
-2. **Follow Kotlin for Data Analysis on Twitter:** [KotlinForData](http://twitter.com/KotlinForData).
+2. **Siga o Kotlin for Data Analysis no Twitter:** [KotlinForData](http://twitter.com/KotlinForData).
 
 </tab>
 
 </tabs>
 
-## Get support
+## Obtenha ajuda {id="get-support"}
 
-If you encounter any difficulties or problems, ask for help in ![Slack](slack.svg){width=25}{type="joined"} Slack: [get an invite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) or report an issue in our [issue tracker](https://youtrack.jetbrains.com/issues/KT).
+Se tiver alguma dificuldade ou problema, peça ajuda no ![Slack](slack.svg){width=25}{type="joined"} Slack: [peça um convite](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) ou relate um problema no nosso [rastreador de issues](https://youtrack.jetbrains.com/issues/KT).
 
-If anything is missing or seems confusing on this page, please [share your feedback](https://surveys.hotjar.com/d82e82b0-00d9-44a7-b793-0611bf6189df).
+Se algo estiver faltando ou parecer confuso nesta página, [compartilhe seu feedback](https://surveys.hotjar.com/d82e82b0-00d9-44a7-b793-0611bf6189df).
+
+<!-- ia-translate: true -->

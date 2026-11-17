@@ -3,57 +3,58 @@
 <no-index/>
 
 
-Kotlin supports object-oriented programming with classes and objects. Objects are useful for storing data in your program.
-Classes allow you to declare a set of characteristics for an object. When you create objects from a class, you can save
-time and effort because you don't have to declare these characteristics every time.
+O Kotlin permite programação orientada a objetos com classes e objetos. Objetos são úteis para armazenar dados no
+programa. Classes permitem declarar um conjunto de características para um objeto. Quando você cria objetos a partir de
+uma classe, economiza tempo e esforço, porque não precisa declarar essas características toda vez.
 
-To declare a class, use the `class` keyword: 
+Para declarar uma classe, use a palavra-chave `class`: 
 
 ```kotlin
 class Customer
 ```
 
-## Properties
+## Propriedades {id="properties"}
 
-Characteristics of a class's object can be declared in properties. You can declare properties for a class:
+As características de um objeto de uma classe podem ser declaradas em propriedades. Você pode declarar propriedades para
+uma classe:
 
-* Within parentheses `()` after the class name.
+* Dentro dos parênteses `()` depois do nome da classe.
 ```kotlin
 class Contact(val id: Int, var email: String)
 ```
 
-* Within the class body defined by curly braces `{}`.
+* Dentro do corpo da classe, definido por chaves `{}`.
 ```kotlin
 class Contact(val id: Int, var email: String) {
     val category: String = ""
 }
 ```
 
-We recommend that you declare properties as read-only (`val`) unless they need to be changed after an instance of the class
-is created.
+Recomendamos declarar propriedades como somente leitura (`val`), a menos que elas precisem ser alteradas depois que uma
+instância da classe é criada.
 
-You can declare properties without `val` or `var` within parentheses but these properties are not accessible after an 
-instance has been created.
+Você pode declarar propriedades sem `val` ou `var` dentro dos parênteses, mas essas propriedades não ficam acessíveis
+depois que uma instância é criada.
 
-> * The content contained within parentheses `()` is called the **class header**.
-> * You can use a [trailing comma](coding-conventions.md#trailing-commas) when declaring class properties.
+> * O conteúdo entre parênteses `()` é chamado de **cabeçalho da classe**.
+> * Você pode usar uma [vírgula final](coding-conventions.md#trailing-commas) ao declarar propriedades da classe.
 >
 {style="note"}
 
-Just like with function parameters, class properties can have default values:
+Assim como nos parâmetros de função, as propriedades de uma classe podem ter valores padrão:
 ```kotlin
 class Contact(val id: Int, var email: String = "example@gmail.com") {
     val category: String = "work"
 }
 ```
 
-## Create instance
+## Criar instância {id="create-instance"}
 
-To create an object from a class, you declare a class **instance** using a **constructor**.
+Para criar um objeto a partir de uma classe, você declara uma **instância** da classe usando um **construtor**.
 
-By default, Kotlin automatically creates a constructor with the parameters declared in the class header.
+Por padrão, o Kotlin cria automaticamente um construtor com os parâmetros declarados no cabeçalho da classe.
 
-For example:
+Por exemplo:
 ```kotlin
 class Contact(val id: Int, var email: String)
 
@@ -63,19 +64,20 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-class-create-instance"}
 
-In the example:
+No exemplo:
 
-* `Contact` is a class.
-* `contact` is an instance of the `Contact` class.
-* `id` and `email` are properties.
-* `id` and `email` are used with the default constructor to create `contact`.
+* `Contact` é uma classe.
+* `contact` é uma instância da classe `Contact`.
+* `id` e `email` são propriedades.
+* `id` e `email` são usados com o construtor padrão para criar `contact`.
 
-Kotlin classes can have many constructors, including ones that you define yourself. To learn more about how to declare 
-multiple constructors, see [Constructors](classes.md#constructors-and-initializer-blocks).
+Classes em Kotlin podem ter vários construtores, incluindo os que você mesmo define. Para saber mais sobre como declarar
+vários construtores, veja [Construtores](classes.md#constructors-and-initializer-blocks).
 
-## Access properties
+## Acessar propriedades {id="access-properties"}
 
-To access a property of an instance, write the name of the property after the instance name appended with a period `.`:
+Para acessar uma propriedade de uma instância, escreva o nome da propriedade depois do nome da instância, seguido de
+um ponto `.`:
 
 ```kotlin
 class Contact(val id: Int, var email: String)
@@ -97,21 +99,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-access-property"}
 
-> To concatenate the value of a property as part of a string, you can use string templates (`$`).
-> For example:
+> Para concatenar o valor de uma propriedade como parte de uma string, você pode usar templates de string (`$`).
+> Por exemplo:
 > ```kotlin
 > println("Their email address is: ${contact.email}")
 > ```
 >
 {style="tip"}
 
-## Member functions
+## Funções membro {id="member-functions"}
 
-In addition to declaring properties as part of an object's characteristics, you can also define an object's behavior 
-with member functions.
+Além de declarar propriedades como parte das características de um objeto, você também pode definir o comportamento de um
+objeto com funções membro.
 
-In Kotlin, member functions must be declared within the class body. To call a member function on an instance, write the 
-function name after the instance name appended with a period `.`. For example:
+No Kotlin, funções membro devem ser declaradas dentro do corpo da classe. Para chamar uma função membro em uma instância,
+escreva o nome da função depois do nome da instância, seguido de um ponto `.`. Por exemplo:
 
 ```kotlin
 class Contact(val id: Int, var email: String) {
@@ -131,39 +133,39 @@ fun main() {
 
 ## Data classes
 
-Kotlin has **data classes** which are particularly useful for storing data. Data classes have the same functionality as 
-classes, but they come automatically with additional member functions. These member functions allow you to easily print 
-the instance to readable output, compare instances of a class, copy instances, and more. As these functions are
-automatically available, you don't have to spend time writing the same boilerplate code for each of your classes.
+O Kotlin tem **data classes**, particularmente úteis para armazenar dados. Data classes têm a mesma funcionalidade das
+classes comuns, mas vêm automaticamente com funções membro adicionais. Essas funções permitem imprimir a instância em uma
+saída legível, comparar instâncias de uma classe, copiar instâncias e muito mais. Como essas funções estão disponíveis
+automaticamente, você não precisa gastar tempo escrevendo o mesmo código repetitivo para cada classe.
 
-To declare a data class, use the keyword `data`:
+Para declarar uma data class, use a palavra-chave `data`:
 
 ```kotlin
 data class User(val name: String, val id: Int)
 ```
 
-The Kotlin compiler only uses the properties defined inside the [primary constructor](classes.md#primary-constructor)
-when generating member functions. If you declare properties in the data class body, they aren't included in the output
-of the generated functions.
+O compilador do Kotlin usa apenas as propriedades definidas dentro do [construtor primário](classes.md#primary-constructor)
+ao gerar funções membro. Se você declarar propriedades no corpo da data class, elas não são incluídas na saída das
+funções geradas.
 
-The most useful predefined member functions of data classes are:
+As funções membro predefinidas mais úteis das data classes são:
 
-| **Function**       | **Description**                                                                          |
-|--------------------|------------------------------------------------------------------------------------------|
-| `toString()`       | Prints a readable string of the class instance and its properties.                       |
-| `equals()` or `==` | Compares instances of a class.                                                           |
-| `copy()`           | Creates a class instance by copying another, potentially with some different properties. |
+| **Função**         | **Descrição**                                                                                   |
+|--------------------|-------------------------------------------------------------------------------------------------|
+| `toString()`       | Imprime uma string legível da instância da classe e de suas propriedades.                       |
+| `equals()` ou `==` | Compara instâncias de uma classe.                                                               |
+| `copy()`           | Cria uma instância da classe copiando outra, possivelmente com algumas propriedades diferentes. |
 
-See the following sections for examples of how to use each function:
+Veja as seções a seguir para exemplos de como usar cada função:
 
-* [Print as string](#print-as-string)
-* [Compare instances](#compare-instances)
-* [Copy instance](#copy-instance)
+* [Imprimir como string](#print-as-string)
+* [Comparar instâncias](#compare-instances)
+* [Copiar instância](#copy-instance)
 
-### Print as string
+### Imprimir como string {id="print-as-string"}
 
-To print a readable string of a class instance, you can explicitly call the `toString()` function, or use print functions 
-(`println()` and `print()`) which automatically call `toString()` for you:
+Para imprimir uma string legível de uma instância de classe, você pode chamar explicitamente a função `toString()`, ou
+usar funções de impressão (`println()` e `print()`), que chamam `toString()` automaticamente para você:
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -180,11 +182,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-data-classes-print-string"}
 
-This is particularly useful when debugging or creating logs.
+Isso é especialmente útil na depuração ou na criação de logs.
 
-### Compare instances
+### Comparar instâncias {id="compare-instances"}
 
-To compare data class instances, use the equality operator `==`:
+Para comparar instâncias de data class, use o operador de igualdade `==`:
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -207,14 +209,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-data-classes-compare-instances"}
 
-### Copy instance
+### Copiar instância {id="copy-instance"}
 
-To create an exact copy of a data class instance, call the `copy()` function on the instance.
+Para criar uma cópia exata de uma instância de data class, chame a função `copy()` na instância.
 
-To create a copy of a data class instance **and** change some properties, call the `copy()` function on the instance 
-**and** add replacement values for properties as function parameters.
+Para criar uma cópia de uma instância de data class **e** alterar algumas propriedades, chame a função `copy()` na
+instância **e** adicione valores de substituição para as propriedades como parâmetros da função.
 
-For example:
+Por exemplo:
 
 ```kotlin
 data class User(val name: String, val id: Int)
@@ -239,21 +241,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-data-classes-copy-instance"}
 
-Creating a copy of an instance is safer than modifying the original instance because any code that relies on the
-original instance isn't affected by the copy and what you do with it.
+Criar uma cópia de uma instância é mais seguro do que modificar a instância original, porque qualquer código que dependa
+da instância original não é afetado pela cópia nem pelo que você fizer com ela.
 
-For more information about data classes, see [Data classes](data-classes.md).
+Para mais informações sobre data classes, veja [Data classes](data-classes.md).
 
-The last chapter of this tour is about Kotlin's [null safety](kotlin-tour-null-safety.md).
+O último capítulo deste tour trata da [null safety](kotlin-tour-null-safety.md) do Kotlin.
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Declare a data class" id="classes-exercise-1">
+<def title="Declarar uma data class" id="classes-exercise-1">
 
-Define a data class `Employee` with two properties: one for a name, and another for a salary. Make sure that the property
-for salary is mutable, otherwise you won't get a salary boost at the end of the year! The main function demonstrates how
-you can use this data class.
+Defina uma data class `Employee` com duas propriedades: uma para o nome e outra para o salário. Garanta que a propriedade
+do salário seja mutável, senão você não vai receber um aumento no fim do ano! A função main demonstra como você pode usar
+essa data class.
 
 ```kotlin
 // Write your code here
@@ -277,12 +279,12 @@ fun main() {
     println(emp)
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/EmployeeTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/EmployeeTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-classes-solution-1"}
 
 </def>
-<def title="Declare nested data classes" id="classes-exercise-2">
+<def title="Declarar data classes aninhadas" id="classes-exercise-2">
 
-Declare the additional data classes that are needed for this code to compile.
+Declare as data classes adicionais que são necessárias para que este código compile.
 
 ```kotlin
 data class Person(val name: Name, val address: Address, val ownsAPet: Boolean = true)
@@ -315,31 +317,31 @@ fun main() {
     println(person)
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/PersonTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/PersonTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-classes-solution-2"}
 
 </def>
-<def title="Generate random employees with a class" id="classes-exercise-3">
+<def title="Gerar funcionários aleatórios com uma classe" id="classes-exercise-3">
 
-To test your code, you need a generator that can create random employees. Define a `RandomEmployeeGenerator` class with 
-a fixed list of potential names (inside the class body). Configure the class with a minimum and maximum salary (inside 
-the class header). In the class body, define the `generateEmployee()` function. Once again, the main function demonstrates
-how you can use this class.
+Para testar seu código, você precisa de um gerador que crie funcionários aleatórios. Defina uma classe
+`RandomEmployeeGenerator` com uma lista fixa de nomes possíveis (dentro do corpo da classe). Configure a classe com um
+salário mínimo e um máximo (dentro do cabeçalho da classe). No corpo da classe, defina a função `generateEmployee()`.
+Mais uma vez, a função main demonstra como você pode usar essa classe.
 
-> In this exercise, you import a package so that you can use the [`Random.nextInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/next-int.html) function.
-> For more information about importing packages, see [Packages and imports](packages.md).
+> Neste exercício, você importa um pacote para poder usar a função [`Random.nextInt()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.random/-random/next-int.html).
+> Para mais informações sobre importação de pacotes, veja [Pacotes e importações](packages.md).
 >
 {style="tip"}
 
 <deflist collapsible="true" id="kotlin-tour-classes-exercise-3-hint-1">
-    <def title="Hint 1">
-        Lists have an extension function called <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html"><code>.random()</code></a>
-        that returns a random item within a list.
+    <def title="Dica 1">
+        Listas têm uma extension function chamada <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/random.html"><code>.random()</code></a>
+        que retorna um item aleatório dentro de uma lista.
     </def>
 </deflist>
 
 <deflist collapsible="true" id="kotlin-tour-classes-exercise-3-hint-2">
-    <def title="Hint 2">
-        <code>Random.nextInt(from = ..., until = ...)</code> gives you a random <code>Int</code> number within specified limits.
+    <def title="Dica 2">
+        <code>Random.nextInt(from = ..., until = ...)</code> fornece um número <code>Int</code> aleatório dentro dos limites especificados.
     </def>
 </deflist>
 
@@ -384,7 +386,7 @@ fun main() {
     println(empGen.generateEmployee())
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/RandomEmployeeGeneratorTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/RandomEmployeeGeneratorTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-classes-solution-3"}
 
 </def>
 </deflist>
@@ -393,9 +395,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-functions.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-functions.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-null-safety.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-null-safety.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

@@ -1,33 +1,32 @@
-[//]: # (title: Collections)
+[//]: # (title: Coleções)
 
 <no-index/>
 
 
-When programming, it is useful to be able to group data into structures for later processing. Kotlin provides collections
-for exactly this purpose.
+Ao programar, é útil poder agrupar dados em estruturas para processá-los depois. O Kotlin oferece coleções exatamente para isso.
 
-Kotlin has the following collections for grouping items:
+O Kotlin tem as seguintes coleções para agrupar itens:
 
-| **Collection type** | **Description**                                                         |
-|---------------------|-------------------------------------------------------------------------|
-| Lists               | Ordered collections of items                                            |
-| Sets                | Unique unordered collections of items                                   |
-| Maps                | Sets of key-value pairs where keys are unique and map to only one value |
+| **Tipo de coleção** | **Descrição**                                                                 |
+|---------------------|-------------------------------------------------------------------------------|
+| Listas              | Coleções ordenadas de itens                                                   |
+| Conjuntos           | Coleções não ordenadas de itens únicos                                        |
+| Mapas               | Conjuntos de pares chave-valor em que as chaves são únicas e apontam para um único valor |
 
-Each collection type can be mutable or read only.
+Cada tipo de coleção pode ser mutável ou somente leitura.
 
-## List
+## Lista {id="list"}
 
-Lists store items in the order that they are added, and allow for duplicate items. 
+Listas armazenam os itens na ordem em que são adicionados e permitem itens duplicados. 
 
-To create a read-only list ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/)), use the 
-[`listOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html) function.
+Para criar uma lista somente leitura ([`List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/)), use a função
+[`listOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html).
 
-To create a mutable list ([`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html)),
-use the [`mutableListOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html) function.
+Para criar uma lista mutável ([`MutableList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list.html)),
+use a função [`mutableListOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html).
 
-When creating lists, Kotlin can infer the type of items stored. To declare the type explicitly, add the type
-within angled brackets `<>` after the list declaration:
+Ao criar listas, o Kotlin consegue inferir o tipo dos itens armazenados. Para declarar o tipo explicitamente, coloque o tipo
+entre colchetes angulares `<>` após a declaração da lista:
 
 ```kotlin
 fun main() { 
@@ -46,17 +45,17 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lists-declaration"}
 
-> To prevent unwanted modifications, you can create a read-only view of a mutable list by assigning it to a `List`:
+> Para evitar modificações indesejadas, você pode criar uma visão somente leitura de uma lista mutável atribuindo-a a um `List`:
 > 
 > ```kotlin
 >     val shapes: MutableList<String> = mutableListOf("triangle", "square", "circle")
 >     val shapesLocked: List<String> = shapes
 > ```
-> This is also called **casting**.
+> Isso também é chamado de **casting**.
 > 
 {style="tip"}
 
-Lists are ordered so to access an item in a list, use the [indexed access operator](operator-overloading.md#indexed-access-operator) `[]`:
+Listas são ordenadas, então, para acessar um item em uma lista, use o [operador de acesso indexado](operator-overloading.md#indexed-access-operator) `[]`:
 
 ```kotlin
 fun main() { 
@@ -69,8 +68,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-list-access"}
 
-To get the first or last item in a list, use [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)
-and [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html) functions respectively:
+Para obter o primeiro ou o último item de uma lista, use respectivamente as funções [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html)
+e [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html):
 
 ```kotlin
 fun main() { 
@@ -83,17 +82,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-list-first"}
 
-> [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) and [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)
-> functions are examples of **extension** functions. To call an extension function on an object, write the function name 
-> after the object appended with a period `.` 
+> As funções [`.first()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/first.html) e [`.last()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/last.html)
+> são exemplos de funções de **extensão**. Para chamar uma função de extensão em um objeto, escreva o nome da função
+> depois do objeto, separado por um ponto `.` 
 > 
-> Extension functions are covered in detail [in the intermediate tour](kotlin-tour-intermediate-extension-functions.md#extension-functions).
-> For now, you only need to know how to call them. 
+> As funções de extensão são detalhadas [no tour intermediário](kotlin-tour-intermediate-extension-functions.md#extension-functions).
+> Por enquanto, você só precisa saber como chamá-las. 
 > 
 {style="note"}
 
-To get the number of items in a list, use the [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
-function:
+Para obter o número de itens de uma lista, use a função [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html):
 
 ```kotlin
 fun main() { 
@@ -106,7 +104,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-list-count"}
 
-To check that an item is in a list, use the [`in` operator](operator-overloading.md#in-operator):
+Para verificar se um item está em uma lista, use o [operador `in`](operator-overloading.md#in-operator):
 
 ```kotlin
 fun main() {
@@ -119,8 +117,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-list-in"}
 
-To add or remove items from a mutable list, use [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html)
-and [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) functions respectively:
+Para adicionar ou remover itens de uma lista mutável, use respectivamente as funções [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/add.html)
+e [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html):
 
 ```kotlin
 fun main() { 
@@ -140,18 +138,18 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-list-add-remove"}
 
-## Set
+## Conjunto {id="set"}
 
-Whereas lists are ordered and allow duplicate items, sets are **unordered** and only store **unique** items.
+Enquanto listas são ordenadas e permitem itens duplicados, conjuntos são **não ordenados** e armazenam apenas itens **únicos**.
 
-To create a read-only set ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/)), use the 
-[`setOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html) function.
+Para criar um conjunto somente leitura ([`Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/)), use a função
+[`setOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html).
 
-To create a mutable set ([`MutableSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/)),
-use the [`mutableSetOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html) function.
+Para criar um conjunto mutável ([`MutableSet`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/)),
+use a função [`mutableSetOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html).
 
-When creating sets, Kotlin can infer the type of items stored. To declare the type explicitly, add the type
-within angled brackets `<>` after the set declaration:
+Ao criar conjuntos, o Kotlin consegue inferir o tipo dos itens armazenados. Para declarar o tipo explicitamente, coloque o tipo
+entre colchetes angulares `<>` após a declaração do conjunto:
 
 ```kotlin
 fun main() {
@@ -168,9 +166,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-sets-declaration"}
 
-You can see in the previous example that because sets only contain unique elements, the duplicate `"cherry"` item is dropped.
+Você viu no exemplo anterior que, como conjuntos só contêm elementos únicos, o item duplicado `"cherry"` é descartado.
 
-> To prevent unwanted modifications, you can create a read-only view of a mutable set by assigning it to a `Set`:
+> Para evitar modificações indesejadas, você pode criar uma visão somente leitura de um conjunto mutável atribuindo-o a um `Set`:
 > 
 > ```kotlin
 >     val fruit: MutableSet<String> = mutableSetOf("apple", "banana", "cherry", "cherry")
@@ -179,12 +177,11 @@ You can see in the previous example that because sets only contain unique elemen
 >
 {style="tip"}
 
-> As sets are **unordered**, you can't access an item at a particular index.
+> Como conjuntos são **não ordenados**, você não pode acessar um item em um índice específico.
 > 
 {style="note"}
 
-To get the number of items in a set, use the [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
-function:
+Para obter o número de itens de um conjunto, use a função [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html):
 
 ```kotlin
 fun main() { 
@@ -197,7 +194,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-set-count"}
 
-To check that an item is in a set, use the [`in` operator](operator-overloading.md#in-operator):
+Para verificar se um item está em um conjunto, use o [operador `in`](operator-overloading.md#in-operator):
 
 ```kotlin
 fun main() {
@@ -210,8 +207,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-set-in"}
 
-To add or remove items from a mutable set, use [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/add.html)
-and [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) functions respectively:
+Para adicionar ou remover itens de um conjunto mutável, use respectivamente as funções [`.add()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/add.html)
+e [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html):
 
 ```kotlin
 fun main() { 
@@ -227,29 +224,29 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-set-add-remove"}
 
-## Map
+## Mapa {id="map"}
 
-Maps store items as key-value pairs. You access the value by referencing the key. You can imagine a map like a food menu.
-You can find the price (value), by finding the food (key) you want to eat. Maps are useful if you want to look up a value
-without using a numbered index, like in a list.
+Mapas armazenam itens como pares chave-valor. Você acessa o valor referenciando a chave. Pense em um mapa como um cardápio.
+Você descobre o preço (valor) procurando pelo prato (chave) que quer pedir. Mapas são úteis quando você quer buscar um valor
+sem usar um índice numerado, como em uma lista.
 
-> * Every key in a map must be unique so that Kotlin can understand which value you want to get. 
-> * You can have duplicate values in a map.
+> * Toda chave em um mapa precisa ser única, para que o Kotlin entenda qual valor você quer obter. 
+> * Você pode ter valores duplicados em um mapa.
 >
 {style="note"}
 
-To create a read-only map ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/)), use the 
-[`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html) function.
+Para criar um mapa somente leitura ([`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/)), use a função
+[`mapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html).
 
-To create a mutable map ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/)),
-use the [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html) function.
+Para criar um mapa mutável ([`MutableMap`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/)),
+use a função [`mutableMapOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html).
 
-When creating maps, Kotlin can infer the type of items stored. To declare the type explicitly, add the types
-of the keys and values within angled brackets `<>` after the map declaration. For example: `MutableMap<String, Int>`.
-The keys have type `String` and the values have type `Int`.
+Ao criar mapas, o Kotlin consegue inferir o tipo dos itens armazenados. Para declarar o tipo explicitamente, coloque os tipos
+das chaves e dos valores entre colchetes angulares `<>` após a declaração do mapa. Por exemplo: `MutableMap<String, Int>`.
+As chaves têm o tipo `String` e os valores têm o tipo `Int`.
 
-The easiest way to create maps is to use [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) between each 
-key and its related value:
+A forma mais fácil de criar mapas é usar [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) entre cada
+chave e o valor relacionado:
 
 ```kotlin
 fun main() {
@@ -268,7 +265,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-maps-declaration"}
 
-> To prevent unwanted modifications, you can create a read-only view of a mutable map by assigning it to a `Map`:
+> Para evitar modificações indesejadas, você pode criar uma visão somente leitura de um mapa mutável atribuindo-o a um `Map`:
 > 
 > ```kotlin
 >     val juiceMenu: MutableMap<String, Int> = mutableMapOf("apple" to 100, "kiwi" to 190, "orange" to 100)
@@ -277,8 +274,8 @@ fun main() {
 >
 {style="tip"}
 
-To access a value in a map, use the [indexed access operator](operator-overloading.md#indexed-access-operator) `[]` with
-its key:
+Para acessar um valor em um mapa, use o [operador de acesso indexado](operator-overloading.md#indexed-access-operator) `[]` com
+a chave:
 
 ```kotlin
 fun main() {
@@ -292,7 +289,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-access"}
 
-> If you try to access a key-value pair with a key that doesn't exist in a map, you see a `null` value:
+> Se você tentar acessar um par chave-valor com uma chave que não existe no mapa, verá um valor `null`:
 >
 > ```kotlin
 > fun main() {
@@ -306,11 +303,11 @@ fun main() {
 > ```
 > {kotlin-runnable="true" id="kotlin-tour-map-no-key" validate="false"}
 > 
-> This tour explains null values later in the [Null safety](kotlin-tour-null-safety.md) chapter.
+> Este tour explica valores null mais adiante, no capítulo [Null safety](kotlin-tour-null-safety.md).
 > 
 {style="note"}
 
-You can also use the [indexed access operator](operator-overloading.md#indexed-access-operator) `[]` to add items to a mutable map:
+Você também pode usar o [operador de acesso indexado](operator-overloading.md#indexed-access-operator) `[]` para adicionar itens a um mapa mutável:
 
 ```kotlin
 fun main() {
@@ -324,8 +321,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-add-item"}
 
-To remove items from a mutable map, use the [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html) 
-function:
+Para remover itens de um mapa mutável, use a função [`.remove()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/remove.html):
 
 ```kotlin
 fun main() {
@@ -339,8 +335,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-put-remove"}
 
-To get the number of items in a map, use the [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html)
-function:
+Para obter o número de itens de um mapa, use a função [`.count()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/count.html):
 
 ```kotlin
 fun main() {
@@ -354,8 +349,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-count"}
 
-To check if a specific key is already included in a map, use the [`.containsKey()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains-key.html)
-function:
+Para verificar se uma chave específica já está incluída em um mapa, use a função [`.containsKey()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/contains-key.html):
 
 ```kotlin
 fun main() {
@@ -368,8 +362,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-contains-keys"}
 
-To obtain a collection of the keys or values of a map, use the [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html)
-and [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html) properties respectively:
+Para obter uma coleção das chaves ou dos valores de um mapa, use respectivamente as propriedades [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html)
+e [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html):
 
 ```kotlin
 fun main() {
@@ -384,16 +378,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-keys-values"}
 
-> [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html) and [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html)
-> are examples of **properties** of an object. To access the property of an object, write the property name
-> after the object appended with a period `.`
+> [`keys`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/keys.html) e [`values`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/values.html)
+> são exemplos de **propriedades** de um objeto. Para acessar a propriedade de um objeto, escreva o nome da propriedade
+> depois do objeto, separado por um ponto `.`
 >
-> Properties are discussed in more detail in the [Classes](kotlin-tour-classes.md) chapter.
-> At this point in the tour, you only need to know how to access them.
+> As propriedades são discutidas com mais detalhes no capítulo [Classes](kotlin-tour-classes.md).
+> Neste ponto do tour, você só precisa saber como acessá-las.
 >
 {style="note"}
 
-To check that a key or value is in a map, use the [`in` operator](operator-overloading.md#in-operator):
+Para verificar se uma chave ou um valor está em um mapa, use o [operador `in`](operator-overloading.md#in-operator):
 
 ```kotlin
 fun main() {
@@ -413,18 +407,18 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-map-in"}
 
-For more information on what you can do with collections, see [Collections](collections-overview.md).
+Para mais informações sobre o que você pode fazer com coleções, veja [Coleções](collections-overview.md).
 
-Now that you know about basic types and how to manage collections, it's time to explore the [control flow](kotlin-tour-control-flow.md)
-that you can use in your programs.
+Agora que você conhece os tipos básicos e sabe gerenciar coleções, é hora de explorar o [controle de fluxo](kotlin-tour-control-flow.md)
+que você pode usar nos programas que você escrever.
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Count the total number of items in two lists" id="collections-exercise-1">
+<def title="Contar o número total de itens em duas listas" id="collections-exercise-1">
 
-You have a list of “green” numbers and a list of “red” numbers. Complete the code to print how many numbers there
-are in total.
+Você tem uma lista de números “verdes” e uma lista de números “vermelhos”. Complete o código para imprimir quantos números
+há no total.
 
 ```kotlin
 // Keep these two lists as they are. Use them in main().
@@ -446,13 +440,13 @@ fun main() {
     println(totalCount)
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-collections-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-collections-solution-1"}
 
 </def>
-<def title="Check whether a requested protocol is supported" id="collections-exercise-2">
+<def title="Verificar se um protocolo solicitado é aceito" id="collections-exercise-2">
 
-You have a set of protocols supported by your server. A user requests to use a particular protocol. Complete the program
-to check whether the requested protocol is supported or not (`isSupported` must be a Boolean value).
+Você tem um conjunto de protocolos aceitos pelo servidor. Um usuário pede para usar um protocolo específico. Complete o programa
+para verificar se o protocolo solicitado é aceito ou não (`isSupported` precisa ser um valor booleano).
 
 ```kotlin
 fun main() {
@@ -465,9 +459,8 @@ fun main() {
 {kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise2Test.kt" validate="false" id="kotlin-tour-collections-exercise-2"}
 
 <deflist collapsible="true" id="kotlin-tour-collections-exercise-2-hint">
-    <def title="Hint">
-        Make sure that you check the requested protocol in upper case. You can use the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html"><code>.uppercase()</code></a>
-function to help you with this.
+    <def title="Dica">
+        Confira o protocolo solicitado em letras maiúsculas. Você pode usar a função <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html"><code>.uppercase()</code></a> para isso.
     </def>
 </deflist>
 
@@ -479,13 +472,13 @@ fun main() {
     println("Support for $requested: $isSupported")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-collections-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-collections-solution-2"}
 
 </def>
-<def title="Spell out a number using a map" id="collections-exercise-3">
+<def title="Escrever um número por extenso usando um mapa" id="collections-exercise-3">
 
-Define a map that relates integer numbers from 1 to 3 to their corresponding spelling. Use this map to spell the given 
-number.
+Defina um mapa que relacione os números inteiros de 1 a 3 com a escrita por extenso deles. Use esse mapa para escrever por
+extenso o número dado.
 
 ```kotlin
 // Replace the empty map. Keep the variable name as number2word.
@@ -506,7 +499,7 @@ fun main() {
     println("$n is spelled as '${number2word[n]}'")
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise3Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-collections-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CollectionsExercise3Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-collections-solution-3"}
 
 </def>
 </deflist>
@@ -515,9 +508,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-basic-types.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-basic-types.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-control-flow.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-control-flow.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

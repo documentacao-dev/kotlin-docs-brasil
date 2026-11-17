@@ -3,27 +3,23 @@
 <no-index/>
 
 
-In Kotlin, it's possible to have a `null` value. Kotlin uses `null` values when something is missing or not yet set.
-You've already seen an example of Kotlin returning a `null` value in the [Collections](kotlin-tour-collections.md#kotlin-tour-map-no-key)
-chapter when you tried to access a key-value pair with a key that doesn't exist in the map. Although it's useful to use
-`null` values in this way, you might run into problems if your code isn't prepared to handle them. 
+Em Kotlin, é possível ter um valor `null`. O Kotlin usa valores `null` quando algo está ausente ou ainda não foi definido.
+Você já viu o Kotlin retornar um valor `null` no capítulo [Coleções](kotlin-tour-collections.md#kotlin-tour-map-no-key), quando tentou acessar um par chave-valor com uma chave que não existe no mapa. Embora seja útil usar valores `null` dessa forma, você pode ter problemas se seu código não estiver preparado para lidar com eles.
 
-To help prevent issues with `null` values in your programs, Kotlin has null safety in place. Null safety detects
-potential problems with `null` values at compile time, rather than at run time.
+Para ajudar a evitar problemas com valores `null` nos seus programas, o Kotlin tem null safety. A null safety detecta possíveis problemas com valores `null` em tempo de compilação, e não em tempo de execução.
 
-Null safety is a combination of features that allow you to:
+Null safety é uma combinação de recursos que permitem:
 
-* Explicitly declare when `null` values are allowed in your program.
-* Check for `null` values.
-* Use safe calls to properties or functions that may contain `null` values.
-* Declare actions to take if `null` values are detected.
+* Declarar explicitamente quando valores `null` são permitidos no seu programa.
+* Verificar a presença de valores `null`.
+* Usar chamadas seguras em propriedades ou funções que podem conter valores `null`.
+* Declarar ações a serem tomadas se valores `null` forem detectados.
 
-## Nullable types
+## Tipos nuláveis {id="nullable-types"}
 
-Kotlin supports nullable types which allows the possibility for the declared type to have `null` values. By default, a type
-is **not** allowed to accept `null` values. Nullable types are declared by explicitly adding `?` after the type declaration.
+O Kotlin oferece suporte a tipos nuláveis, que permitem que o tipo declarado tenha valores `null`. Por padrão, um tipo **não** pode aceitar valores `null`. Tipos nuláveis são declarados adicionando explicitamente `?` após a declaração do tipo.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun main() {
@@ -56,15 +52,15 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false" id="kotlin-tour-nullable-type"}
 
-> `length` is a property of the [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/) class that 
-> contains the number of characters within a string.
+> `length` é uma propriedade da classe [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/) que
+> contém o número de caracteres de uma string.
 >
 {style="tip"}
 
-## Check for null values
+## Verifique valores null {id="check-for-null-values"}
 
-You can check for the presence of `null` values within conditional expressions. In the following example, the `describeString()`
-function has an `if` statement that checks whether `maybeString` is **not** `null` and if its `length` is greater than zero:
+Você pode verificar a presença de valores `null` dentro de expressões condicionais. No exemplo a seguir, a função `describeString()`
+tem uma instrução `if` que verifica se `maybeString` **não** é `null` e se o `length` dela é maior que zero:
 
 ```kotlin
 fun describeString(maybeString: String?): String {
@@ -83,13 +79,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-check-nulls"}
 
-## Use safe calls
+## Use chamadas seguras {id="use-safe-calls"}
 
-To safely access properties of an object that might contain a `null` value, use the safe call operator `?.`. The safe call
-operator returns `null` if either the object or one of its accessed properties is `null`. This is useful if you want to avoid the presence of `null`
-values triggering errors in your code.
+Para acessar com segurança propriedades de um objeto que pode conter um valor `null`, use o operador de chamada segura `?.`. O operador de chamada segura
+retorna `null` se o objeto ou uma das propriedades acessadas for `null`. Isso é útil se você quiser evitar que a presença de valores `null`
+cause erros no seu código.
 
-In the following example, the `lengthString()` function uses a safe call to return either the length of the string or `null`:
+No exemplo a seguir, a função `lengthString()` usa uma chamada segura para retornar o comprimento da string ou `null`:
 
 ```kotlin
 fun lengthString(maybeString: String?): Int? = maybeString?.length
@@ -102,8 +98,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-safe-call-property"}
 
-> Safe calls can be chained so that if any property of an object contains a `null` value, then `null` is returned without 
-> an error being thrown. For example:
+> Chamadas seguras podem ser encadeadas, de modo que, se alguma propriedade de um objeto contiver um valor `null`, a chamada retorna `null` sem
+> lançar um erro. Por exemplo:
 > 
 > ```kotlin
 >   person.company?.address?.country
@@ -111,11 +107,11 @@ fun main() {
 >
 {style="tip"}
 
-The safe call operator can also be used to safely call an extension or member function. In this case, a null check is 
-performed before the function is called. If the check detects a `null` value, then the call is skipped and `null` is returned.
+O operador de chamada segura também pode ser usado para chamar com segurança uma extension function ou uma função membro. Nesse caso, uma verificação de null é
+realizada antes de a função ser chamada. Se a verificação detectar um valor `null`, a chamada é ignorada e `null` é retornado.
 
-In the following example, `nullString` is `null` so the invocation of [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html)
-is skipped and `null` is returned:
+No exemplo a seguir, `nullString` é `null`, então a invocação de [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html)
+é ignorada e `null` é retornado:
 
 ```kotlin
 fun main() {
@@ -126,15 +122,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-safe-call-function"}
 
-## Use Elvis operator
+## Use o operador Elvis {id="use-elvis-operator"}
 
-You can provide a default value to return if a `null` value is detected by using the **Elvis operator** `?:`.
+Você pode fornecer um valor padrão para retornar caso um valor `null` seja detectado, usando o **operador Elvis** `?:`.
 
-Write on the left-hand side of the Elvis operator what should be checked for a `null` value.
-Write on the right-hand side of the Elvis operator what should be returned if a `null` value is detected.
+Escreva à esquerda do operador Elvis o que deve ser verificado quanto a um valor `null`.
+Escreva à direita do operador Elvis o que deve ser retornado se um valor `null` for detectado.
 
-In the following example, `nullString` is `null` so the safe call to access the `length` property returns a `null` value.
-As a result, the Elvis operator returns `0`:
+No exemplo a seguir, `nullString` é `null`, então a chamada segura para acessar a propriedade `length` retorna um valor `null`.
+Como resultado, o operador Elvis retorna `0`:
 
 ```kotlin
 fun main() {
@@ -145,16 +141,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-elvis-operator"}
 
-For more information about null safety in Kotlin, see [Null safety](null-safety.md).
+Para mais informações sobre null safety em Kotlin, consulte [Null safety](null-safety.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true">
-<def title="Calculate an employee's salary" id="null-safety-basics-exercise-1">
+<def title="Calcule o salário de um funcionário" id="null-safety-basics-exercise-1">
 
-You have the `employeeById` function that gives you access to a database of employees of a company. Unfortunately, this 
-function returns a value of the `Employee?` type, so the result can be `null`. Your goal is to write a function that 
-returns the salary of an employee when their `id` is provided, or `0` if the employee is missing from the database.
+Você tem a função `employeeById`, que dá acesso a um banco de dados de funcionários de uma empresa. Infelizmente, essa função retorna um valor do tipo `Employee?`, então o resultado pode ser `null`.
+Seu objetivo é escrever uma função que retorne o salário de um funcionário quando o `id` dele for informado, ou `0` se o funcionário não estiver no banco de dados.
 
 ```kotlin
 data class Employee (val name: String, var salary: Int)
@@ -192,23 +187,25 @@ fun main() {
     println((1..5).sumOf { id -> salaryById(id) })
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/SalaryByIdTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-null-safety-solution"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/SalaryByIdTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-null-safety-solution"}
 
 </def>
 </deflist>
 
-## What's next?
+## Próximos passos {id="what-s-next"}
 
-Congratulations! Now that you have completed the beginner tour, take your understanding of Kotlin to the next level with
-our intermediate tour:
+Parabéns! Agora que você concluiu o tour para iniciantes, leve seu conhecimento de Kotlin para o próximo nível com
+nosso tour intermediário:
 
 <seealso></seealso>
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-classes.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-classes.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-extension-functions.md" mode="classic" icon="arrow-right" icon-position="right">Start intermediate Kotlin tour</a>
+    <a as="button" href="kotlin-tour-intermediate-extension-functions.md" mode="classic" icon="arrow-right" icon-position="right">Começar o tour intermediário de Kotlin</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

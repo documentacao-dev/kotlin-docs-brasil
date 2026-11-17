@@ -3,24 +3,20 @@
 <no-index/>
 
 
-In the beginner tour, you learned how to handle `null` values in your code. This chapter covers common use cases for null
-safety features and how to make the most of them.
+Na tour para iniciantes, você aprendeu a lidar com valores `null` no seu código. Este capítulo aborda casos de uso comuns dos recursos de null safety e como aproveitá-los ao máximo.
 
-## Smart casts and safe casts
+## Smart casts e safe casts {id="smart-casts-and-safe-casts"}
 
-Kotlin can sometimes infer the type without explicit declaration. When you tell Kotlin to treat a variable or object as if it belongs to a
-specific type, this process is called **casting**. When a type is automatically cast, like when it's inferred, it's called
-**smart casting**.
+O Kotlin às vezes consegue inferir o tipo sem declaração explícita. Quando você diz ao Kotlin para tratar uma variável ou objeto como se pertencesse a um tipo específico, esse processo se chama **casting**. Quando um tipo é convertido automaticamente, como quando é inferido, ele se chama **smart casting**.
 
-### is and !is operators
+### Operadores is e !is {id="is-and-is-operators"}
 
-Before we explore how casting works, let's see how you can check if an object has a certain type. For this, you can use the
-`is` and `!is` operators with `when` or `if` conditional expressions:
+Antes de explorar como o casting funciona, vamos ver como verificar se um objeto tem determinado tipo. Para isso, você pode usar os operadores `is` e `!is` com as expressões condicionais `when` ou `if`:
 
-* `is` checks if the object has the type and returns a boolean value.
-* `!is` checks if the object **doesn't** have the type and returns a boolean value.
+* `is` verifica se o objeto tem o tipo e retorna um valor booleano.
+* `!is` verifica se o objeto **não** tem o tipo e retorna um valor booleano.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun printObjectType(obj: Any) {
@@ -51,15 +47,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-casts"}
 
-> You've already seen an example of how to use a `when` conditional expression with the `is` and `!is` operators in the [Open and other special classes](kotlin-tour-intermediate-open-special-classes.md#sealed-classes) chapter.
+> Você já viu um exemplo de como usar uma expressão condicional `when` com os operadores `is` e `!is` no capítulo [Classes abertas e outras classes especiais](kotlin-tour-intermediate-open-special-classes.md#sealed-classes).
 > 
 {style="tip"}
 
-### as and as? operators
+### Operadores as e as? {id="as-and-as-operators"}
 
-To explicitly _cast_ an object to any other type, use the `as` operator. This includes casting from a nullable 
-type to its non-nullable counterpart. If the cast isn't possible, the program crashes **at runtime**. This is why it's 
-called the **unsafe** cast operator.
+Para fazer um _cast_ explícito de um objeto para qualquer outro tipo, use o operador `as`. Isso inclui converter de um tipo nulável para o equivalente não nulável. Se o cast não for possível, o programa falha **em tempo de execução**. Por isso, ele é chamado de operador de cast **inseguro**.
 
 ```kotlin
 fun main() {
@@ -74,8 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false" id="kotlin-tour-null-safety-as-operator"}
 
-To explicitly cast an object to a non-nullable type, but return `null` instead of throwing an error on failure, use the `as?`
-operator. Since the `as?` operator doesn't trigger an error on failure, it is called the **safe** operator.
+Para fazer um cast explícito para um tipo não nulável, mas retornar `null` em vez de lançar um erro se o cast falhar, use o operador `as?`. Como o operador `as?` não gera erro em caso de falha, ele é chamado de operador **seguro**.
 
 ```kotlin
 fun main() {
@@ -91,8 +84,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-safe-operator"}
 
-You can combine the `as?` operator with the Elvis operator `?:` to reduce several lines of code down to one. For example,
-the following `calculateTotalStringLength()` function calculates the total length of all strings provided in a mixed list:
+Você pode combinar o operador `as?` com o operador Elvis `?:` para reduzir várias linhas de código a uma só. Por exemplo, a função `calculateTotalStringLength()` a seguir calcula o comprimento total de todas as strings de uma lista mista:
 
 ```kotlin
 fun calculateTotalStringLength(items: List<Any>): Int {
@@ -110,16 +102,16 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 }
 ```
 
-The example:
+O exemplo:
 
-* Uses the `totalLength` variable as a counter.
-* Uses a `for` loop to loop through every item in the list.
-* Uses an `if` and the `is` operator to check if the current item is a string:
-  * If it is, the string's length is added to the counter.
-  * If it is not, the counter isn't incremented.
-* Returns the final value of the `totalLength` variable.
+* Usa a variável `totalLength` como contador.
+* Usa um laço `for` para percorrer cada item da lista.
+* Usa um `if` e o operador `is` para verificar se o item atual é uma string:
+  * Se for, o comprimento da string é somado ao contador.
+  * Se não for, o contador não é incrementado.
+* Retorna o valor final da variável `totalLength`.
 
-This code can be reduced to:
+Esse código pode ser reduzido a:
 
 ```kotlin
 fun calculateTotalStringLength(items: List<Any>): Int {
@@ -127,19 +119,17 @@ fun calculateTotalStringLength(items: List<Any>): Int {
 }
 ```
 
-The example uses the [`.sumOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sum-of.html) extension function and provides a lambda expression that:
+O exemplo usa a função de extensão [`.sumOf()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sum-of.html) e fornece uma expressão lambda que:
 
-* For each item in the list, performs a safe cast to `String` using `as?`.
-* Uses a safe call `?.` to access the `length` property if the call doesn't return a `null` value.
-* Uses the Elvis operator `?:` to return `0` if the safe call returns a `null` value.
+* Para cada item da lista, faz um cast seguro para `String` usando `as?`.
+* Usa uma chamada segura `?.` para acessar a propriedade `length` se a chamada não retornar um valor `null`.
+* Usa o operador Elvis `?:` para retornar `0` se a chamada segura retornar `null`.
 
-## Null values and collections
+## Valores null e coleções {id="null-values-and-collections"}
 
-In Kotlin, working with collections often involves handling `null` values and filtering out unnecessary elements. Kotlin
-has useful functions that you can use to write clean, efficient, and null-safe code when working with lists, sets, maps,
-and other types of collections.
+No Kotlin, trabalhar com coleções muitas vezes envolve lidar com valores `null` e filtrar elementos desnecessários. O Kotlin tem funções úteis para escrever código limpo, eficiente e seguro contra null ao trabalhar com listas, conjuntos, mapas e outros tipos de coleções.
 
-To filter `null` values from a list, use the [`filterNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter-not-null.html) function:
+Para filtrar valores `null` de uma lista, use a função [`filterNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter-not-null.html):
 
 ```kotlin
 fun main() {
@@ -155,7 +145,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-filternotnull"}
 
-If you want to perform filtering of `null` values directly when creating a list, use the [`listOfNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/list-of-not-null.html) function:
+Se você quiser filtrar valores `null` diretamente ao criar uma lista, use a função [`listOfNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/list-of-not-null.html):
 
 ```kotlin
 fun main() {
@@ -175,15 +165,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-listofnotnull"}
 
-In both of these examples, if all items are `null` values, an empty list is returned.
+Nos dois exemplos, se todos os itens forem valores `null`, uma lista vazia é retornada.
 
-Kotlin also provides functions that you can use to find values in collections. If a value isn't found, they return `null`
-values instead of triggering an error:
+O Kotlin também oferece funções para encontrar valores em coleções. Se um valor não for encontrado, elas retornam valores `null` em vez de gerar um erro:
 
-* [`maxOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-or-null.html) finds the highest value. If one doesn't exist, returns a `null` value.
-* [`minOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/min-or-null.html) finds the lowest value. If one doesn't exist, returns a `null` value.
+* [`maxOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-or-null.html) encontra o maior valor. Se ele não existir, retorna um valor `null`.
+* [`minOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/min-or-null.html) encontra o menor valor. Se ele não existir, retorna um valor `null`.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun main() {
@@ -205,16 +194,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-collections"}
 
-This example uses the Elvis operator `?:` to return a printed statement if the functions return a `null` value.
+Este exemplo usa o operador Elvis `?:` para exibir uma mensagem caso as funções retornem um valor `null`.
 
-> The `maxOrNull()`, and `minOrNull()` functions are designed to be used with collections that **don't**
-> contain `null` values. Otherwise, you can't tell whether the function couldn't find the desired value or whether it
-> found a `null` value.
+> As funções `maxOrNull()` e `minOrNull()` foram projetadas para uso com coleções que **não**
+> contêm valores `null`. Caso contrário, não é possível saber se a função não encontrou o valor desejado ou se encontrou um valor `null`.
 >
 {style="note"}
 
-You can use the [`singleOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html) function with a lambda expression to find a single item that matches a condition.
-If one doesn't exist or there are multiple items that match, the function returns a `null` value:
+Você pode usar a função [`singleOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/single-or-null.html) com uma expressão lambda para encontrar um único item que corresponda a uma condição.
+Se ele não existir ou se houver vários itens que correspondam, a função retorna um valor `null`:
 
 ```kotlin
 fun main() {
@@ -231,15 +219,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-singleornull"}
 
-> The `singleOrNull()` function is designed to be used with collections that **don't** contain `null` values.
+> A função `singleOrNull()` foi projetada para uso com coleções que **não** contêm valores `null`.
 >
 {style="note"}
 
-Some functions use a lambda expression to transform a collection and return `null` values if they can't
-fulfill their purpose.
+Algumas funções usam uma expressão lambda para transformar uma coleção e retornam valores `null` se não conseguirem cumprir seu propósito.
 
-To transform a collection with a lambda expression and return the first value that isn't `null`, use the 
-[`firstNotNullOfOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first-not-null-of-or-null.html) function. If no such value exists, the function returns a `null` value:
+Para transformar uma coleção com uma expressão lambda e retornar o primeiro valor que não seja `null`, use a função [`firstNotNullOfOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first-not-null-of-or-null.html). Se nenhum valor assim existir, a função retorna um valor `null`:
 
 ```kotlin
 fun main() {
@@ -260,8 +246,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-firstnotnullofornull"}
 
-To use a lambda expression to process each collection item sequentially and create an accumulated value (or return a 
-`null` value if the collection is empty) use the [`reduceOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/reduce-or-null.html) function:
+Para usar uma expressão lambda que processa cada item da coleção sequencialmente e cria um valor acumulado (ou retorna um valor `null` se a coleção estiver vazia), use a função [`reduceOrNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/reduce-or-null.html):
 
 ```kotlin
 fun main() {
@@ -283,21 +268,17 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-reduceornull"}
 
-This example also uses the Elvis operator `?:` to return a printed statement if the function returns a `null` value.
+Este exemplo também usa o operador Elvis `?:` para exibir uma mensagem caso a função retorne um valor `null`.
 
-> The `reduceOrNull()` function is designed to be used with collections that **don't** contain `null` values.
+> A função `reduceOrNull()` foi projetada para uso com coleções que **não** contêm valores `null`.
 >
 {style="note"}
 
-Explore Kotlin's [standard library](https://kotlinlang.org/api/core/kotlin-stdlib/) to find more functions that you can 
-use to make your code safer.
+Explore a [biblioteca padrão](https://kotlinlang.org/api/core/kotlin-stdlib/) do Kotlin para encontrar mais funções que ajudam a tornar seu código mais seguro.
 
-## Early returns and the Elvis operator
+## Retornos antecipados e o operador Elvis {id="early-returns-and-the-elvis-operator"}
 
-In the beginner tour, you learned how to use [early returns](kotlin-tour-functions.md#early-returns-in-functions) to stop
-your function from being processed further than a certain point. You can use the Elvis operator `?:` with an early return
-to check preconditions in a function. This approach is a great way to keep your code concise because you don't need to use
-nested checks. The reduced complexity of your code also makes it easier to maintain. For example:
+Na tour para iniciantes, você aprendeu a usar [retornos antecipados](kotlin-tour-functions.md#early-returns-in-functions) para interromper o processamento de uma função a partir de determinado ponto. Você pode usar o operador Elvis `?:` com um retorno antecipado para verificar pré-condições em uma função. Essa abordagem é uma ótima forma de manter o código conciso, porque você não precisa de verificações aninhadas. A complexidade reduzida também facilita a manutenção. Por exemplo:
 
 ```kotlin
 data class User(
@@ -334,23 +315,22 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-null-safety-early-return"}
 
-In this example:
+Neste exemplo:
 
-* There is a `User` data class that has properties for the user's `id`, `name` and list of friends.
-* The `getNumberOfFriends()` function:
-  * Accepts a map of `User` instances and a user ID as an integer.
-  * Accesses the value of the map of `User` instances with the provided user ID.
-  * Uses an Elvis operator to return the function early with the value of `-1` if the map value is a `null` value.
-  * Assigns the value found from the map to the `user` variable.
-  * Returns the number of friends in the user's friends list by using the `size` property.
-* The `main()` function:
-  * Creates three `User` instances. 
-  * Creates a map of these `User` instances and assigns them to the `users` variable. 
-  * Calls the `getNumberOfFriends()` function on the `users` variable with values `1` and `2` that returns two friends for `"Alice"` and one friend for `"Bob"`.
-  * Calls the `getNumberOfFriends()` function on the `users` variable with value `4`, which triggers an early return with a value of `-1`.
+* Há uma data class `User` com propriedades para o `id`, o `name` e a lista de amigos do usuário.
+* A função `getNumberOfFriends()`:
+  * Recebe um mapa de instâncias de `User` e um ID de usuário como inteiro.
+  * Acessa o valor do mapa de instâncias de `User` com o ID de usuário fornecido.
+  * Usa um operador Elvis para retornar a função antecipadamente com o valor `-1` se o valor do mapa for `null`.
+  * Atribui o valor encontrado no mapa à variável `user`.
+  * Retorna o número de amigos da lista de amigos do usuário usando a propriedade `size`.
+* A função `main()`:
+  * Cria três instâncias de `User`.
+  * Cria um mapa dessas instâncias de `User` e o atribui à variável `users`.
+  * Chama `getNumberOfFriends()` com `users` e os valores `1` e `2`, que retornam dois amigos para `"Alice"` e um amigo para `"Bob"`.
+  * Chama `getNumberOfFriends()` com `users` e o valor `4`, o que dispara um retorno antecipado com o valor `-1`.
 
-You may notice that the code could be more concise without an early return. However, this approach needs multiple safe 
-calls because the `users[userId]` might return a `null` value, making the code slightly harder to read:
+Você pode notar que o código poderia ser mais conciso sem o retorno antecipado. No entanto, essa abordagem exige várias chamadas seguras, porque `users[userId]` pode retornar `null`, o que deixa o código um pouco mais difícil de ler:
 
 ```kotlin
 fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
@@ -360,27 +340,23 @@ fun getNumberOfFriends(users: Map<Int, User>, userId: Int): Int {
 ```
 {validate="false"}
 
-Although this example checks only one condition with the Elvis operator, you can add multiple checks to cover any critical
-error paths. Early returns with the Elvis operator prevent your program from doing unnecessary work and make your code 
-safer by stopping as soon as a `null` value or invalid case is detected.
+Embora este exemplo verifique apenas uma condição com o operador Elvis, você pode adicionar várias verificações para cobrir qualquer caminho de erro crítico. Retornos antecipados com o operador Elvis evitam que o programa faça trabalho desnecessário e tornam o código mais seguro, pois param assim que um valor `null` ou um caso inválido é detectado.
 
-For more information about how you can use `return` in your code, see [Returns and jumps](returns.md).
+Para mais informações sobre como usar `return` no seu código, veja [Retornos e saltos](returns.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Validate user data with safe casts and the Elvis operator" id="null-safety-exercise-1">
+<def title="Validar dados do usuário com safe casts e o operador Elvis" id="null-safety-exercise-1">
 
-You are developing a notification system for an app where users can enable or disable different types of notifications.
-Complete the `getNotificationPreferences()` function so that:
+Você está desenvolvendo um sistema de notificações para um app em que os usuários podem ativar ou desativar diferentes tipos de notificação. Complete a função `getNotificationPreferences()` para que:
 
-1. The `validUser` variable uses the `as?` operator to check if `user` is an instance of the `User` class. If it isn't, return an empty list.
-2. The `userName` variable uses the Elvis `?:` operator to ensure that the user's name defaults to `"Guest"` if it is `null`.
-3. The final return statement uses the `.takeIf()` function to include email and SMS notification preferences only if they are enabled.
-4. The `main()` function runs successfully and prints the expected output.
+1. A variável `validUser` use o operador `as?` para verificar se `user` é uma instância da classe `User`. Se não for, retorne uma lista vazia.
+2. A variável `userName` use o operador Elvis `?:` para garantir que o nome do usuário seja `"Guest"` caso ele seja `null`.
+3. A instrução de retorno final use a função `.takeIf()` para incluir as preferências de notificação por e-mail e por SMS somente se estiverem ativadas.
+4. A função `main()` seja executada com sucesso e imprima a saída esperada.
 
-> The [`takeIf()` function](scope-functions.md#takeif-and-takeunless) returns the original value if the given condition is true,
-> otherwise it returns `null`. For example:
+> A [função `takeIf()`](scope-functions.md#takeif-and-takeunless) retorna o valor original se a condição dada for verdadeira, caso contrário retorna `null`. Por exemplo:
 >
 > ```kotlin
 > fun main() {
@@ -451,14 +427,12 @@ fun main() {
     // []
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetNotificationPreferencesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-null-safety-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetNotificationPreferencesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-null-safety-solution-1"}
 
 </def>
-<def title="Find a single active subscription with singleOrNull()" id="null-safety-exercise-2">
+<def title="Encontrar uma única assinatura ativa com singleOrNull()" id="null-safety-exercise-2">
 
-You are working on a subscription-based streaming service where users can have multiple subscriptions, but **only one 
-can be active at a time**. Complete the `getActiveSubscription()` function so that it uses the `singleOrNull()` function
-with a predicate to return a `null` value if there is more than one active subscription:
+Você está trabalhando em um serviço de streaming por assinatura, em que os usuários podem ter várias assinaturas, mas **apenas uma pode estar ativa por vez**. Complete a função `getActiveSubscription()` para que ela use a função `singleOrNull()` com um predicado e retorne um valor `null` se houver mais de uma assinatura ativa:
 
 ```kotlin
 data class Subscription(val name: String, val isActive: Boolean)
@@ -510,7 +484,7 @@ fun main() {
     // null
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveSubscriptionTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 1" id="kotlin-tour-null-safety-solution-2-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveSubscriptionTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 1" id="kotlin-tour-null-safety-solution-2-1"}
 
 ```kotlin
 data class Subscription(val name: String, val isActive: Boolean)
@@ -536,14 +510,12 @@ fun main() {
     // null
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveSubscriptionTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 2" id="kotlin-tour-null-safety-solution-2-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveSubscriptionTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 2" id="kotlin-tour-null-safety-solution-2-2"}
 
 </def>
-<def title="Filter active usernames with mapNotNull()" id="null-safety-exercise-3">
+<def title="Filtrar nomes de usuário ativos com mapNotNull()" id="null-safety-exercise-3">
 
-You are working on a social media platform where users have usernames and account statuses. You want to see the list of 
-currently active usernames. Complete the `getActiveUsernames()` function so that the [`mapNotNull()` function](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map-not-null.html)
-has a predicate that returns the username if it is active or a `null` value if it isn't:
+Você está trabalhando em uma plataforma de redes sociais em que os usuários têm nomes de usuário e status de conta. Você quer ver a lista de nomes de usuário atualmente ativos. Complete a função `getActiveUsernames()` para que a [função `mapNotNull()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map-not-null.html) tenha um predicado que retorne o nome de usuário se ele estiver ativo ou um valor `null` se não estiver:
 
 ```kotlin
 data class User(val username: String, val isActive: Boolean)
@@ -565,8 +537,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveUsernamesTest.kt" validate="false" id="kotlin-tour-null-safety-exercise-3"}
 
-> Just like in Exercise 1, you can use the [`takeIf()` function](scope-functions.md#takeif-and-takeunless) when you check
-> if the user is active.
+> Assim como no Exercício 1, você pode usar a [função `takeIf()`](scope-functions.md#takeif-and-takeunless) para verificar se o usuário está ativo.
 >
 { style = "tip" }
 
@@ -590,7 +561,7 @@ fun main() {
     // [alice123, charlie99]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveUsernamesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 1" id="kotlin-tour-null-safety-solution-3-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveUsernamesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 1" id="kotlin-tour-null-safety-solution-3-1"}
 
 ```kotlin
 data class User(val username: String, val isActive: Boolean)
@@ -609,22 +580,21 @@ fun main() {
     // [alice123, charlie99]
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveUsernamesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution 2" id="kotlin-tour-null-safety-solution-3-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetActiveUsernamesTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo 2" id="kotlin-tour-null-safety-solution-3-2"}
 
 </def>
-<def title="Validate stock with early returns and the Elvis operator" id="null-safety-exercise-4">
+<def title="Validar o estoque com retornos antecipados e o operador Elvis" id="null-safety-exercise-4">
 
-You are working on an inventory management system for an e-commerce platform. Before processing a sale, you need to check
-if the requested quantity of a product is valid based on the available stock.
+Você está trabalhando em um sistema de gestão de estoque para uma plataforma de e-commerce. Antes de processar uma venda, precisa verificar se a quantidade solicitada de um produto é válida com base no estoque disponível.
 
-Complete the `validateStock()` function so that it uses early returns and the Elvis operator (where applicable) to check if:
+Complete a função `validateStock()` para que ela use retornos antecipados e o operador Elvis (quando aplicável) para verificar se:
 
-* The `requested` variable is `null`.
-* The `available` variable is `null`.
-* The `requested` variable is a negative value.
-* The amount in the `requested` variable is higher than in the `available` variable.
+* A variável `requested` é `null`.
+* A variável `available` é `null`.
+* A variável `requested` é um valor negativo.
+* A quantidade na variável `requested` é maior que a quantidade na variável `available`.
 
-In all of the above cases, the function must return early with the value of `-1`.
+Em todos os casos acima, a função deve retornar antecipadamente com o valor `-1`.
 
 ```kotlin
 fun validateStock(requested: Int?, available: Int?): Int {
@@ -662,7 +632,7 @@ fun main() {
     // -1
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ValidateStockTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-null-safety-solution-4"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/ValidateStockTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-null-safety-solution-4"}
 
 </def>
 </deflist>
@@ -671,9 +641,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-properties.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-properties.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-libraries-and-apis.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-libraries-and-apis.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

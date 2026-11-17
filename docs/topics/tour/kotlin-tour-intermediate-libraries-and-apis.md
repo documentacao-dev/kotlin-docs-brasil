@@ -1,24 +1,19 @@
-[//]: # (title: Libraries and APIs)
+[//]: # (title: Bibliotecas e APIs)
 
 <no-index/>
 
 
-To get the most out of Kotlin, use existing libraries and APIs so you can spend more time coding and less time 
-reinventing the wheel.
+Para aproveitar ao máximo o Kotlin, use bibliotecas e APIs existentes para que você passe mais tempo programando e menos tempo reinventando a roda.
 
-Libraries distribute reusable code that simplifies common tasks. Within libraries, there are packages and objects that
-group related classes, functions, and utilities. Libraries expose APIs (Application Programming Interfaces) as a set of 
-functions, classes, or properties that developers can use in their code.
+As bibliotecas distribuem código reutilizável que simplifica tarefas comuns. Dentro das bibliotecas, há pacotes e objetos que agrupam classes, funções e utilitários relacionados. As bibliotecas expõem APIs (Application Programming Interfaces) como um conjunto de funções, classes ou propriedades que os desenvolvedores podem usar no código deles.
 
-![Kotlin libraries and APIs](kotlin-library-diagram.svg){width=600}
+![Bibliotecas e APIs do Kotlin](kotlin-library-diagram.svg){width=600}
 
-Let's explore what's possible with Kotlin.
+Vamos explorar o que é possível com o Kotlin.
 
-## The standard library
+## A biblioteca padrão {id="the-standard-library"}
 
-Kotlin has a standard library that provides essential types, functions, collections, and utilities to make your code 
-concise and expressive. A large portion of the standard library (everything in the [`kotlin` package](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)) is readily available
-in any Kotlin file without the need to import it explicitly:
+O Kotlin tem uma biblioteca padrão que fornece tipos, funções, coleções e utilitários essenciais para tornar seu código conciso e expressivo. Grande parte da biblioteca padrão (tudo que está no [pacote `kotlin`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/)) está disponível em qualquer arquivo Kotlin sem a necessidade de importação explícita:
 
 ```kotlin
 fun main() {
@@ -34,19 +29,19 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-stdlib"}
 
-However, some parts of the standard library require an import before you can use them in your code. 
-For example, if you want to use the standard library's time measurement features, you need to import the [`kotlin.time` package](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/).
+No entanto, algumas partes da biblioteca padrão exigem uma importação antes de você poder usá-las no seu código.
+Por exemplo, se você quiser usar os recursos de medição de tempo da biblioteca padrão, precisa importar o [pacote `kotlin.time`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/).
 
-At the top of your file, add the `import` keyword followed by the package that you need:
+No início do seu arquivo, adicione a palavra-chave `import` seguida do pacote de que você precisa:
 
 ```kotlin
 import kotlin.time.*
 ```
 
-The asterisk `*` is a wildcard import that tells Kotlin to import everything within the package. You can't use the 
-asterisk `*` with companion objects. Instead, you need to explicitly declare the members of a companion object that you want to use.
+O asterisco `*` é uma importação curinga que diz ao Kotlin para importar tudo dentro do pacote. Você não pode usar o asterisco `*` com companion objects.
+Em vez disso, você precisa declarar explicitamente os membros de um companion object que quer usar.
 
-For example:
+Por exemplo:
 
 ```kotlin
 import kotlin.time.Duration
@@ -62,37 +57,32 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-time"}
 
-This example:
+Este exemplo:
 
-* Imports the `Duration` class and the `hours` and `minutes` extension properties from its companion object.
-* Uses the `minutes` property to convert `30` into a `Duration` of 30 minutes.
-* Uses the `hours` property to convert `0.5` into a `Duration` of 30 minutes.
-* Checks if both durations are equal and prints the result.
+* Importa a classe `Duration` e as propriedades de extensão `hours` e `minutes` do seu companion object.
+* Usa a propriedade `minutes` para converter `30` em uma `Duration` de 30 minutos.
+* Usa a propriedade `hours` para converter `0.5` em uma `Duration` de 30 minutos.
+* Verifica se as duas durações são iguais e imprime o resultado.
 
-### Search before you build
+### Pesquise antes de criar {id="search-before-you-build"}
 
-Before you decide to write your own code, check the standard library to see if what you're looking for already exists. 
-Here's a list of areas where the standard library already provides a number of classes, functions, and properties for you:
+Antes de decidir escrever seu próprio código, verifique se o que você procura já existe na biblioteca padrão.
+Veja a seguir uma lista de áreas em que a biblioteca padrão já oferece várias classes, funções e propriedades para você:
 
-* [Collections](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/)
-* [Sequences](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/)
-* [String manipulation](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/)
-* [Time management](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/)
+* [Coleções](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/)
+* [Sequências](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/)
+* [Manipulação de strings](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/)
+* [Gerenciamento de tempo](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/)
 
-To learn more about what else is in the standard library, explore its [API reference](https://kotlinlang.org/api/core/kotlin-stdlib/).
+Para saber mais sobre o que mais há na biblioteca padrão, explore a [referência da API](https://kotlinlang.org/api/core/kotlin-stdlib/).
 
-## Kotlin libraries
+## Bibliotecas do Kotlin {id="kotlin-libraries"}
 
-The standard library covers many common use cases, but there are some that it doesn't address. Fortunately, the Kotlin
-team and the rest of the community have developed a wide range of libraries to complement the standard library. For example,
-[`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) helps you manage time across different platforms.
+A biblioteca padrão cobre muitos casos de uso comuns, mas há alguns que ela não aborda. Felizmente, a equipe do Kotlin e o restante da comunidade desenvolveram uma ampla variedade de bibliotecas para complementar a biblioteca padrão. Por exemplo, a [`kotlinx-datetime`](https://kotlinlang.org/api/kotlinx-datetime/) ajuda você a gerenciar o tempo em diferentes plataformas.
 
-You can find useful libraries on our [search platform](https://klibs.io/). To use them, you need to take extra steps,
-like adding a dependency or plugin. Each library has a GitHub repository with instructions on how to include
-it in your Kotlin projects.
+Você pode encontrar bibliotecas úteis na nossa [plataforma de busca](https://klibs.io/). Para usá-las, você precisa seguir passos extras, como adicionar uma dependência ou plugin. Cada biblioteca tem um repositório no GitHub com instruções sobre como incluí-la nos seus projetos Kotlin.
 
-Once you add the library, you can import any package within it. Here's an example of how to import the `kotlinx-datetime`
-package to find the current time in New York: 
+Depois de adicionar a biblioteca, você pode importar qualquer pacote dela. Veja um exemplo de como importar o pacote `kotlinx-datetime` para descobrir a hora atual em Nova York:
 
 ```kotlin
 import kotlinx.datetime.*
@@ -108,46 +98,46 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-datetime"}
 
-This example:
+Este exemplo:
 
-* Imports the `kotlinx.datetime` package.
-* Uses the `Clock.System.now()` function to create an instance of the `Instant` class that contains the current time and assigns the result to the `now` variable.
-* Prints the current time.
-* Uses the `TimeZone.of()` function to find the time zone for New York and assigns the result to the `zone` variable.
-* Calls the `.toLocalDateTime()` function on the instance containing the current time, with the New York time zone as an argument.
-* Assigns the result to the `localDateTime` variable.
-* Prints the time adjusted for the time zone in New York.
+* Importa o pacote `kotlinx.datetime`.
+* Usa a função `Clock.System.now()` para criar uma instância da classe `Instant`, que contém a hora atual, e atribui o resultado à variável `now`.
+* Imprime a hora atual.
+* Usa a função `TimeZone.of()` para encontrar o fuso horário de Nova York e atribui o resultado à variável `zone`.
+* Chama a função `.toLocalDateTime()` na instância que contém a hora atual, com o fuso horário de Nova York como argumento.
+* Atribui o resultado à variável `localDateTime`.
+* Imprime a hora ajustada para o fuso horário de Nova York.
 
-> To explore the functions and classes that this example uses in more detail, see the [API reference](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/).
+> Para explorar em mais detalhes as funções e classes usadas neste exemplo, consulte a [referência da API](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/).
 >
 {style="tip"}
 
-## Opt in to APIs
+## Faça opt-in em APIs {id="opt-in-to-apis"}
 
-Library authors may mark certain APIs as requiring opt-in before you can use them in your code. They usually do this when
-an API is still in development and may change in the future. If you don't opt in, you see warnings or errors like this:
+Autores de bibliotecas podem marcar certas APIs como exigindo opt-in antes que você possa usá-las no seu código. Normalmente, eles fazem isso quando uma
+API ainda está em desenvolvimento e pode mudar no futuro. Se você não fizer opt-in, verá avisos ou erros como este:
 
 ```text
 This declaration needs opt-in. Its usage should be marked with '@...' or '@OptIn(...)'
 ```
 
-To opt in, write `@OptIn` followed by parentheses containing the class name that categorizes the API, appended by two colons `::` and `class`.
+Para fazer opt-in, escreva `@OptIn` seguido de parênteses contendo o nome da classe que categoriza a API, acrescido de dois-pontos duplos `::` e `class`.
 
-For example, the `uintArrayOf()` function from the standard library falls under `@ExperimentalUnsignedTypes`, as shown
-[in the API reference](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-u-int-array.html):
+Por exemplo, a função `uintArrayOf()` da biblioteca padrão pertence a `@ExperimentalUnsignedTypes`, como mostrado
+[na referência da API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/to-u-int-array.html):
 
 ```kotlin
 @ExperimentalUnsignedTypes
 inline fun uintArrayOf(vararg elements: UInt): UIntArray
 ```
 
-In your code, the opt-in looks like:
+No código, o opt-in fica assim:
 
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
 ```
 
-Here's an example that opts in to use the `uintArrayOf()` function to create an array of unsigned integers and modifies one of its elements:
+Aqui está um exemplo que faz opt-in para usar a função `uintArrayOf()` a fim de criar um array de inteiros sem sinal e modificar um dos seus elementos:
 
 ```kotlin
 @OptIn(ExperimentalUnsignedTypes::class)
@@ -163,30 +153,30 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-libraries-apis"}
 
-This is the easiest way to opt in, but there are other ways. To learn more, see [Opt-in requirements](opt-in-requirements.md).
+Esta é a forma mais fácil de fazer opt-in, mas existem outras. Para saber mais, consulte [Requisitos de opt-in](opt-in-requirements.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Calculate compound interest" id="libraries-exercise-1">
+<def title="Calcule os juros compostos" id="libraries-exercise-1">
 
-You are developing a financial application that helps users calculate the future value of their investments. The formula
-to calculate compound interest is:
+Você está desenvolvendo um app financeiro que ajuda os usuários a calcular o valor futuro de seus investimentos. A fórmula
+para calcular juros compostos é:
 
 <math>A = P \times (1 + \displaystyle\frac{r}{n})^{nt}</math>
 
-Where:
+Onde:
 
-* `A` is the amount of money accumulated after interest (principal + interest).
-* `P` is the principal amount (the initial investment).
-* `r` is the annual interest rate (decimal).
-* `n` is the number of times interest is compounded per year.
-* `t` is the time the money is invested for (in years).
+* `A` é o montante acumulado após os juros (principal + juros).
+* `P` é o valor principal (o investimento inicial).
+* `r` é a taxa de juros anual (decimal).
+* `n` é o número de vezes que os juros são capitalizados por ano.
+* `t` é o tempo, em anos, pelo qual o dinheiro é investido.
 
-Update the code to:
+Atualize o código para:
 
-1. Import the necessary functions from the [`kotlin.math` package](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.math/).
-2. Add a body to the `calculateCompoundInterest()` function that calculates the final amount after applying compound interest.
+1. Importar as funções necessárias do [pacote `kotlin.math`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.math/).
+2. Adicionar um corpo à função `calculateCompoundInterest()` que calcula o montante final após aplicar os juros compostos.
 
 ```kotlin
 // Write your code here
@@ -224,13 +214,13 @@ fun main() {
     // The accumulated amount is: 1282.0372317085844
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/CalculateCompoundInterestTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-libraries-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/CalculateCompoundInterestTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-libraries-solution-1"}
 
 </def>
-<def title="Measure the time taken by data processing" id="libraries-exercise-2">
+<def title="Meça o tempo gasto no processamento de dados" id="libraries-exercise-2">
 
-You want to measure the time it takes to perform multiple data processing tasks in your program. Update the code
-to add the correct import statements and functions from the [`kotlin.time`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/) package:
+Você quer medir o tempo que leva para executar várias tarefas de processamento de dados no seu programa. Atualize o código
+para adicionar as instruções de importação corretas e as funções do pacote [`kotlin.time`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.time/):
 
 ```kotlin
 // Write your code here
@@ -268,40 +258,40 @@ fun main() {
     println("Time taken: $timeTaken") // e.g. 16 ms
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/MeasureTimeTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-libraries-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/MeasureTimeTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-libraries-solution-2"}
 
 </def>
-<def title="Opt in to an experimental API" id="libraries-exercise-3">
+<def title="Faça opt-in em uma API experimental" id="libraries-exercise-3">
 
-There's a new feature in the standard library available in the latest Kotlin release. You want to try it out, but it 
-requires opt-in. The feature falls under [`@ExperimentalStdlibApi`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-experimental-stdlib-api/).
-What should the opt-in look like in your code?
+Há um novo recurso na biblioteca padrão disponível na versão mais recente do Kotlin. Você quer testá-lo, mas ele exige opt-in.
+O recurso pertence a [`@ExperimentalStdlibApi`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-experimental-stdlib-api/).
+Como deve ser o opt-in no seu código?
 
 ```kotlin
 @OptIn(ExperimentalStdlibApi::class)
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-libraries-solution-3"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-libraries-solution-3"}
 
 </def>
 </deflist>
 
-## What's next?
+## Próximos passos {id="what-s-next"}
 
-Congratulations! You've completed the intermediate tour! Would you like to [share your feedback](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592) about your experience? 
+Parabéns! Você concluiu o tour intermediário! Gostaria de [compartilhar seu feedback](https://surveys.hotjar.com/bf4ce865-99ce-4fc1-b107-e9b16bc31592) sobre sua experiência?
 
-As a next step, check out our tutorials for popular Kotlin applications:
+Como próximo passo, confira nossos tutoriais de apps populares em Kotlin:
 
 <p></p> <!-- workaround for MRK057: Paragraph can only contain inline elements -->
 <panels columns="2" id="kotlin-tour-whats-next">
     <panel>
-        <title>Kotlin for backend</title>
-        <p>Create a backend application with Spring Boot and Kotlin.</p>
-        <a href="jvm-create-project-with-spring-boot.md" as="button" icon="arrow-right" icon-position="right" id="kotlin-tour-backend-tutorial">Start</a>
+        <title>Kotlin para backend</title>
+        <p>Crie um app de backend com Spring Boot e Kotlin.</p>
+        <a href="jvm-create-project-with-spring-boot.md" as="button" icon="arrow-right" icon-position="right" id="kotlin-tour-backend-tutorial">Começar</a>
     </panel>
     <panel>
         <title>Kotlin Multiplatform</title>
-        <p>Create a cross-platform application from scratch and share business logic and UI.</p>
-        <a href="https://kotlinlang.org/docs/multiplatform/compose-multiplatform-new-project.html" as="button" icon="arrow-right" icon-position="right" id="kotlin-tour-cmp-tutorial">Start</a>
+        <p>Crie um app multiplataforma do zero e compartilhe a lógica de negócio e a UI.</p>
+        <a href="https://kotlinlang.org/docs/multiplatform/compose-multiplatform-new-project.html" as="button" icon="arrow-right" icon-position="right" id="kotlin-tour-cmp-tutorial">Começar</a>
     </panel>
 </panels>
 
@@ -309,6 +299,8 @@ As a next step, check out our tutorials for popular Kotlin applications:
 
 <list id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-null-safety.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-null-safety.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

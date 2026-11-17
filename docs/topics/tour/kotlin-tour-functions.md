@@ -1,9 +1,9 @@
-[//]: # (title: Functions)
+[//]: # (title: Funções)
 
 <no-index/>
 
 
-You can declare your own functions in Kotlin using the `fun` keyword.
+Você pode declarar suas próprias funções em Kotlin usando a palavra-chave `fun`.
 
 ```kotlin
 fun hello() {
@@ -17,25 +17,25 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-function-demo"}
 
-In Kotlin:
+Em Kotlin:
 
-* Function parameters are written within parentheses `()`.
-* Each parameter must have a type, and multiple parameters must be separated by commas `,`.
-* The return type is written after the function's parentheses `()`, separated by a colon `:`.
-* The body of a function is written within curly braces `{}`.
-* The `return` keyword is used to exit or return something from a function.
+* Os parâmetros da função são escritos entre parênteses `()`.
+* Cada parâmetro precisa ter um tipo, e vários parâmetros devem ser separados por vírgulas `,`.
+* O tipo de retorno é escrito depois dos parênteses `()` da função, separado por dois-pontos `:`.
+* O corpo de uma função é escrito entre chaves `{}`.
+* A palavra-chave `return` é usada para sair da função e retornar algum valor.
 
-> If a function doesn't return anything useful, the return type and `return` keyword can be omitted. Learn more about
-> this in [Functions without return](#functions-without-return).
+> Se uma função não retorna nada útil, o tipo de retorno e a palavra-chave `return` podem ser omitidos. Saiba mais sobre
+> isso em [Funções sem retorno](#functions-without-return).
 >
 {style="note"}
 
-In the following example:
+No exemplo a seguir:
 
-* `x` and `y` are function parameters.
-* `x` and `y` have type `Int`.
-* The function's return type is `Int`.
-* The function returns a sum of `x` and `y` when called.
+* `x` e `y` são parâmetros da função.
+* `x` e `y` têm o tipo `Int`.
+* O tipo de retorno da função é `Int`.
+* A função retorna a soma de `x` e `y` quando é chamada.
 
 ```kotlin
 fun sum(x: Int, y: Int): Int {
@@ -49,20 +49,20 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-simple-function"}
 
-> We recommend in our [coding conventions](coding-conventions.md#function-names) that you name functions starting with 
-> a lowercase letter and use camel case with no underscores.
-> 
+> Nas nossas [convenções de código](coding-conventions.md#function-names), recomendamos nomear funções começando com
+> letra minúscula e usar camel case, sem underscores.
+>
 {style="note"}
 
-## Named arguments
+## Argumentos nomeados {id="named-arguments"}
 
-For concise code, when calling your function, you don't have to include parameter names. However, including parameter names
-does make your code easier to read. This is called using **named arguments**. If you do include parameter names, then 
-you can write the parameters in any order.
+Para deixar o código mais conciso, ao chamar a função você não precisa incluir os nomes dos parâmetros. No entanto, incluí-los
+deixa o código mais fácil de ler. Isso se chama usar **argumentos nomeados**. Se você incluir os nomes dos parâmetros, poderá
+escrevê-los em qualquer ordem.
 
-> In the following example, [string templates](strings.md#string-templates) (`$`) are used to access
-> the parameter values, convert them to `String` type, and then concatenate them into a string for printing.
-> 
+> No exemplo a seguir, [templates de string](strings.md#string-templates) (`$`) são usados para acessar
+> os valores dos parâmetros, convertê-los para o tipo `String` e concatená-los em uma string para impressão.
+>
 {style="tip"}
 
 ```kotlin
@@ -78,10 +78,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-named-arguments-function"}
 
-## Default parameter values
+## Valores padrão de parâmetros {id="default-parameter-values"}
 
-You can define default values for your function parameters. Any parameter with a default value can be omitted when
-calling your function. To declare a default value, use the assignment operator `=` after the type:
+Você pode definir valores padrão para os parâmetros da função. Qualquer parâmetro com valor padrão pode ser omitido ao
+chamar a função. Para declarar um valor padrão, use o operador de atribuição `=` depois do tipo:
 
 ```kotlin
 fun printMessageWithPrefix(message: String, prefix: String = "Info") {
@@ -103,16 +103,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-default-param-function"}
 
-> You can skip specific parameters with default values, rather than omitting them all. However, after the 
-> first skipped parameter, you must name all subsequent parameters.
+> Você pode pular parâmetros específicos que têm valores padrão, em vez de omitir todos. No entanto, depois do
+> primeiro parâmetro pulado, você deve nomear todos os parâmetros seguintes.
 >
 {style="note"}
 
-## Functions without return
+## Funções sem retorno {id="functions-without-return"}
 
-If your function doesn't return a useful value, then its return type is `Unit`. `Unit` is a type with only one value – 
-`Unit`. You don't have to declare that `Unit` is returned explicitly in your function body. This means that you don't 
-have to use the `return` keyword or declare a return type:
+Se a função não retorna um valor útil, então o tipo de retorno dela é `Unit`. `Unit` é um tipo com apenas um valor,
+`Unit`. Você não precisa declarar explicitamente que `Unit` é retornado no corpo da função. Isso significa que você não
+precisa usar a palavra-chave `return` nem declarar um tipo de retorno:
 
 ```kotlin
 fun printMessage(message: String) {
@@ -127,9 +127,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-unit-function"}
 
-## Single-expression functions
+## Funções de expressão única {id="single-expression-functions"}
 
-To make your code more concise, you can use single-expression functions. For example, the `sum()` function can be shortened:
+Para deixar o código mais conciso, você pode usar funções de expressão única. Por exemplo, a função `sum()` pode ser encurtada:
 
 ```kotlin
 fun sum(x: Int, y: Int): Int {
@@ -143,8 +143,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-simple-function-before"}
 
-You can remove the curly braces `{}` and declare the function body using the assignment operator `=`. When you use the 
-assignment operator `=`, Kotlin uses type inference, so you can also omit the return type. The `sum()` function then becomes one line:
+Você pode remover as chaves `{}` e declarar o corpo da função usando o operador de atribuição `=`. Quando você usa o operador de atribuição `=`, o Kotlin usa inferência de tipo, então você também pode omitir o tipo de retorno. Assim, a função `sum()` vira uma única linha:
 
 ```kotlin
 fun sum(x: Int, y: Int) = x + y
@@ -156,17 +155,17 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-simple-function-after"}
 
-However, if you want your code to be quickly understood by other developers, it's a good idea to explicitly define the 
-return type even when using the assignment operator `=`.
+No entanto, se você quer que outros desenvolvedores entendam o código rapidamente, é uma boa ideia definir explicitamente
+o tipo de retorno, mesmo ao usar o operador de atribuição `=`.
 
-> If you use `{}` curly braces to declare your function body, you must declare the return type unless it is the `Unit` type.
-> 
+> Se você usa chaves `{}` para declarar o corpo da função, precisa declarar o tipo de retorno, a menos que seja o tipo `Unit`.
+>
 {style="note"}
 
-## Early returns in functions
+## Retornos antecipados em funções {id="early-returns-in-functions"}
 
-To stop the code in your function from being processed further than a certain point, use the `return` keyword. This example
-uses `if` to return from a function early if the conditional expression is found to be true:
+Para interromper o processamento do código da função a partir de determinado ponto, use a palavra-chave `return`. Este exemplo
+usa `if` para retornar da função antecipadamente quando a expressão condicional for verdadeira:
 
 ```kotlin
 // A list of registered usernames
@@ -202,22 +201,22 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-function-early-return"}
 
-## Practice: Functions
+## Prática: funções {id="practice-functions"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Calculate the area of a circle" id="functions-exercise-1">
+<def title="Calcule a área de um círculo" id="functions-exercise-1">
 
-Write a function called `circleArea` that takes the radius of a circle in integer format as a parameter and outputs the
-area of that circle.
+Escreva uma função chamada `circleArea` que recebe o raio de um círculo no formato inteiro como parâmetro e imprime a
+área desse círculo.
 
-> In this exercise, you import a package so that you can access the value of <math>π</math> via `PI`. For more information about
-> importing packages, see [Packages and imports](packages.md).
+> Neste exercício, você importa um pacote para acessar o valor de <math>π</math> por meio de `PI`. Para mais informações sobre
+> importação de pacotes, veja [Pacotes e importações](packages.md).
 >
 {style="tip"}
 
 <deflist collapsible="true" id="kotlin-tour-functions-exercise-1-hint">
-    <def title="Hint">
-        The formula for calculating the area of a circle is <math>πr^2</math>, where <math>r</math> is the radius.
+    <def title="Dica">
+        A fórmula para calcular a área de um círculo é <math>πr^2</math>, em que <math>r</math> é o raio.
     </def>
 </deflist>
 
@@ -243,12 +242,12 @@ fun main() {
     println(circleArea(2)) // 12.566370614359172
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CircleAreaTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CircleAreaTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-functions-solution-1"}
 
 </def>
-<def title="Rewrite a function as a single expression" id="functions-exercise-2">
+<def title="Reescreva uma função como expressão única" id="functions-exercise-2">
 
-Rewrite the `circleArea` function from the previous exercise as a single-expression function.
+Reescreva a função `circleArea` do exercício anterior como uma função de expressão única.
 
 ```kotlin
 import kotlin.math.PI
@@ -272,14 +271,14 @@ fun main() {
     println(circleArea(2)) // 12.566370614359172
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CircleAreaTest.kt" folded-button="false" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/CircleAreaTest.kt" folded-button="false" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-functions-solution-2"}
 
 </def>
-<def title="Refactor a function using default parameters and named arguments" id="functions-exercise-3">
+<def title="Refatore uma função usando parâmetros padrão e argumentos nomeados" id="functions-exercise-3">
 
-You have a function that translates a time interval given in hours, minutes, and seconds into seconds. In most cases,
-you need to pass only one or two function parameters while the rest are equal to 0. Improve the function and the code that
-calls it by using default parameter values and named arguments so that the code is easier to read.
+Você tem uma função que converte um intervalo de tempo dado em horas, minutos e segundos para segundos. Na maioria dos casos,
+você precisa passar apenas um ou dois parâmetros da função, enquanto os demais são iguais a 0. Melhore a função e o código que
+a chama, usando valores padrão de parâmetros e argumentos nomeados para que o código seja mais fácil de ler.
 
 ```kotlin
 // Refactor this function: give hours, minutes, and seconds default values of 0
@@ -309,16 +308,16 @@ fun main() {
     println(intervalInSeconds(hours = 1, seconds = 1))
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/IntervalInSecondsTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-functions-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/IntervalInSecondsTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-functions-solution-3"}
 
 </def>
 </deflist>
 
-## Lambda expressions
+## Expressões lambda {id="lambda-expressions"}
 
-Kotlin allows you to write even more concise code for functions by using lambda expressions.
+Kotlin permite escrever um código ainda mais conciso para funções usando expressões lambda.
 
-For example, the following `uppercaseString()` function:
+Por exemplo, a seguinte função `uppercaseString()`:
 
 ```kotlin
 fun uppercaseString(text: String): String {
@@ -331,7 +330,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-function-before"}
 
-Can also be written as a lambda expression:
+Também pode ser escrita como uma expressão lambda:
 
 ```kotlin
 fun main() {
@@ -342,41 +341,41 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-variable"}
 
-Lambda expressions can be hard to understand at first glance, so let's break it down. Lambda expressions are written 
-within curly braces `{}`.
+Expressões lambda podem ser difíceis de entender à primeira vista, então vamos detalhá-las. Expressões lambda são escritas
+entre chaves `{}`.
 
-Within the lambda expression, you write:
+Dentro da expressão lambda, você escreve:
 
-* The parameters followed by an `->`.
-* The function body after the `->`.
+* Os parâmetros seguidos de `->`.
+* O corpo da função depois do `->`.
 
-In the previous example:
+No exemplo anterior:
 
-* `text` is a function parameter.
-* `text` has type `String`.
-* The function returns the result of the [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html)
-function called on `text`.
-* The entire lambda expression is assigned to the `upperCaseString` variable with the assignment operator `=`.
-* The lambda expression is called by using the variable `upperCaseString` like a function and the string `"hello"` as a parameter.
-* The `println()` function prints the result.
+* `text` é um parâmetro da função.
+* `text` tem o tipo `String`.
+* A função retorna o resultado da função [`.uppercase()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/uppercase.html)
+chamada em `text`.
+* A expressão lambda inteira é atribuída à variável `upperCaseString` com o operador de atribuição `=`.
+* A expressão lambda é chamada usando a variável `upperCaseString` como uma função e a string `"hello"` como parâmetro.
+* A função `println()` imprime o resultado.
 
-> If you declare a lambda without parameters, then there is no need to use `->`. For example:
+> Se você declarar uma lambda sem parâmetros, não é preciso usar `->`. Por exemplo:
 > ```kotlin
 > { println("Log message") }
 > ```
 >
 {style="note"}
 
-Lambda expressions can be used in a number of ways. You can:
+Expressões lambda podem ser usadas de várias maneiras. Você pode:
 
-* [Pass a lambda expression as a parameter to another function](#pass-to-another-function)
-* [Return a lambda expression from a function](#return-from-a-function)
-* [Invoke a lambda expression on its own](#invoke-separately)
+* [Passar uma expressão lambda como parâmetro para outra função](#pass-to-another-function)
+* [Retornar uma expressão lambda de uma função](#return-from-a-function)
+* [Invocar uma expressão lambda isoladamente](#invoke-separately)
 
-### Pass to another function
+### Passar para outra função {id="pass-to-another-function"}
 
-A great example of when it is useful to pass a lambda expression to a function, is using the [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)
-function on collections:
+Um ótimo exemplo de quando é útil passar uma expressão lambda para uma função é usar a função [`.filter()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)
+em coleções:
 
 ```kotlin
 fun main() {
@@ -397,31 +396,31 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-filter"}
 
-The `.filter()` function accepts a lambda expression as a predicate and applies it to each element of the list. The function keeps an element only if the predicate returns `true`:
+A função `.filter()` aceita uma expressão lambda como predicado e a aplica a cada elemento da lista. A função mantém um elemento somente se o predicado retornar `true`:
 
-* `{ x -> x > 0 }` returns `true` if the element is positive.
-* `{ x -> x < 0 }` returns `true` if the element is negative.
+* `{ x -> x > 0 }` retorna `true` se o elemento for positivo.
+* `{ x -> x < 0 }` retorna `true` se o elemento for negativo.
 
-This example demonstrates two ways of passing a lambda expression to a function:
+Este exemplo demonstra duas maneiras de passar uma expressão lambda para uma função:
 
-* For positive numbers, the example adds the lambda expression directly in the `.filter()` function.
-* For negative numbers, the example assigns the lambda expression to the `isNegative` variable. Then
-the `isNegative` variable is used as a function parameter in the `.filter()` function. In this case, you have to specify
-the type of function parameters (`x`) in the lambda expression.
+* Para números positivos, o exemplo adiciona a expressão lambda diretamente na função `.filter()`.
+* Para números negativos, o exemplo atribui a expressão lambda à variável `isNegative`. Depois, a
+variável `isNegative` é usada como parâmetro da função `.filter()`. Nesse caso, você precisa especificar
+o tipo dos parâmetros da função (`x`) na expressão lambda.
 
-> If a lambda expression is the only function parameter, you can drop the function parentheses `()`:
-> 
+> Se uma expressão lambda for o único parâmetro da função, você pode omitir os parênteses `()` da função:
+>
 > ```kotlin
 > val positives = numbers.filter { x -> x > 0 }
 > ```
-> 
-> This is an example of a [trailing lambda](#trailing-lambdas), which is discussed in more detail at the end of this
-> chapter.
+>
+> Este é um exemplo de [lambda final](#trailing-lambdas), que veremos com mais detalhes no fim deste
+> capítulo.
 >
 {style="note"}
 
-Another good example is using the [`.map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html) 
-function to transform items in a collection:
+Outro bom exemplo é usar a função [`.map()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map.html)
+para transformar itens de uma coleção:
 
 ```kotlin
 fun main() {
@@ -441,29 +440,28 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-map"}
 
-The `.map()` function accepts a lambda expression as a transform function:
+A função `.map()` aceita uma expressão lambda como função de transformação:
 
-* `{ x -> x * 2 }` takes each element of the list and returns that element multiplied by 2.
-* `{ x -> x * 3 }` takes each element of the list and returns that element multiplied by 3.
+* `{ x -> x * 2 }` pega cada elemento da lista e retorna esse elemento multiplicado por 2.
+* `{ x -> x * 3 }` pega cada elemento da lista e retorna esse elemento multiplicado por 3.
 
-### Function types
+### Tipos de função {id="function-types"}
 
-Before you can return a lambda expression from a function, you first need to understand **function
-types**.
+Antes de retornar uma expressão lambda de uma função, primeiro você precisa entender os **tipos de função**.
 
-You have already learned about basic types but functions themselves also have a type. Kotlin's type inference 
-can infer a function's type from the parameter type. But there may be times when you need to explicitly
-specify the function type. The compiler needs the function type so that it knows what is and isn't 
-allowed for that function.
+Você já aprendeu sobre tipos básicos, mas as próprias funções também têm um tipo. A inferência de tipo do Kotlin
+consegue inferir o tipo de uma função a partir do tipo do parâmetro. Mas pode haver momentos em que você precise
+especificar explicitamente o tipo da função. O compilador precisa do tipo da função para saber o que é e o que não é
+permitido para essa função.
 
-The syntax for a function type has:
+A sintaxe de um tipo de função é composta por:
 
-* Each parameter's type written within parentheses `()` and separated by commas `,`.
-* The return type written after `->`.
+* O tipo de cada parâmetro escrito entre parênteses `()` e separado por vírgulas `,`.
+* O tipo de retorno escrito depois de `->`.
 
-For example: `(String) -> String` or `(Int, Int) -> Int`.
+Por exemplo: `(String) -> String` ou `(Int, Int) -> Int`.
 
-This is what a lambda expression looks like if a function type for `upperCaseString()` is defined:
+É assim que fica uma expressão lambda quando um tipo de função é definido para `upperCaseString()`:
 
 ```kotlin
 val upperCaseString: (String) -> String = { text -> text.uppercase() }
@@ -475,26 +473,26 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-function-type"}
 
-If your lambda expression has no parameters, then the parentheses `()` are left empty. For example: `() -> Unit`
+Se a expressão lambda não tem parâmetros, os parênteses `()` ficam vazios. Por exemplo: `() -> Unit`
 
-> You must declare parameter and return types either in the lambda expression or as a function type. Otherwise, the
-> compiler won't be able to know what type your lambda expression is.
-> 
-> For example, the following won't work:
-> 
+> Você deve declarar os tipos de parâmetro e de retorno na expressão lambda ou como um tipo de função. Caso contrário, o
+> compilador não consegue saber qual é o tipo da expressão lambda.
+>
+> Por exemplo, o código a seguir não funciona:
+>
 > `val upperCaseString = { str -> str.uppercase() }`
 >
 {style="note"}
 
-### Return from a function
+### Retornar de uma função {id="return-from-a-function"}
 
-Lambda expressions can be returned from a function. So that the compiler understands what type the lambda
-expression returned is, you must declare a function type.
+Expressões lambda podem ser retornadas de uma função. Para que o compilador entenda qual é o tipo da expressão lambda
+retornada, você precisa declarar um tipo de função.
 
-In the following example, the `toSeconds()` function has function type `(Int) -> Int` because it always returns a lambda
-expression that takes a parameter of type `Int` and returns an `Int` value.
+No exemplo a seguir, a função `toSeconds()` tem o tipo de função `(Int) -> Int`, porque sempre retorna uma expressão
+lambda que recebe um parâmetro do tipo `Int` e retorna um valor `Int`.
 
-This example uses a `when` expression to determine which lambda expression is returned when `toSeconds()` is called:
+Este exemplo usa uma expressão `when` para determinar qual expressão lambda é retornada quando `toSeconds()` é chamada:
 
 ```kotlin
 fun toSeconds(time: String): (Int) -> Int = when (time) {
@@ -514,10 +512,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-return-from-function"}
 
-### Invoke separately
+### Invocar isoladamente {id="invoke-separately"}
 
-Lambda expressions can be invoked on their own by adding parentheses `()` after the curly braces `{}` and including
-any parameters within the parentheses:
+Expressões lambda podem ser invocadas por conta própria, adicionando parênteses `()` depois das chaves `{}` e incluindo
+os parâmetros dentro dos parênteses:
 
 ```kotlin
 fun main() {
@@ -529,14 +527,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-lambda-standalone"}
 
-### Trailing lambdas
+### Lambdas finais {id="trailing-lambdas"}
 
-As you have already seen, if a lambda expression is the only function parameter, you can drop the function parentheses `()`.
-If a lambda expression is passed as the last parameter of a function, then the expression can be written outside the
-function parentheses `()`. In both cases, this syntax is called a **trailing lambda**.
+Como você já viu, se uma expressão lambda for o único parâmetro da função, você pode omitir os parênteses `()` da função.
+Se uma expressão lambda for passada como o último parâmetro de uma função, a expressão pode ser escrita fora dos
+parênteses `()` da função. Nos dois casos, essa sintaxe se chama **lambda final** (_trailing lambda_).
 
-For example, the [`.fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/fold.html) function accepts an 
-initial value and an operation:
+Por exemplo, a função [`.fold()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/fold.html) aceita um
+valor inicial e uma operação:
 
 ```kotlin
 fun main() {
@@ -552,18 +550,18 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-trailing-lambda"}
 
-For more information on lambda expressions, see [Lambda expressions and anonymous functions](lambdas.md#lambda-expressions-and-anonymous-functions).
+Para mais informações sobre expressões lambda, veja [Expressões lambda e funções anônimas](lambdas.md#lambda-expressions-and-anonymous-functions).
 
-The next step in our tour is to learn about [classes](kotlin-tour-classes.md) in Kotlin.
+O próximo passo do nosso tour é aprender sobre [classes](kotlin-tour-classes.md) em Kotlin.
 
-## Practice: Lambda expressions {completion-point="true"}
+## Prática: expressões lambda {id="practice-lambda-expressions" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Build a list of URLs using a lambda expression" id="lambdas-exercise-1">
+<def title="Monte uma lista de URLs usando uma expressão lambda" id="lambdas-exercise-1">
 
-You have a list of actions supported by a web service, a common prefix for all requests, and an ID of a particular resource.
-To request an action `title` over the resource with ID: 5, you need to create the following URL: `https://example.com/book-info/5/title`.
-Use a lambda expression to create a list of URLs from the list of actions.
+Você tem uma lista de ações que um serviço web aceita, um prefixo comum para todas as requisições e o ID de um recurso específico.
+Para requisitar uma ação `title` sobre o recurso com ID 5, você precisa criar a seguinte URL: `https://example.com/book-info/5/title`.
+Use uma expressão lambda para criar uma lista de URLs a partir da lista de ações.
 
 ```kotlin
 fun buildUrls(actions: List<String>, prefix: String, id: Int): List<String> {
@@ -589,13 +587,13 @@ fun main() {
     println(urls)
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/LambdasExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambdas-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/LambdasExercise1Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-lambdas-solution-1"}
 
 </def>
-<def title="Repeat an action multiple times" id="lambdas-exercise-2">
+<def title="Repita uma ação várias vezes" id="lambdas-exercise-2">
 
-Write a function that takes an `Int` value and an action (a function with type `() -> Unit`) which then repeats the 
-action the given number of times. Then use this function to print “Hello” 5 times.
+Escreva uma função que recebe um valor `Int` e uma ação (uma função do tipo `() -> Unit`), que então repete a
+ação o número de vezes informado. Depois, use essa função para imprimir “Hello” 5 vezes.
 
 ```kotlin
 fun repeatN(n: Int, action: () -> Unit) {
@@ -621,7 +619,7 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/LambdasExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-lambdas-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/basics/LambdasExercise2Test.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Exemplo de solução" id="kotlin-tour-lambdas-solution-2"}
 
 </def>
 </deflist>
@@ -630,9 +628,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-control-flow.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-control-flow.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-classes.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-classes.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

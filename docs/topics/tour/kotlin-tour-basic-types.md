@@ -1,15 +1,12 @@
-[//]: # (title: Basic types)
+[//]: # (title: Tipos básicos)
 
 <no-index/>
 
 
-Every variable and data structure in Kotlin has a type. Types are important because they tell the compiler what you are allowed to 
-do with that variable or data structure. In other words, what functions and properties it has.
+Toda variável e estrutura de dados em Kotlin tem um tipo. Os tipos são importantes porque dizem ao compilador o que você pode fazer com essa variável ou estrutura de dados. Em outras palavras, quais funções e propriedades ela tem.
 
-In the last chapter, Kotlin was able to tell in the previous example that `customers` has type [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/).
-Kotlin's ability to **infer** the type is called **type inference**. `customers` is assigned an integer
-value. From this, Kotlin infers that `customers` has a numerical type `Int`. As a result, the compiler knows that you
-can perform arithmetic operations with `customers`:
+No capítulo anterior, o Kotlin conseguiu identificar, no exemplo anterior, que `customers` tem o tipo [`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/).
+A capacidade do Kotlin de **inferir** o tipo chama-se **inferência de tipos**. `customers` recebe um valor inteiro. A partir disso, o Kotlin infere que `customers` tem o tipo numérico `Int`. Como resultado, o compilador sabe que você pode realizar operações aritméticas com `customers`:
 
 ```kotlin
 fun main() {
@@ -31,27 +28,26 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-basic-types-arithmetic"}
 
-> `+=`, `-=`, `*=`, `/=`, and `%=` are augmented assignment operators. For more information, see [Augmented assignments](operator-overloading.md#augmented-assignments).
+> `+=`, `-=`, `*=`, `/=` e `%=` são operadores de atribuição compostos. Para mais informações, consulte [Atribuições compostas](operator-overloading.md#augmented-assignments).
 > 
 {style="tip"}
 
-In total, Kotlin has the following basic types:
+No total, o Kotlin tem os seguintes tipos básicos:
 
-| **Category**                                              | **Basic types**                    | **Example code**                                                  |
+| **Categoria**                                             | **Tipos básicos**                  | **Exemplo de código**                                             |
 |-----------------------------------------------------------|------------------------------------|-------------------------------------------------------------------|
-| [Integers](numbers.md#integer-types)                      | `Byte`, `Short`, `Int`, `Long`     | `val year: Int = 2020`<br/> `val amount: Long = 350_000_000`      |
-| [Unsigned integers](unsigned-integer-types.md)            | `UByte`, `UShort`, `UInt`, `ULong` | `val score: UInt = 100u`                                          |
-| [Floating-point numbers](numbers.md#floating-point-types) | `Float`, `Double`                  | `val currentTemp: Float = 24.5f`<br/> `val price: Double = 19.99` |
-| [Booleans](booleans.md)                                   | `Boolean`                          | `val isEnabled: Boolean = true`                                   |
-| [Characters](characters.md)                               | `Char`                             | `val separator: Char = ','`                                       |
+| [Inteiros](numbers.md#integer-types)                      | `Byte`, `Short`, `Int`, `Long`     | `val year: Int = 2020`<br/> `val amount: Long = 350_000_000`      |
+| [Inteiros sem sinal](unsigned-integer-types.md)           | `UByte`, `UShort`, `UInt`, `ULong` | `val score: UInt = 100u`                                          |
+| [Números de ponto flutuante](numbers.md#floating-point-types) | `Float`, `Double`               | `val currentTemp: Float = 24.5f`<br/> `val price: Double = 19.99` |
+| [Booleanos](booleans.md)                                  | `Boolean`                          | `val isEnabled: Boolean = true`                                   |
+| [Caracteres](characters.md)                               | `Char`                             | `val separator: Char = ','`                                       |
 | [Strings](strings.md)                                     | `String`                           | `val message: String = "Hello, world!"`                           |
 
-For more information on basic types and their properties, see [Types overview](types-overview.md).
+Para mais informações sobre os tipos básicos e suas propriedades, consulte [Visão geral dos tipos](types-overview.md).
 
-With this knowledge, you can declare variables and initialize them later. Kotlin can manage this as long as variables
-are initialized before the first read.
+Com esse conhecimento, você pode declarar variáveis e inicializá-las depois. O Kotlin consegue lidar com isso desde que as variáveis sejam inicializadas antes da primeira leitura.
 
-To declare a variable without initializing it, specify its type with `:`. For example:
+Para declarar uma variável sem inicializá-la, especifique o tipo dela com `:`. Por exemplo:
 
 ```kotlin
 fun main() {
@@ -72,7 +68,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-basic-types-initialization"}
 
-If you don't initialize a variable before it is read, you see an error:
+Se você não inicializar uma variável antes de lê-la, verá um erro:
 
 ```kotlin
 fun main() {
@@ -88,14 +84,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-basic-types-no-initialization" validate="false"}
 
-Now that you know how to declare basic types, it's time to learn about [collections](kotlin-tour-collections.md).
+Agora que você sabe declarar tipos básicos, é hora de conhecer as [coleções](kotlin-tour-collections.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true">
-<def title="Declare explicit types for variables" id="basic-types-exercise-1">
+<def title="Declare tipos explícitos para variáveis" id="basic-types-exercise-1">
 
-Explicitly declare the correct type for each variable:
+Declare explicitamente o tipo correto para cada variável:
 
 ```kotlin
 fun main() {
@@ -119,7 +115,7 @@ fun main() {
     val f: Char = '\n'
 }
 ```
-{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-basic-types-solution"}
+{initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-basic-types-solution"}
 
 </def>
 </deflist>
@@ -128,10 +124,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-hello-world.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-hello-world.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-collections.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-collections.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
 
+<!-- ia-translate: true -->

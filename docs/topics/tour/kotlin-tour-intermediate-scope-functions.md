@@ -3,39 +3,40 @@
 <no-index/>
 
 
-In this chapter, you'll build on your understanding of extension functions to learn how to use scope functions to 
-write more idiomatic code.
+Neste capítulo, você vai expandir o que aprendeu sobre extension functions e aprender a usar scope functions
+para escrever código mais idiomático.
 
-## Scope functions
+## Scope functions {id="scope-functions"}
 
-In programming, a scope is the area in which your variable or object is recognized. The most commonly referred to scopes
-are the global scope and the local scope:
+Em programação, escopo é a área em que sua variável ou objeto é reconhecido. Os escopos mais citados são o escopo
+global e o escopo local:
 
-* **Global scope** – a variable or object that is accessible from anywhere in the program.
-* **Local scope** – a variable or object that is only accessible within the block or function where it is defined.
+* **Escopo global** – uma variável ou objeto acessível de qualquer lugar do programa.
+* **Escopo local** – uma variável ou objeto acessível apenas dentro do bloco ou da função em que é definido.
 
-In Kotlin, there are also scope functions that allow you to create a temporary scope around an object and execute some code.
+Em Kotlin, também existem scope functions, que permitem criar um escopo temporário em torno de um objeto e executar
+algum código.
 
-Scope functions make your code more concise because you don't have to refer to the name of your object within the temporary
-scope. Depending on the scope function, you can access the object either by referencing it via the keyword `this` or using it as an
-argument via the keyword `it`.
+Scope functions deixam o código mais conciso, porque você não precisa referenciar o nome do objeto dentro do escopo
+temporário. Dependendo da scope function, você pode acessar o objeto pela palavra-chave `this` ou usá-lo como
+argumento pela palavra-chave `it`.
 
-Kotlin has five scope functions in total: `let`, `apply`, `run`, `also`, and `with`.
+O Kotlin tem cinco scope functions no total: `let`, `apply`, `run`, `also` e `with`.
 
-Each scope function takes a lambda expression and returns either the object or the result of the lambda expression. In 
-this tour, we explain each scope function and how to use it.
+Cada scope function recebe uma expressão lambda e retorna o objeto ou o resultado da expressão lambda. Neste tour,
+explicamos cada scope function e como usá-la.
 
-> You can also watch the [Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511)
-> talk on scope functions by Sebastian Aigner, Kotlin developer advocate.
+> Você também pode assistir à palestra [Back to the Stdlib: Making the Most of Kotlin's Standard Library](https://youtu.be/DdvgvSHrN9g?feature=shared&t=1511)
+> sobre scope functions, de Sebastian Aigner, developer advocate do Kotlin.
 > 
 {style="tip"}
 
 ### Let
 
-Use the `let` scope function when you want to perform null checks in your code and later perform further actions
-with the returned object.
+Use a scope function `let` quando quiser fazer verificações de nulo no código e, depois, executar outras ações
+com o objeto retornado.
 
-Consider the example:
+Considere o exemplo:
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -54,21 +55,21 @@ fun main() {
 ```
 {validate = "false"}
 
-The example has two functions:
-* `sendNotification()`, which has a function parameter `recipientAddress` and returns a string.
-* `getNextAddress()`, which has no function parameters and returns a string.
+O exemplo tem duas funções:
+* `sendNotification()`, que tem um parâmetro de função `recipientAddress` e retorna uma string.
+* `getNextAddress()`, que não tem parâmetros de função e retorna uma string.
 
-The example creates a variable `address` that has a nullable `String` type. But this becomes a problem when you call
-the `sendNotification()` function because this function doesn't expect that `address` could be a `null` value.
-The compiler reports an error as a result: 
+O exemplo cria a variável `address`, que tem o tipo `String` nullable. Isso se torna um problema ao chamar a função
+`sendNotification()`, porque essa função não espera que `address` possa ser um valor `null`. Como resultado, o compilador
+reporta um erro:
 
 ```text
 Argument type mismatch: actual type is 'String?', but 'String' was expected.
 ```
 
-From the beginner tour, you already know that you can perform a null check with an if condition or use the [Elvis operator `?:`](kotlin-tour-null-safety.md#use-elvis-operator). 
-But what if you want to use the returned object later in your code? You could achieve this with an if condition **and** an 
-else branch:
+Do tour para iniciantes, você já sabe que pode fazer uma verificação de nulo com uma condição if ou usar o
+[operador Elvis `?:`](kotlin-tour-null-safety.md#use-elvis-operator). Mas e se você quiser usar o objeto retornado
+mais adiante no código? Dá para fazer isso com uma condição if **e** um ramo else:
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -91,7 +92,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null-if"}
 
-However, a more concise approach is to use the `let` scope function:
+No entanto, uma forma mais concisa é usar a scope function `let`:
 
 ```kotlin
 fun sendNotification(recipientAddress: String): String {
@@ -114,23 +115,23 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-let-non-null"}
 
-The example:
-* Creates variables called `address` and `confirm`.
-* Uses a safe call for the `let` scope function on the `address` variable.
-* Creates a temporary scope within the `let` scope function.
-* Passes the `sendNotification()` function as a lambda expression into the `let` scope function.
-* Refers to the `address` variable via `it`, using the temporary scope.
-* Assigns the result to the `confirm` variable.
+O exemplo:
+* Cria as variáveis `address` e `confirm`.
+* Usa uma chamada segura para a scope function `let` na variável `address`.
+* Cria um escopo temporário dentro da scope function `let`.
+* Passa a função `sendNotification()` como expressão lambda para a scope function `let`.
+* Referencia a variável `address` por meio de `it`, dentro do escopo temporário.
+* Atribui o resultado à variável `confirm`.
 
-With this approach, your code can handle the `address` variable potentially being a `null` value, and you can use the 
-`confirm` variable later in your code.
+Com essa abordagem, o código lida com o caso de a variável `address` ser `null`, e você pode usar a variável
+`confirm` mais adiante no código.
 
 ### Apply
 
-Use the `apply` scope function to initialize objects, like a class instance, at the time of creation rather than later
-on in your code. This approach makes your code easier to read and manage.
+Use a scope function `apply` para inicializar objetos, como uma instância de classe, no momento da criação, em vez de
+fazer isso mais adiante no código. Essa abordagem deixa o código mais fácil de ler e de manter.
 
-Consider the example:
+Considere o exemplo:
 
 ```kotlin
 class Client() {
@@ -157,15 +158,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-apply-before"}
 
-The example has a `Client` class that contains one property called `token` and three member functions: `connect()`,
-`authenticate()`, and `getData()`.
+O exemplo tem uma classe `Client` que contém uma propriedade chamada `token` e três funções membro: `connect()`,
+`authenticate()` e `getData()`.
 
-The example creates `client` as an instance of the `Client` class before initializing its `token` property and calling its
-member functions in the `main()` function.
+O exemplo cria `client` como instância da classe `Client` antes de inicializar sua propriedade `token` e chamar suas
+funções membro na função `main()`.
 
-Although this example is compact, in the real world, it can be a while before you can configure and use the class instance
-(and its member functions) after you've created it. However, if you use the `apply` scope function you can create, configure and
-use member functions on your class instance all in the same place in your code:
+Embora este exemplo seja compacto, no mundo real pode demorar até você conseguir configurar e usar a instância da classe
+(e suas funções membro) depois de criá-la. No entanto, se você usar a scope function `apply`, pode criar, configurar e
+usar as funções membro da instância no mesmo lugar do código:
 
 ```kotlin
 class Client() {
@@ -194,25 +195,25 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-apply-after"}
 
-The example:
+O exemplo:
 
-* Creates `client` as an instance of the `Client` class.
-* Uses the `apply` scope function on the `client` instance.
-* Creates a temporary scope within the `apply` scope function so that you don't have to explicitly refer to the `client` instance when accessing its properties or functions.
-* Passes a lambda expression to the `apply` scope function that updates the `token` property and calls the `connect()` and `authenticate()` functions.
-* Calls the `getData()` member function on the `client` instance in the `main()` function.
+* Cria `client` como instância da classe `Client`.
+* Usa a scope function `apply` na instância `client`.
+* Cria um escopo temporário dentro da scope function `apply`, para que você não precise se referir explicitamente à instância `client` ao acessar suas propriedades ou funções.
+* Passa uma expressão lambda para a scope function `apply` que atualiza a propriedade `token` e chama as funções `connect()` e `authenticate()`.
+* Chama a função membro `getData()` na instância `client` dentro da função `main()`.
 
-As you can see, this strategy is convenient when you are working with large pieces of code.
+Como você pode ver, essa estratégia é conveniente quando você trabalha com trechos grandes de código.
 
 ### Run
 
-Similar to `apply`, you can use the `run` scope function to initialize an object, but it's better to use `run` 
-to initialize an object at a specific moment in your code **and** immediately compute a result.
+Assim como `apply`, você pode usar a scope function `run` para inicializar um objeto, mas é melhor usar `run` para
+inicializar um objeto em um momento específico do código **e** calcular um resultado imediatamente.
 
-Let's continue the previous example for the `apply` function, but this time, you want the `connect()` and
-`authenticate()` functions to be grouped so that they are called on every request.
+Vamos continuar o exemplo anterior da função `apply`, mas desta vez você quer que as funções `connect()` e
+`authenticate()` fiquem agrupadas, para serem chamadas a cada requisição.
 
-For example:
+Por exemplo:
 
 ```kotlin
 class Client() {
@@ -244,29 +245,29 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-run"}
 
-The example:
+O exemplo:
 
-* Creates `client` as an instance of the `Client` class.
-* Uses the `apply` scope function on the `client` instance.
-* Creates a temporary scope within the `apply` scope function so that you don't have to explicitly refer to the `client` instance when accessing its properties or functions.
-* Passes a lambda expression to the `apply` scope function that updates the `token` property.
+* Cria `client` como instância da classe `Client`.
+* Usa a scope function `apply` na instância `client`.
+* Cria um escopo temporário dentro da scope function `apply`, para que você não precise se referir explicitamente à instância `client` ao acessar suas propriedades ou funções.
+* Passa uma expressão lambda para a scope function `apply` que atualiza a propriedade `token`.
 
-The `main()` function:
+A função `main()`:
 
-* Creates a `result` variable with type `String`.
-* Uses the `run` scope function on the `client` instance.
-* Creates a temporary scope within the `run` scope function so that you don't have to explicitly refer to the `client` instance when accessing its properties or functions.
-* Passes a lambda expression to the `run` scope function that calls the `connect()`, `authenticate()`, and `getData()` functions.
-* Assigns the result to the `result` variable.
+* Cria uma variável `result` com o tipo `String`.
+* Usa a scope function `run` na instância `client`.
+* Cria um escopo temporário dentro da scope function `run`, para que você não precise se referir explicitamente à instância `client` ao acessar suas propriedades ou funções.
+* Passa uma expressão lambda para a scope function `run` que chama as funções `connect()`, `authenticate()` e `getData()`.
+* Atribui o resultado à variável `result`.
 
-Now you can use the returned result further in your code.
+Agora você pode usar o resultado retornado mais adiante no código.
 
 ### Also
 
-Use the `also` scope function to complete an additional action with an object and then return the object to continue 
-using it in your code, like writing a log.
+Use a scope function `also` para executar uma ação adicional com um objeto e, em seguida, retornar o próprio objeto
+para continuar usando-o no código, como para escrever um log.
 
-Consider the example:
+Considere o exemplo:
 
 ```kotlin
 fun main() {
@@ -282,20 +283,20 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-also-before"}
 
-The example:
+O exemplo:
 
-* Creates the `medals` variable that contains a list of strings.
-* Creates the `reversedLongUpperCaseMedals` variable that has the `List<String>` type.
-* Uses the `.map()` extension function on the `medals` variable.
-* Passes a lambda expression to the `.map()` function that refers to `medals` via the `it` keyword and calls the `.uppercase()` extension function on it.
-* Uses the `.filter()` extension function on the `medals` variable.
-* Passes a lambda expression as a predicate to the `.filter()` function that refers to `medals` via the `it` keyword and checks if the item in the list has more than 4 characters.
-* Uses the `.reversed()` extension function on the `medals` variable.
-* Assigns the result to the `reversedLongUpperCaseMedals` variable.
-* Prints the list contained in the `reversedLongUpperCaseMedals` variable.
+* Cria a variável `medals` que contém uma lista de strings.
+* Cria a variável `reversedLongUpperCaseMedals` com o tipo `List<String>`.
+* Usa a extension function `.map()` na variável `medals`.
+* Passa uma expressão lambda para `.map()` que referencia `medals` pela palavra-chave `it` e chama a extension function `.uppercase()` nela.
+* Usa a extension function `.filter()` na variável `medals`.
+* Passa uma expressão lambda como predicado para `.filter()` que referencia `medals` pela palavra-chave `it` e verifica se o item da lista tem mais de 4 caracteres.
+* Usa a extension function `.reversed()` na variável `medals`.
+* Atribui o resultado à variável `reversedLongUpperCaseMedals`.
+* Imprime a lista contida na variável `reversedLongUpperCaseMedals`.
 
-It would be useful to add some logging in between the function calls to see what is happening to the `medals` variable.
-The `also` function helps with that:
+Seria útil adicionar um log entre as chamadas de função para ver o que acontece com a variável `medals`.
+A função `also` ajuda nisso:
 
 ```kotlin
 fun main() {
@@ -315,23 +316,23 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-also-after"}
 
-Now the example:
+Agora o exemplo:
 
-* Uses the `also` scope function on the `medals` variable.
-* Creates a temporary scope within the `also` scope function so that you don't have to explicitly refer to the `medals` variable when using it as a function parameter.
-* Passes a lambda expression to the `also` scope function that calls the `println()` function using the `medals` variable as a function parameter via the `it` keyword.
+* Usa a scope function `also` na variável `medals`.
+* Cria um escopo temporário dentro da scope function `also`, para que você não precise se referir explicitamente à variável `medals` ao usá-la como parâmetro de função.
+* Passa uma expressão lambda para a scope function `also` que chama a função `println()` usando a variável `medals` como parâmetro de função, pela palavra-chave `it`.
 
-Since the `also` function returns the object, it is useful for not only logging but debugging, chaining
-multiple operations, and performing other side effect operations that don't affect the main flow of your code.
+Como a função `also` retorna o objeto, ela é útil não só para log, mas também para depuração, encadeamento de várias
+operações e outras operações com efeitos colaterais que não afetam o fluxo principal do código.
 
 ### With
 
-Unlike the other scope functions, `with` is not an extension function, so the syntax is different. You pass the receiver
-object to `with` as an argument. 
+Diferente das outras scope functions, `with` não é uma extension function, então a sintaxe é outra. Você passa o
+objeto receiver para `with` como argumento.
 
-Use the `with` scope function when you want to call multiple functions on an object.
+Use a scope function `with` quando quiser chamar várias funções em um objeto.
 
-Consider this example:
+Considere este exemplo:
 
 ```kotlin
 class Canvas {
@@ -357,13 +358,13 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-with-before"}
 
-The example creates a `Canvas` class that has three member functions: `rect()`, `circ()`, and `text()`. Each of these member
-functions prints a statement constructed from the function parameters that you provide.
+O exemplo cria uma classe `Canvas` com três funções membro: `rect()`, `circ()` e `text()`. Cada uma dessas funções
+membro imprime uma mensagem montada a partir dos parâmetros de função que você fornece.
 
-The example creates `mainMonitorPrimaryBufferBackedCanvas` as an instance of the `Canvas` class before calling a sequence
-of member functions on the instance with different function parameters.
+O exemplo cria `mainMonitorPrimaryBufferBackedCanvas` como instância da classe `Canvas` e, em seguida, chama uma
+sequência de funções membro nessa instância, com parâmetros de função diferentes.
 
-You can see that this code is hard to read. If you use the `with` function, the code is streamlined:
+Você pode ver que esse código é difícil de ler. Se você usar a função `with`, o código fica mais enxuto:
 
 ```kotlin
 class Canvas {
@@ -392,40 +393,42 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-scope-function-with-after"}
 
-This example:
-* Uses the `with` scope function with the `mainMonitorSecondaryBufferBackedCanvas` instance as the receiver.
-* Creates a temporary scope within the `with` scope function so that you don't have to explicitly refer to the `mainMonitorSecondaryBufferBackedCanvas` instance when calling its member functions.
-* Passes a lambda expression to the `with` scope function that calls a sequence of member functions with different function parameters.
+Este exemplo:
+* Usa a scope function `with` com a instância `mainMonitorSecondaryBufferBackedCanvas` como receiver.
+* Cria um escopo temporário dentro da scope function `with`, para que você não precise se referir explicitamente à instância `mainMonitorSecondaryBufferBackedCanvas` ao chamar suas funções membro.
+* Passa uma expressão lambda para a scope function `with` que chama uma sequência de funções membro com parâmetros de função diferentes.
 
-Now that this code is much easier to read, you are less likely to make mistakes.
+Agora que esse código é bem mais fácil de ler, você tem menos chances de cometer erros.
 
-## Use case overview
+## Visão geral dos casos de uso {id="use-case-overview"}
 
-This section has covered the different scope functions available in Kotlin and their main use cases for making your code
-more idiomatic. You can use this table as a quick reference. It's important to note that you don't need a complete understanding
-of how these functions work in order to use them in your code.
+Esta seção apresentou as scope functions disponíveis no Kotlin e seus principais casos de uso, para deixar seu
+código mais idiomático. Você pode usar esta tabela como referência rápida. Você não precisa entender por completo
+como essas funções funcionam para usá-las no código.
 
-| Function | Access to `x` via | Return value  | Use case                                                                                     |
-|----------|-------------------|---------------|----------------------------------------------------------------------------------------------|
-| `let`    | `it`              | Lambda result | Perform null checks in your code and later perform further actions with the returned object. |
-| `apply`  | `this`            | `x`           | Initialize objects at the time of creation.                                                  |
-| `run`    | `this`            | Lambda result | Initialize objects at the time of creation **AND** compute a result.                         |
-| `also`   | `it`              | `x`           | Complete additional actions before returning the object.                                     |
-| `with`   | `this`            | Lambda result | Call multiple functions on an object.                                                        |
+| Scope function | Acesso a `x` por meio de | Valor de retorno | Caso de uso                                                                                                  |
+|----------------|--------------------------|------------------|--------------------------------------------------------------------------------------------------------------|
+| `let`          | `it`                     | Resultado da expressão lambda | Fazer verificações de nulo no código e, depois, executar outras ações com o objeto retornado. |
+| `apply`        | `this`                   | `x`              | Inicializar objetos no momento da criação.                                                                   |
+| `run`          | `this`                   | Resultado da expressão lambda | Inicializar objetos no momento da criação **E** calcular um resultado.                       |
+| `also`         | `it`                     | `x`              | Executar ações adicionais antes de retornar o objeto.                                                        |
+| `with`         | `this`                   | Resultado da expressão lambda | Chamar várias funções em um objeto.                                                                          |
 
-For more information about scope functions, see [Scope functions](scope-functions.md).
+Para mais informações sobre scope functions, consulte [Scope functions](scope-functions.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Rewrite a function using safe calls and let" id="scope-functions-exercise-1">
+<def title="Reescreva uma função usando chamadas seguras e let" id="scope-functions-exercise-1">
 
-Rewrite the `.getPriceInEuros()` function as a single-expression function that uses safe call operators `?.` and the `let` scope function.
+Reescreva a função `.getPriceInEuros()` como uma função de expressão única que usa os operadores de chamada segura `?.`
+e a scope function `let`.
 
 <deflist collapsible="true">
-    <def title="Hint">
-        Use safe call operators <code>?.</code> to safely access the <code>priceInDollars</code> property from the <code>getProductInfo()</code>
-        function. Then, use the <code>let</code> scope function to convert the value of <code>priceInDollars</code> into euros.
+    <def title="Dica">
+        Use os operadores de chamada segura <code>?.</code> para acessar com segurança a propriedade <code>priceInDollars</code>
+        da função <code>getProductInfo()</code>. Depois, use a scope function <code>let</code> para converter o valor de
+        <code>priceInDollars</code> em euros.
     </def>
 </deflist>
 
@@ -492,13 +495,14 @@ fun main() {
     }
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetPriceInEurosTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-scope-functions-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/GetPriceInEurosTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-scope-functions-solution-1"}
 
 </def>
-<def title="Chain apply and also" id="scope-functions-exercise-2">
+<def title="Encadeie apply e also" id="scope-functions-exercise-2">
 
-You have an `updateEmail()` function that updates the email address of a user. Use the `apply` scope function
-to update the email address and then the `also` scope function to print a log message: `Updating email for user with ID: ${it.id}`.
+Você tem uma função `updateEmail()` que atualiza o endereço de e-mail de um usuário. Use a scope function `apply` para
+atualizar o endereço de e-mail e, depois, a scope function `also` para imprimir uma mensagem de log:
+`Updating email for user with ID: ${it.id}`.
 
 ```kotlin
 data class User(val id: Int, var email: String)
@@ -532,7 +536,7 @@ fun main() {
     // Updated User: User(id=1, email=new_email@example.com)
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/UpdateEmailTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-scope-functions-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/UpdateEmailTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-scope-functions-solution-2"}
 
 </def>
 </deflist>
@@ -541,9 +545,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-extension-functions.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-extension-functions.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-lambdas-receiver.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-lambdas-receiver.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->

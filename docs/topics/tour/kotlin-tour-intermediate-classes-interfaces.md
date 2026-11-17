@@ -1,31 +1,23 @@
-[//]: # (title: Classes and interfaces)
+[//]: # (title: Classes e interfaces)
 
 <no-index/>
 
 
-In the beginner tour, you learned how to use classes and data classes to store data and maintain a collection of characteristics
-that can be shared in your code. Eventually, you will want to create a hierarchy to efficiently share code within your 
-projects. This chapter explains the options Kotlin provides for sharing code and how they can make your code safer and easier to maintain.
+Na tour para iniciantes, você aprendeu a usar classes e data classes para armazenar dados e manter um conjunto de características que podem ser compartilhadas no código. Com o tempo, você vai querer criar uma hierarquia para compartilhar código de forma eficiente nos seus projetos. Este capítulo explica as opções que o Kotlin oferece para compartilhar código e como elas podem tornar seu código mais seguro e fácil de manter.
 
-## Class inheritance
+## Herança de classes {id="class-inheritance"}
 
-In a previous chapter, we covered how you can use extension functions to extend classes without modifying the original source code.
-But what if you are working on something complex where sharing code **between** classes would be useful? In such cases, 
-you can use class inheritance.
+Em um capítulo anterior, vimos como usar funções de extensão para estender classes sem modificar o código-fonte original. Mas e se você estiver trabalhando em algo complexo em que compartilhar código **entre** classes seria útil? Nesses casos, você pode usar a herança de classes.
 
-By default, classes in Kotlin can't be inherited. Kotlin is designed this way to prevent unintended inheritance and make
-your classes easier to maintain.
+Por padrão, as classes no Kotlin não podem ser herdadas. O Kotlin foi projetado dessa forma para evitar herança não intencional e tornar suas classes mais fáceis de manter.
 
-Kotlin classes only support **single inheritance**, meaning it is only possible to inherit from **one class at a time**.
-This class is called the **parent**.
+As classes do Kotlin só dão suporte à **herança simples**, ou seja, só é possível herdar de **uma classe por vez**. Essa classe é chamada de **pai**.
 
-The parent of a class inherits from another class (the grandparent), forming a hierarchy. At the top of Kotlin's class
-hierarchy is the common parent class: `Any`. All classes ultimately inherit from the `Any` class:
+A classe pai também herda de outra classe (a avó), formando uma hierarquia. No topo da hierarquia de classes do Kotlin está a classe pai comum: `Any`. Todas as classes herdam, em última instância, da classe `Any`:
 
-![An example of the class hierarchy with Any type](any-type-class.png){width="200"}
+![Exemplo da hierarquia de classes com o tipo Any](any-type-class.png){width="200"}
 
-The `Any` class provides the `toString()` function as a member function automatically. Therefore, you can
-use this inherited function in any of your classes. For example:
+A classe `Any` fornece automaticamente a função `toString()` como função membro. Por isso, você pode usar essa função herdada em qualquer uma das suas classes. Por exemplo:
 
 ```kotlin
 class Car(val make: String, val model: String, val numberOfDoors: Int)
@@ -42,37 +34,32 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-any-class"}
 
-If you want to use inheritance to share some code between classes, first consider using abstract classes.
+Se você quer usar herança para compartilhar código entre classes, primeiro considere usar classes abstratas.
 
-### Abstract classes
+### Classes abstratas {id="abstract-classes"}
 
-Abstract classes can be inherited by default. The purpose of abstract classes is to provide members that other classes 
-inherit or implement. As a result, they have a constructor, but you can't create instances from them. Within the child 
-class, you define the behavior of the parent's properties and functions with the `override` keyword. In this way, 
-you can say that the child class "overrides" the members of the parent class.
+Classes abstratas podem ser herdadas por padrão. A finalidade das classes abstratas é fornecer membros que outras classes herdam ou implementam. Por isso, elas têm um construtor, mas você não pode criar instâncias delas. Dentro da classe filha, você define o comportamento das propriedades e funções do pai com a palavra-chave `override`. Dessa forma, pode-se dizer que a classe filha "sobrescreve" os membros da classe pai.
 
-> When you define the behavior of an inherited function or property, we call that an **implementation**.
+> Quando você define o comportamento de uma função ou propriedade herdada, chamamos isso de **implementação**.
 > 
 {style="tip"}
 
-Abstract classes can contain both functions and properties **with** implementation as well as functions and properties 
-**without** implementation, known as abstract functions and properties.
+Classes abstratas podem conter funções e propriedades **com** implementação, bem como funções e propriedades **sem** implementação, conhecidas como funções e propriedades abstratas.
 
-To create an abstract class, use the `abstract` keyword:
+Para criar uma classe abstrata, use a palavra-chave `abstract`:
 
 ```kotlin
 abstract class Animal
 ```
 
-To declare a function or a property **without** an implementation, you also use the `abstract` keyword:
+Para declarar uma função ou uma propriedade **sem** implementação, também use a palavra-chave `abstract`:
 
 ```kotlin
 abstract fun makeSound()
 abstract val sound: String
 ```
 
-For example, let's say that you want to create an abstract class called `Product` that you can create child classes from
-to define different product categories:
+Por exemplo, suponha que você queira criar uma classe abstrata chamada `Product` a partir da qual é possível criar classes filhas para definir diferentes categorias de produtos:
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
@@ -86,14 +73,13 @@ abstract class Product(val name: String, var price: Double) {
 }
 ```
 
-In the abstract class:
+Na classe abstrata:
 
-* The constructor has two parameters for the product's `name` and `price`.
-* There is an abstract property that contains the product category as a string.
-* There is a function that prints information about the product.
+* O construtor tem dois parâmetros para o `name` e o `price` do produto.
+* Há uma propriedade abstrata que contém a categoria do produto como string.
+* Há uma função que exibe informações sobre o produto.
 
-Let's create a child class for electronics. Before you define an implementation for the `category` property in the child class,
-you must use the `override` keyword:
+Vamos criar uma classe filha para eletrônicos. Antes de definir uma implementação para a propriedade `category` na classe filha, você deve usar a palavra-chave `override`:
 
 ```kotlin
 class Electronic(name: String, price: Double, val warranty: Int) : Product(name, price) {
@@ -101,13 +87,13 @@ class Electronic(name: String, price: Double, val warranty: Int) : Product(name,
 }
 ```
 
-The `Electronic` class:
+A classe `Electronic`:
 
-* Inherits from the `Product` abstract class.
-* Has an additional parameter in the constructor: `warranty`, which is specific to electronics.
-* Overrides the `category` property to contain the string `"Electronic"`.
+* Herda da classe abstrata `Product`.
+* Tem um parâmetro adicional no construtor: `warranty`, específico para eletrônicos.
+* Sobrescreve a propriedade `category` para conter a string `"Electronic"`.
 
-Now, you can use these classes like this:
+Agora, você pode usar essas classes assim:
 
 ```kotlin
 abstract class Product(val name: String, var price: Double) {
@@ -136,45 +122,39 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-abstract-class"}
 
-Although abstract classes are great for sharing code in this way, they are restricted because classes in Kotlin
-only support single inheritance. If you need to inherit from multiple sources, consider using interfaces.
+Embora as classes abstratas sejam ótimas para compartilhar código dessa forma, elas são restritas porque as classes no Kotlin só dão suporte à herança simples. Se você precisar herdar de várias fontes, considere usar interfaces.
 
 ## Interfaces
 
-Interfaces are similar to classes, but they have some differences:
+Interfaces são parecidas com classes, mas têm algumas diferenças:
 
-* You can't create an instance of an interface. They don't have a constructor or header.
-* Their functions and properties are implicitly inheritable by default. In Kotlin, we say that they are "open."
-* You don't need to mark their functions as `abstract` if you don't give them an implementation.
+* Você não pode criar uma instância de uma interface. Elas não têm construtor nem cabeçalho.
+* Suas funções e propriedades são implicitamente herdáveis por padrão. No Kotlin, dizemos que elas são "abertas".
+* Você não precisa marcar suas funções com `abstract` se não der uma implementação a elas.
 
-Similar to abstract classes, you use interfaces to define a set of functions and properties that classes can inherit and
-implement later. This approach helps you focus on the abstraction described by the interface, rather than the specific
-implementation details. Using interfaces makes your code:
+Assim como as classes abstratas, você usa interfaces para definir um conjunto de funções e propriedades que classes podem herdar e implementar depois. Essa abordagem ajuda você a focar na abstração descrita pela interface, em vez dos detalhes específicos de implementação. Usar interfaces torna seu código:
 
-* More modular, as it isolates different parts, allowing them to evolve independently.
-* Easier to understand by grouping related functions into a cohesive set.
-* Easier to test, as you can quickly swap an implementation with a mock for testing.
+* Mais modular, pois isola partes diferentes, permitindo que evoluam de forma independente.
+* Mais fácil de entender, por agrupar funções relacionadas em um conjunto coeso.
+* Mais fácil de testar, pois você pode trocar rapidamente uma implementação por um mock nos testes.
 
-To declare an interface, use the `interface` keyword:
+Para declarar uma interface, use a palavra-chave `interface`:
 
 ```kotlin
 interface PaymentMethod
 ```
 
-### Interface implementation
+### Implementação de interfaces {id="interface-implementation"}
 
-Interfaces support multiple inheritance so a class can implement multiple interfaces at once. First, let's consider
-the scenario where a class implements **one** interface.
+Interfaces dão suporte à herança múltipla, então uma classe pode implementar várias interfaces ao mesmo tempo. Primeiro, vamos considerar o cenário em que uma classe implementa **uma** interface.
 
-To create a class that implements an interface, add a colon after your class header, followed by the interface name
-that you want to implement. You don't use parentheses `()` after the interface name because interfaces don't have a 
-constructor:
+Para criar uma classe que implementa uma interface, adicione dois-pontos após o cabeçalho da classe, seguidos do nome da interface que você quer implementar. Você não usa parênteses `()` após o nome da interface, porque interfaces não têm construtor:
 
 ```kotlin
 class CreditCardPayment : PaymentMethod
 ```
 
-For example:
+Por exemplo:
 
 ```kotlin
 interface PaymentMethod {
@@ -197,22 +177,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-inheritance"}
 
-In the example:
+No exemplo:
 
-* `PaymentMethod` is an interface that has an `initiatePayment()` function without an implementation.
-* `CreditCardPayment` is a class that implements the `PaymentMethod` interface.
-* The `CreditCardPayment` class overrides the inherited `initiatePayment()` function.
-* `paymentMethod` is an instance of the `CreditCardPayment` class.
-* The overridden `initiatePayment()` function is called on the `paymentMethod` instance with a parameter of `100.0`.
+* `PaymentMethod` é uma interface que tem uma função `initiatePayment()` sem implementação.
+* `CreditCardPayment` é uma classe que implementa a interface `PaymentMethod`.
+* A classe `CreditCardPayment` sobrescreve a função `initiatePayment()` herdada.
+* `paymentMethod` é uma instância da classe `CreditCardPayment`.
+* A função `initiatePayment()` sobrescrita é chamada na instância `paymentMethod` com o parâmetro `100.0`.
 
-To create a class that implements **multiple** interfaces, add a colon after your class header followed by the name of the interfaces
-that you want to implement separated by a comma:
+Para criar uma classe que implementa **várias** interfaces, adicione dois-pontos após o cabeçalho da classe, seguidos dos nomes das interfaces que você quer implementar, separados por vírgula:
 
 ```kotlin
 class CreditCardPayment : PaymentMethod, PaymentType
 ```
 
-For example:
+Por exemplo:
 
 ```kotlin
 interface PaymentMethod {
@@ -244,29 +223,27 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-multiple-inheritance"}
 
-In the example:
+No exemplo:
 
-* `PaymentMethod` is an interface that has the `initiatePayment()` function without an implementation.
-* `PaymentType` is an interface that has the `paymentType` property that isn't initialized.
-* `CreditCardPayment` is a class that implements the `PaymentMethod` and `PaymentType` interfaces.
-* The `CreditCardPayment` class overrides the inherited `initiatePayment()` function and the `paymentType` property.
-* `paymentMethod` is an instance of the `CreditCardPayment` class.
-* The overridden `initiatePayment()` function is called on the `paymentMethod` instance with a parameter of `100.0`.
-* The overridden `paymentType` property is accessed on the `paymentMethod` instance.
+* `PaymentMethod` é uma interface que tem a função `initiatePayment()` sem implementação.
+* `PaymentType` é uma interface que tem a propriedade `paymentType`, que não é inicializada.
+* `CreditCardPayment` é uma classe que implementa as interfaces `PaymentMethod` e `PaymentType`.
+* A classe `CreditCardPayment` sobrescreve a função `initiatePayment()` herdada e a propriedade `paymentType`.
+* `paymentMethod` é uma instância da classe `CreditCardPayment`.
+* A função `initiatePayment()` sobrescrita é chamada na instância `paymentMethod` com o parâmetro `100.0`.
+* A propriedade `paymentType` sobrescrita é acessada na instância `paymentMethod`.
 
-For more information about interfaces and interface inheritance, see [Interfaces](interfaces.md).
+Para mais informações sobre interfaces e herança de interfaces, veja [Interfaces](interfaces.md).
 
-## Delegation
+## Delegação {id="delegation"}
 
-Interfaces are useful, but if your interface contains many functions, its child classes can end up with a lot of 
-boilerplate code. If you only want to override a small part of a class's behavior, you need to repeat yourself a lot.
+Interfaces são úteis, mas, se sua interface contém muitas funções, as classes filhas podem acabar com muito código boilerplate. Se você quer sobrescrever apenas uma pequena parte do comportamento de uma classe, precisa repetir muito código.
 
-> Boilerplate code is a chunk of code that is reused with little or no alteration in multiple parts of a software project.
+> Código boilerplate é um trecho de código reutilizado, com pouca ou nenhuma alteração, em várias partes de um projeto de software.
 > 
 {style="tip"}
 
-For example, let's say that you have an interface called `DrawingTool` that contains a number of functions and one property
-called `color`:
+Por exemplo, suponha que você tenha uma interface chamada `DrawingTool` que contém várias funções e uma propriedade chamada `color`:
 
 ```kotlin
 interface DrawingTool {
@@ -277,8 +254,7 @@ interface DrawingTool {
 }
 ```
 
-You create a class called `PenTool` which implements the `DrawingTool` interface and provides implementations for all of
-its members:
+Você cria uma classe chamada `PenTool`, que implementa a interface `DrawingTool` e fornece implementações para todos os seus membros:
 
 ```kotlin
 class PenTool : DrawingTool {
@@ -298,11 +274,9 @@ class PenTool : DrawingTool {
 }
 ```
 
-You want to create a class like `PenTool` with the same behavior but a different `color` value. 
-One approach is to create a new class that expects an object implementing the `DrawingTool` interface as a parameter,
-like a `PenTool` class instance. Then, inside the class, you can override the `color` property.
+Você quer criar uma classe como `PenTool` com o mesmo comportamento, mas um valor de `color` diferente. Uma abordagem é criar uma nova classe que recebe como parâmetro um objeto que implementa a interface `DrawingTool`, como uma instância da classe `PenTool`. Depois, dentro da classe, você pode sobrescrever a propriedade `color`.
 
-But in this scenario, you need to add implementations for each member of the `DrawingTool` interface:
+Mas, nesse cenário, você precisa adicionar implementações para cada membro da interface `DrawingTool`:
 
 ```kotlin
 interface DrawingTool {
@@ -366,22 +340,19 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-non-delegation"}
 
-You can see that if you have a large number of member functions in the `DrawingTool` interface, the amount of boilerplate
-code in the `CanvasSession` class can be large. However, there is an alternative.
+Você pode ver que, se a interface `DrawingTool` tiver um grande número de funções membro, a quantidade de código boilerplate na classe `CanvasSession` pode ser grande. No entanto, existe uma alternativa.
 
-In Kotlin, you can delegate the interface implementation to a class instance using the `by` keyword. For example:
+No Kotlin, você pode delegar a implementação da interface para uma instância de classe usando a palavra-chave `by`. Por exemplo:
 
 ```kotlin
 class CanvasSession(val tool: DrawingTool) : DrawingTool by tool
 ```
 
-Here, `tool` is the name of the `PenTool` class instance where the implementations of member functions are delegated to.
+Aqui, `tool` é o nome da instância da classe `PenTool` para a qual as implementações das funções membro são delegadas.
 
-Now you don't have to add implementations for the member functions in the `CanvasSession` class. The compiler does
-this for you automatically from the `PenTool` class. This saves you from having to write a lot of boilerplate code. Instead,
-you add code only for the behavior you want to change for your child class. 
+Agora você não precisa adicionar implementações para as funções membro na classe `CanvasSession`. O compilador faz isso automaticamente para você, a partir da classe `PenTool`. Isso poupa você de escrever muito código boilerplate. Em vez disso, você adiciona código apenas para o comportamento que quer alterar na classe filha.
 
-For example, if you want to change the value of the `color` property:
+Por exemplo, se você quiser alterar o valor da propriedade `color`:
 
 ```kotlin
 interface DrawingTool {
@@ -435,29 +406,23 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-tour-interface-delegation"}
 
-If you want to, you can also override the behavior of an inherited member function in the `CanvasSession` class, but now
-you don't have to add new lines of code for every inherited member function.
+Se quiser, você também pode sobrescrever o comportamento de uma função membro herdada na classe `CanvasSession`, mas agora não precisa adicionar novas linhas de código para cada função membro herdada.
 
-For more information, see [Delegation](delegation.md).
+Para mais informações, veja [Delegação](delegation.md).
 
-## Practice {completion-point="true"}
+## Prática {id="practice" completion-point="true"}
 
 <deflist appearance="clear" collapsible="true" numbered="true">
-<def title="Implement smart devices with an abstract class" id="classes-interfaces-exercise-1">
+<def title="Implementar dispositivos inteligentes com uma classe abstrata" id="classes-interfaces-exercise-1">
 
-Imagine you're working on a smart home system. A smart home typically has different types of devices that all have some
-basic features but also unique behaviors. In the code sample below, complete the `abstract` class called `SmartDevice` 
-so that the child class `SmartLight` can compile successfully.
+Imagine que você está trabalhando em um sistema de casa inteligente. Uma casa inteligente normalmente tem diferentes tipos de dispositivos que têm alguns recursos básicos, mas também comportamentos únicos. No código de exemplo abaixo, complete a classe `abstract` chamada `SmartDevice` para que a classe filha `SmartLight` possa compilar com sucesso.
 
-Then, create another child class called `SmartThermostat` that inherits from the `SmartDevice` class and implements 
-`turnOn()` and `turnOff()` functions that return print statements describing which thermostat is heating or turned off.
-Finally, add another function called `adjustTemperature()` that accepts a temperature measurement as an input and prints:
+Em seguida, crie outra classe filha chamada `SmartThermostat` que herda da classe `SmartDevice` e implementa as funções `turnOn()` e `turnOff()`, que retornam instruções de impressão descrevendo se o termostato está aquecendo ou desligado. Por fim, adicione outra função chamada `adjustTemperature()` que aceita uma medição de temperatura como entrada e imprime:
 `$name thermostat set to $temperature°C.`
 
 <deflist collapsible="true">
-    <def title="Hint">
-        In the <code>SmartDevice</code> class, add the <code>turnOn()</code> and <code>turnOff()</code> functions so that 
-        you can override their behavior later in the <code>SmartThermostat</code> class.
+    <def title="Dica">
+        Na classe <code>SmartDevice</code>, adicione as funções <code>turnOn()</code> e <code>turnOff()</code> para que você possa sobrescrever o comportamento delas depois, na classe <code>SmartThermostat</code>.
     </def>
 </deflist>
 
@@ -555,24 +520,21 @@ fun main() {
     // Bedroom Thermostat thermostat is now off.
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/SmartDeviceTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-1"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/SmartDeviceTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-classes-interfaces-solution-1"}
 
 </def>
-<def title="Implement a media interface" id="classes-interfaces-exercise-2">
+<def title="Implementar uma interface de mídia" id="classes-interfaces-exercise-2">
 
-Create an interface called `Media` that you can use to implement specific media classes like `Audio`, `Video`, or 
-`Podcast`. Your interface must include:
+Crie uma interface chamada `Media` que você possa usar para implementar classes de mídia específicas, como `Audio`, `Video` ou `Podcast`. Sua interface deve incluir:
 
-* A property called `title` to represent the title of the media.
-* A function called `play()` to play the media.
+* Uma propriedade chamada `title` para representar o título da mídia.
+* Uma função chamada `play()` para reproduzir a mídia.
 
-Then, create a class called `Audio` that implements the `Media` interface. The `Audio` class must use the `title` property
-in its constructor as well as have an additional property called `composer` that has `String` type. In the class, implement
-the `play()` function to print the following: `"Playing audio: $title, composed by $composer"`.
+Em seguida, crie uma classe chamada `Audio` que implementa a interface `Media`. A classe `Audio` deve usar a propriedade `title` no seu construtor e ter uma propriedade adicional chamada `composer`, do tipo `String`. Na classe, implemente a função `play()` para imprimir o seguinte: `"Playing audio: $title, composed by $composer"`.
 
 <deflist collapsible="true">
-    <def title="Hint">
-        You can use the <code>override</code> keyword in class headers to implement a property from an interface in the constructor.
+    <def title="Dica">
+        Você pode usar a palavra-chave <code>override</code> nos cabeçalhos de classe para implementar uma propriedade de uma interface no construtor.
     </def>
 </deflist>
 
@@ -607,23 +569,20 @@ fun main() {
    // Playing audio: Symphony No. 5, composed by Beethoven
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/AudioTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-2"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/AudioTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-classes-interfaces-solution-2"}
 
 </def>
-<def title="Combine an interface and an abstract class" id="classes-interfaces-exercise-3">
+<def title="Combinar uma interface e uma classe abstrata" id="classes-interfaces-exercise-3">
 
-You're building a payment processing system for an e-commerce application. Each payment method needs to be able to 
-authorize a payment and process a transaction. Some payments also need to be able to process refunds.
+Você está criando um sistema de processamento de pagamentos para um app de e-commerce. Cada método de pagamento precisa conseguir autorizar um pagamento e processar uma transação. Alguns pagamentos também precisam conseguir processar reembolsos.
 
-1. In the `Refundable` interface, add a function called `refund()` to process refunds.
+1. Na interface `Refundable`, adicione uma função chamada `refund()` para processar reembolsos.
 
-2. In the `PaymentMethod` abstract class:
-   * Add a function called `authorize()` that takes an amount and prints a message containing the amount.
-   * Add an abstract function called `processPayment()` that also takes an amount.
+2. Na classe abstrata `PaymentMethod`:
+   * Adicione uma função chamada `authorize()` que recebe um valor e imprime uma mensagem contendo o valor.
+   * Adicione uma função abstrata chamada `processPayment()` que também recebe um valor.
 
-3. Create a class called `CreditCard` that implements the `Refundable` interface and `PaymentMethod` abstract class.
-In this class, add implementations for the `refund()` and `processPayment()` functions so that they print the following 
-statements:
+3. Crie uma classe chamada `CreditCard` que implementa a interface `Refundable` e a classe abstrata `PaymentMethod`. Nessa classe, adicione implementações para as funções `refund()` e `processPayment()` para que elas imprimam as seguintes instruções:
    * `"Refunding $amount to the credit card."`
    * `"Processing credit card payment of $amount."`
 
@@ -685,22 +644,18 @@ fun main() {
     // Refunding $50.0 to the credit card.
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/CreditCardTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-3"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/CreditCardTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-classes-interfaces-solution-3"}
 
 </def>
-<def title="Customize behavior with interface delegation" id="classes-interfaces-exercise-4">
+<def title="Personalizar o comportamento com delegação de interface" id="classes-interfaces-exercise-4">
 
-You have a simple messaging app that has some basic functionality, but you want to add some functionality for 
-_smart_ messages without significantly duplicating your code.
+Você tem um app de mensagens simples que tem algumas funcionalidades básicas, mas quer adicionar funcionalidades para mensagens _inteligentes_ sem duplicar muito o código.
 
-In the code below, define a class called `SmartMessenger` that inherits from the `Messenger` interface but delegates 
-the implementation to an instance of the `BasicMessenger` class. 
+No código abaixo, defina uma classe chamada `SmartMessenger` que herda da interface `Messenger`, mas delega a implementação para uma instância da classe `BasicMessenger`.
 
-In the `SmartMessenger` class, override the `sendMessage()` function to send smart messages. The function must accept
-a `message` as an input and return a printed statement: `"Sending a smart message: $message"`. In addition, call the 
-`sendMessage()` function from the `BasicMessenger` class and prefix the message with `[smart]`.
+Na classe `SmartMessenger`, sobrescreva a função `sendMessage()` para enviar mensagens inteligentes. A função deve aceitar uma `message` como entrada e retornar uma instrução impressa: `"Sending a smart message: $message"`. Além disso, chame a função `sendMessage()` da classe `BasicMessenger` e preceda a mensagem com `[smart]`.
 
-> You don't need to rewrite the `receiveMessage()` function in the `SmartMessenger` class.
+> Você não precisa reescrever a função `receiveMessage()` na classe `SmartMessenger`.
 > 
 {style="note"}
 
@@ -773,7 +728,7 @@ fun main() {
     // Sending message: [smart] Hello from SmartMessenger!
 }
 ```
-{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/SmartMessengerTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Example solution" id="kotlin-tour-classes-interfaces-solution-4"}
+{kotlin-runnable="true" kotlin-target-platform="exercise" kotlin-hidden-files="ExerciseUtils.kt,tour/intermediate/SmartMessengerTest.kt" initial-collapse-state="collapsed" collapsible="true" collapsed-title="Solução de exemplo" id="kotlin-tour-classes-interfaces-solution-4"}
 
 </def>
 </deflist>
@@ -782,9 +737,11 @@ fun main() {
 
 <list columns="2" id="tour-nav">
   <li>
-    <a as="button" href="kotlin-tour-intermediate-lambdas-receiver.md" mode="outline" icon="arrow-left" icon-position="left">Previous step</a>
+    <a as="button" href="kotlin-tour-intermediate-lambdas-receiver.md" mode="outline" icon="arrow-left" icon-position="left">Passo anterior</a>
   </li>
   <li>
-    <a as="button" href="kotlin-tour-intermediate-objects.md" mode="classic" icon="arrow-right" icon-position="right">Next step</a>
+    <a as="button" href="kotlin-tour-intermediate-objects.md" mode="classic" icon="arrow-right" icon-position="right">Próximo passo</a>
   </li>
 </list>
+
+<!-- ia-translate: true -->
