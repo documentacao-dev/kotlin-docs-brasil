@@ -1,0 +1,45 @@
+name: Deploy kotlin.documentacao.dev
+
+# Build da documentação com o Writerside (tool/site/build.sh, builder oficial em
+# Docker) e deploy no site Firebase kotlin-documentacao (projeto transliteradu).
+# Precisa do secret FIREBASE_SERVICE_ACCOUNT.
+
+on:
+  push:
+    branches: [master]
+    paths: ['docs/**', 'tool/**', 'firebase.json', '.github/workflows/deploy-firebase.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          sparse-checkout: |
+            docs
+            tool
+            .github
+      - name: Conferir traduções
+        run: python3 tool/traducao/verificar.py
+      - name: Build do site (Writerside)
+        run: tool/site/build.sh
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: transliteradu
+          channelId: live

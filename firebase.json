@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "site": "kotlin-documentacao",
+    "public": "site",
+    "ignore": ["firebase.json", "**/.*"],
+    "cleanUrls": false,
+    "trailingSlash": false,
+    "headers": [
+      { "source": "**/*.@(css|js|svg|png|jpg|jpeg|webp|gif|woff|woff2|mp4)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] }
+    ]
+  }
+}
