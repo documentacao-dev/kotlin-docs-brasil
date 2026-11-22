@@ -1,6 +1,6 @@
-[//]: # (title: Idiomas)
+[//]: # (title: Expressões idiomáticas)
 
-Uma coleção de idiomas aleatórios e muito usados em Kotlin. Se você tem um idioma favorito, contribua enviando um pull request.
+Uma coleção de expressões idiomáticas variadas e muito usadas em Kotlin. Se você tem uma expressão favorita, contribua enviando um pull request.
 
 ## Criar DTOs (POJOs/POCOs) {id="create-dtos-pojos-pocos"}
 
@@ -125,7 +125,7 @@ val p: String by lazy { // the value is computed only on first access
 }
 ```
 
-## Funções de extensão {id="extension-functions"}
+## Extension functions {id="extension-functions"}
 
 ```kotlin
 fun String.spaceToCamelCase() { ... }
@@ -298,7 +298,7 @@ fun theAnswer(): Int {
 }
 ```
 
-Isso pode ser combinado de forma eficaz com outros idiomas, resultando em código mais curto. Por exemplo, com a expressão `when`:
+Isso pode ser combinado de forma eficaz com outras expressões idiomáticas, resultando em código mais curto. Por exemplo, com a expressão `when`:
 
 ```kotlin
 fun transform(color: String): Int = when (color) {

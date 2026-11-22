@@ -177,7 +177,7 @@ class Example {
 }
 ```
 
-A lista completa de alvos de uso suportados é:
+A lista completa de alvos de uso disponíveis é:
 
   * `file`
   * `field`
@@ -185,9 +185,9 @@ A lista completa de alvos de uso suportados é:
   * `get` (getter da propriedade)
   * `set` (setter da propriedade)
   * `all` (um meta-alvo para propriedades, veja a seção [meta-alvo `all`](#all-meta-target) para mais informações)
-  * `receiver` (parâmetro receiver de uma função ou propriedade de extensão)
+  * `receiver` (parâmetro receiver de uma extension function ou extension property)
 
-    Para anotar o parâmetro receiver de uma função de extensão, use a seguinte sintaxe:
+    Para anotar o parâmetro receiver de uma extension function, use a seguinte sintaxe:
 
     ```kotlin
     fun @receiver:Fancy String.myExtension() { ... }
@@ -195,7 +195,7 @@ A lista completa de alvos de uso suportados é:
 
   * `param` (parâmetro do construtor)
   * `setparam` (parâmetro do setter da propriedade)
-  * `delegate` (o campo que armazena a instância de delegação de uma propriedade delegada)
+  * `delegate` (o campo que armazena a instância do delegate de uma propriedade delegada)
 
 ### Valores padrão quando nenhum alvo de uso é especificado {id="defaults-when-no-use-site-targets-are-specified"}
 
@@ -278,7 +278,7 @@ Você pode usar o meta-alvo `all` com qualquer propriedade, tanto dentro quanto 
 
 O alvo `all` tem algumas limitações:
 
-* Ele não propaga a anotação para tipos, possíveis receivers de extensão ou receivers e parâmetros de contexto.
+* Ele não propaga a anotação para tipos, possíveis extension receivers ou receivers e parâmetros de contexto.
 * Ele não pode ser usado com várias anotações:
     ```kotlin
     @all:[A B] // forbidden, use @all:A @all:B

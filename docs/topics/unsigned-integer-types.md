@@ -35,11 +35,11 @@ Assim como nos arrays de inteiros com sinal, eles oferecem uma API semelhante à
 
 Ao usar arrays sem sinal, você recebe um aviso indicando que este recurso ainda não é estável.
 Para remover o aviso, faça opt-in com a anotação `@ExperimentalUnsignedTypes`.
-Cabe a você decidir se os seus clientes precisam fazer opt-in explicitamente para usar a sua API, mas tenha em mente que
+Cabe a você decidir se os clientes precisam fazer opt-in explicitamente para usar a API, mas tenha em mente que
 arrays sem sinal não são um recurso estável, então uma API que os utiliza pode quebrar com mudanças na linguagem.
 [Saiba mais sobre os requisitos de opt-in](opt-in-requirements.md).
 
-[Intervalos e progressões](ranges.md) são suportados para `UInt` e `ULong` pelas classes `UIntRange`, `UIntProgression`,
+[Intervalos e progressões](ranges.md) estão disponíveis para `UInt` e `ULong` por meio das classes `UIntRange`, `UIntProgression`,
 `ULongRange` e `ULongProgression`. Junto com os tipos inteiros sem sinal, essas classes são estáveis.
 
 ## Literais de inteiros sem sinal {id="unsigned-integers-literals"}

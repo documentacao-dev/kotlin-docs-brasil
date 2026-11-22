@@ -23,7 +23,7 @@ typealias DatabaseTransaction = Database.Transaction
 
 Um alias de tipo não cria um novo tipo. Ele introduz um nome alternativo para um tipo existente. O alias e o tipo
 subjacente são intercambiáveis. Por exemplo, quando você adiciona `typealias Predicate<T>` e usa `Predicate<Int>`, o compilador
-expande para `(Int) -> Boolean`. Você pode usar um valor declarado com o alias em qualquer lugar onde o tipo subjacente é esperado, e
+expande para `(Int) -> Boolean`. Você pode usar um valor declarado com o alias em qualquer lugar onde o tipo subjacente for esperado, e
 vice-versa:
 
 ```kotlin
@@ -118,7 +118,7 @@ fun synchronizeUsers(users: UserRepository.UserIndex) {
 }
 ```
 
-> Aliases de tipo aninhados não são suportados em [declarações `expect/actual`](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) do Kotlin Multiplatform.
+> Aliases de tipo aninhados não são aceitos em [declarações `expect/actual`](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) do Kotlin Multiplatform.
 >
 {style="note"}
 
