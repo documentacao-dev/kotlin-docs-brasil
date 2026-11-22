@@ -94,7 +94,7 @@ Toda instância de classe já é uma instância dos seus supertipos.
 > 
 {type="tip"}
 
-## Conversões de tipo
+## Conversões de tipo {id="type-casts"}
 
 Converter o tipo de um objeto no Kotlin para outro tipo é chamado de **casting**.
 
@@ -140,7 +140,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-smartcast-negative"}
 
-### Control flow
+### Controle de fluxo
 
 Smart casts funcionam não só para expressões condicionais `if`, mas também para [expressões `when`](control-flow.md#when-expressions-and-statements):
 
@@ -247,7 +247,7 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
-### Operadores lógicos
+### Operadores lógicos {id="logical-operators"}
 
 O compilador pode fazer smart casts no lado direito dos operadores `&&` ou `||` se houver uma verificação de tipo (normal ou negativa) no lado esquerdo:
 
@@ -288,7 +288,7 @@ fun signalCheck(signalStatus: Any) {
 >
 {style="note"}
 
-### Tipos de interseção
+### Tipos de interseção {id="intersection-types"}
 
 Quando o compilador faz smart cast de um objeto por meio de várias verificações com `&&`, ele infere um [*tipo de interseção*](https://kotlinlang.org/spec/type-system.html#intersection-types).
 Trata-se de um tipo interno que satisfaz simultaneamente todas as restrições verificadas:
@@ -322,7 +322,7 @@ Essa sintaxe é reservada especificamente para combinar um parâmetro de tipo co
 fun  <T> T.assertNotNull(): T & Any = this ?: throw IllegalStateException("null value")
 ```
 
-### Funções inline
+### Funções inline {id="inline-functions"}
 
 O compilador pode fazer smart cast de variáveis capturadas dentro de funções lambda passadas para [funções inline](inline-functions.md).
 
@@ -362,7 +362,7 @@ fun runProcessor(): Processor? {
 }
 ```
 
-### Tratamento de exceções
+### Tratamento de exceções {id="exception-handling"}
 
 As informações de smart cast são repassadas aos blocos `catch` e `finally`. Isso torna seu código mais seguro,
 pois o compilador acompanha se o objeto tem um tipo anulável. Por exemplo:
@@ -399,7 +399,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling"}
 
-### Pré-requisitos do smart cast
+### Pré-requisitos do smart cast {id="smart-cast-prerequisites"}
 
 Smart casts funcionam somente quando o compilador pode garantir que a variável não muda entre a verificação e o seu uso.
 Eles podem ser usados nas seguintes condições:
@@ -518,12 +518,11 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
 
-### Upcasting e downcasting
+### Upcasting e downcasting {id="up-and-downcasting"}
 
 No Kotlin, você pode converter objetos para supertipos e subtipos. 
 
-Casting an object to an instance of its superclass is called **upcasting**. Upcasting doesn't need any special syntax or
-cast operators. For example:
+Converter um objeto para uma instância da sua superclasse é chamado de **upcasting**. O upcasting não precisa de nenhuma sintaxe especial nem de operadores de conversão. Por exemplo:
 
 ```kotlin
 interface Animal {
@@ -550,12 +549,12 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-upcast"}
 
-In this example, when the `printAnimalInfo()` function is called with a `Dog` instance, the compiler upcasts it
-to `Animal` because that's the expected parameter type. Since the actual object is still a `Dog` instance, the compiler dynamically
-resolves the `makeSound()` function from the `Dog` class, printing `"Dog says woof!"`.
+Neste exemplo, quando a função `printAnimalInfo()` é chamada com uma instância de `Dog`, o compilador faz o upcasting
+para `Animal`, porque esse é o tipo de parâmetro esperado. Como o objeto real continua sendo uma instância de `Dog`, o compilador
+resolve dinamicamente a função `makeSound()` da classe `Dog`, imprimindo `"Dog says woof!"`.
 
-You'll often see explicit upcasting in Kotlin APIs where behavior depends on an abstract type. It's also common in Jetpack Compose
-and UI toolkits, which typically treat all UI elements as supertypes and later operate on specific subclasses:
+Você vai ver upcasting explícito com frequência nas APIs do Kotlin em que o comportamento depende de um tipo abstrato. Ele também é comum no Jetpack Compose
+e em toolkits de UI, que normalmente tratam todos os elementos de UI como supertipos e depois operam sobre subclasses específicas:
 
 ```kotlin
     val textView = TextView(this)
@@ -570,9 +569,7 @@ and UI toolkits, which typically treat all UI elements as supertypes and later o
     setContentView(view)
 ```
 
-Casting an object to an instance of a subclass is called **downcasting**. Because downcasting can be unsafe, you need to use
-explicit cast operators. To avoid throwing exceptions on failed casts, we recommend using the safe cast operator `as?`,
-to return `null` if the cast fails:
+Converter um objeto para uma instância de uma subclasse é chamado de **downcasting**. Como o downcasting pode ser inseguro, você precisa usar operadores de conversão explícitos. Para evitar exceções em conversões que falham, recomendamos o operador de conversão seguro `as?`, que retorna `null` se a conversão falhar:
 
 ```kotlin
 interface Animal {
@@ -604,8 +601,10 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-downcast"}
 
-In this example, `animal` is declared as type `Animal`, but it holds a `Dog` instance. The code safely casts `animal` to 
-`Dog` type and uses a [safe call](null-safety.md#safe-call-operator) (`?.`) to access the `bark()` function.
+Neste exemplo, `animal` é declarado com o tipo `Animal`, mas guarda uma instância de `Dog`. O código converte `animal` com segurança para o tipo 
+`Dog` e usa uma [chamada segura](null-safety.md#safe-call-operator) (`?.`) para acessar a função `bark()`.
 
-You'll use downcasting in serialization when deserializing a base class to a specific subtype. It's also common when 
-working with Java libraries that return supertype objects, which you may need to downcast in Kotlin.
+Você vai usar downcasting em serialização ao desserializar uma classe base para um subtipo específico. Também é comum ao trabalhar 
+com bibliotecas Java que retornam objetos de supertipo, que talvez você precise converter com downcasting no Kotlin.
+
+<!-- ia-translate: true -->
