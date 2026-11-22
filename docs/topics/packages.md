@@ -1,13 +1,13 @@
-[//]: # (title: Packages and imports)
+[//]: # (title: Pacotes e imports)
 
-In a Kotlin project, code is organized using packages and imports:
+Em um projeto Kotlin, o código é organizado usando pacotes e imports:
 
-* A **package** is a container for one or more Kotlin files. Files are linked to a package using a `package` header.
-* An **import** is a directive that makes entities from other packages available in the current file.
+* Um **pacote** é um contêiner para um ou mais arquivos Kotlin. Os arquivos são vinculados a um pacote por meio de um cabeçalho `package`.
+* Um **import** é uma diretiva que torna entidades de outros pacotes disponíveis no arquivo atual.
 
-## Package headers
+## Cabeçalhos de pacote {id="package-headers"}
 
-A source file may start with a package header:
+Um arquivo de código-fonte pode começar com um cabeçalho de pacote:
 
 ```kotlin
 package org.example
@@ -16,23 +16,23 @@ fun printMessage() { /*...*/ }
 class Message(val text: String) { /*...*/ }
 ```
 
-All contents of the source file, such as classes and functions, belong to this package.
-Their fully qualified name combines the package name with the entity's name.
-In this example:
+Todo o conteúdo do arquivo de código-fonte, como classes e funções, pertence a esse pacote.
+O nome totalmente qualificado de cada entidade combina o nome do pacote com o nome da entidade.
+Neste exemplo:
 
-* The fully qualified name of `printMessage()` is `org.example.printMessage`.
-* The fully qualified name of `Message` is `org.example.Message`.
+* O nome totalmente qualificado de `printMessage()` é `org.example.printMessage`.
+* O nome totalmente qualificado de `Message` é `org.example.Message`.
 
-If a file has no package header, its contents belong to the root package.
+Se um arquivo não tiver cabeçalho de pacote, o conteúdo dele pertence ao pacote raiz.
 
 ## Imports
 
-To use an entity from a file in a different package, use an `import` directive.
-In addition to the default imports, each file may declare its own imports.
+Para usar uma entidade de um arquivo em outro pacote, use uma diretiva `import`.
+Além dos imports padrão, cada arquivo pode declarar os próprios imports.
 
-### Import a single entity
+### Importar uma única entidade {id="import-a-single-entity"}
 
-Import a specific entity so you can use it without qualification:
+Importe uma entidade específica para usá-la sem qualificação:
 
 ```kotlin
 // Message is accessible without qualification
@@ -44,9 +44,9 @@ fun main() {
 }
 ```
 
-### Import the contents of a scope
+### Importar o conteúdo de um escopo {id="import-the-contents-of-a-scope"}
 
-Star imports, ending in an asterisk `*`, import all named entities inside the corresponding scope:
+Imports com asterisco `*` importam todas as entidades nomeadas dentro do escopo correspondente:
 
 ```kotlin
 // Everything in org.example is accessible
@@ -58,12 +58,12 @@ fun main() {
 }
 ```
 
-If you import an entity with both a star import and an explicit import,
-the explicit import takes priority during overload resolution.
+Se você importar uma entidade com um import com asterisco e também com um import explícito,
+o import explícito tem prioridade na resolução de sobrecarga.
 
-### Resolve name clashes with aliases
+### Resolver conflitos de nome com aliases {id="resolve-name-clashes-with-aliases"}
 
-If two imported entities have the same name, use the `as` keyword to locally rename one of them:
+Se duas entidades importadas tiverem o mesmo nome, use a palavra-chave `as` para renomear localmente uma delas:
 
 ```kotlin
 // Message refers to org.example.Message
@@ -78,38 +78,38 @@ fun main() {
 }
 ```
 
-### What you can import
+### O que você pode importar {id="what-you-can-import"}
 
-The `import` keyword is not limited to classes. You can import any of the following entities,
-whether they come from a package, a class, an object, or an enum:
+A palavra-chave `import` não se limita a classes. Você pode importar qualquer uma das entidades a seguir,
+seja ela de um pacote, de uma classe, de um `object` ou de um enum:
 
-* Top-level functions and properties declared directly inside a package:
+* Funções e propriedades de nível superior declaradas diretamente dentro de um pacote:
     ```kotlin
     import org.example.printMessage // Top-level function
     import org.example.VERSION      // Top-level property
     ```
-* Functions and properties from [object declarations](object-declarations.md#object-declarations-overview):
+* Funções e propriedades de [declarações de `object`](object-declarations.md#object-declarations-overview):
     ```kotlin
     import org.example.Config.DEFAULT_TIMEOUT // Property from an object
     import org.example.Config.loadSettings    // Function from an object
     ```
-* Members of a [companion object](object-declarations.md#companion-objects), referenced through the enclosing class name:
+* Membros de um [companion object](object-declarations.md#companion-objects), referenciados pelo nome da classe que o contém:
     ```kotlin
     import org.example.MyClass.create // Refers to MyClass.Companion.create
     ```
-* [Enum constants](enum-classes.md):
+* [Constantes de enum](enum-classes.md):
     ```kotlin
     import org.example.Color.RED
     import org.example.Color.GREEN
     ```
-* Nested classes:
+* Classes aninhadas:
     ```kotlin
     import org.example.Outer.Nested
     ```
 
-## Default imports
+## Imports padrão {id="default-imports"}
 
-Kotlin includes the following imports by default:
+O Kotlin inclui os seguintes imports por padrão:
 
 * [kotlin.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/index.html)
 * [kotlin.annotation.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.annotation/index.html)
@@ -121,7 +121,7 @@ Kotlin includes the following imports by default:
 * [kotlin.text.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/index.html)
 * [kotlin.math.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.math/index.html)
 
-Kotlin imports additional packages depending on the target platform:
+Dependendo da plataforma de destino, o Kotlin importa pacotes adicionais:
 
 * JVM:
   * [java.lang.*](https://docs.oracle.com/javase/8/docs/api/java/lang/package-summary.html)
@@ -130,12 +130,14 @@ Kotlin imports additional packages depending on the target platform:
 * JS:
   * [kotlin.js.*](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.js/index.html)
 
-## Visibility and imports
+## Visibilidade e imports {id="visibility-and-imports"}
 
-The ability to import an entity depends on its [visibility modifiers](visibility-modifiers.md):
+A possibilidade de importar uma entidade depende dos [modificadores de visibilidade](visibility-modifiers.md):
 
-* `public` entities can be imported anywhere.
-* `internal` entities can be imported only within the same module.
-* `protected` entities cannot be imported.
-* Top-level `private` entities are only accessible within their declaring file.
-* Other `private` entities cannot be imported.
+* Entidades `public` podem ser importadas em qualquer lugar.
+* Entidades `internal` podem ser importadas apenas dentro do mesmo módulo.
+* Entidades `protected` não podem ser importadas.
+* Entidades `private` de nível superior são acessíveis apenas dentro do arquivo em que são declaradas.
+* Outras entidades `private` não podem ser importadas.
+
+<!-- ia-translate: true -->

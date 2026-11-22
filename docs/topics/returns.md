@@ -1,24 +1,24 @@
-[//]: # (title: Returns and jumps)
+[//]: # (title: Retornos e saltos)
 
-Kotlin has three structural jump expressions:
+O Kotlin tem três expressões de salto estruturais:
 
-* `return` by default returns from the nearest enclosing function or [anonymous function](lambdas.md#anonymous-functions).
-* `break` terminates the nearest enclosing loop.
-* `continue` proceeds to the next step of the nearest enclosing loop.
+* `return` retorna, por padrão, da função mais próxima que a envolve ou de uma [função anônima](lambdas.md#anonymous-functions).
+* `break` encerra o laço mais próximo que o envolve.
+* `continue` avança para o próximo passo do laço mais próximo que o envolve.
 
-All of these expressions can be used as part of larger expressions:
+Todas essas expressões podem ser usadas como parte de expressões maiores:
 
 ```kotlin
 val s = person.name ?: return
 ```
 
-The type of these expressions is the [Nothing type](exceptions.md#the-nothing-type).
+O tipo dessas expressões é o [tipo Nothing](exceptions.md#the-nothing-type).
 
-## Break and continue labels
+## Rótulos de break e continue {id="break-and-continue-labels"}
 
-Any expression in Kotlin may be marked with a _label_.
-Labels have the form of an identifier followed by the `@` sign, such as `abc@` or `fooBar@`.
-To label an expression, just add a label in front of it.
+Qualquer expressão em Kotlin pode ser marcada com um _rótulo_.
+Rótulos têm a forma de um identificador seguido do sinal `@`, como `abc@` ou `fooBar@`.
+Para rotular uma expressão, basta adicionar um rótulo na frente dela.
 
 ```kotlin
 loop@ for (i in 1..100) {
@@ -26,7 +26,7 @@ loop@ for (i in 1..100) {
 }
 ```
 
-Now, you can qualify a `break` or a `continue` with a label:
+Agora, você pode qualificar um `break` ou um `continue` com um rótulo:
 
 ```kotlin
 loop@ for (i in 1..100) {
@@ -36,21 +36,21 @@ loop@ for (i in 1..100) {
 }
 ```
 
-A `break` qualified with a label jumps to the execution point right after the loop marked with that label.
-A `continue` proceeds to the next iteration of that loop.
+Um `break` qualificado com um rótulo salta para o ponto de execução logo após o laço marcado com esse rótulo.
+Um `continue` avança para a próxima iteração desse laço.
 
-> In some cases, you can apply `break` and `continue` *non-locally* without explicitly defining labels.
-> Such non-local usages are valid in lambda expressions used in enclosing [inline functions](inline-functions.md#break-and-continue).
+> Em alguns casos, você pode aplicar `break` e `continue` *de forma não local* sem definir rótulos explicitamente.
+> Esses usos não locais são válidos em expressões lambda usadas dentro de [funções inline](inline-functions.md#break-and-continue) que as envolvem.
 >
 {style="note"}
 
-## Return to labels
+## Retorno para rótulos {id="return-to-labels"}
 
-In Kotlin, functions can be nested using function literals, local functions, and object expressions.
-A qualified `return` allows you to return from an outer function.
+No Kotlin, funções podem ser aninhadas usando literais de função, funções locais e expressões de objeto.
+Um `return` qualificado permite retornar de uma função externa.
 
-The most important use case is returning from a lambda expression. To return from a lambda expression,
-label it and qualify the `return`:
+O caso de uso mais importante é retornar de uma expressão lambda. Para retornar de uma expressão lambda,
+rotule-a e qualifique o `return`:
 
 ```kotlin
 //sampleStart
@@ -69,8 +69,8 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Now, it returns only from the lambda expression. Often it is more convenient to use _implicit labels_, because such a label
-has the same name as the function to which the lambda is passed.
+Agora, ele retorna apenas da expressão lambda. Muitas vezes é mais conveniente usar _rótulos implícitos_, porque esse rótulo
+tem o mesmo nome da função à qual a lambda é passada.
 
 ```kotlin
 //sampleStart
@@ -89,8 +89,8 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Alternatively, you can replace the lambda expression with an [anonymous function](lambdas.md#anonymous-functions).
-A `return` statement in an anonymous function will return from the anonymous function itself.
+Como alternativa, você pode substituir a expressão lambda por uma [função anônima](lambdas.md#anonymous-functions).
+Um `return` em uma função anônima retorna da própria função anônima.
 
 ```kotlin
 //sampleStart
@@ -109,10 +109,10 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Note that the use of local returns in the previous three examples is similar to the use of `continue` in regular loops.
+Observe que o uso de retornos locais nos três exemplos anteriores é semelhante ao uso de `continue` em laços regulares.
 
-There is no direct equivalent for `break`, but it can be simulated by adding an outer `run` lambda and non-locally
-returning from it:
+Não existe um equivalente direto para `break`, mas ele pode ser simulado adicionando uma lambda `run` externa
+e retornando de forma não local a partir dela:
 
 ```kotlin
 //sampleStart
@@ -133,17 +133,19 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-The non-local return here is possible since the nested `forEach()` lambda acts as an [inline function](inline-functions.md).
+O retorno não local aqui é possível porque a lambda do `forEach()` aninhado atua como uma [função inline](inline-functions.md).
 
-When returning a value, the parser gives preference to the qualified return:
+Ao retornar um valor, o parser dá preferência ao return qualificado:
 
 ```kotlin
 return@a 1
 ```
 
-This means "return `1` at label `@a`" rather than "return a labeled expression `(@a 1)`".
+Isso significa "retornar `1` no rótulo `@a`" e não "retornar uma expressão rotulada `(@a 1)`".
 
-> In some cases, you can return from a lambda expression without using labels. Such *non-local* returns are located in a
-> lambda but exit the enclosing [inline function](inline-functions.md#returns).
+> Em alguns casos, você pode retornar de uma expressão lambda sem usar rótulos. Esses retornos *não locais* ficam em uma lambda,
+> mas saem da [função inline](inline-functions.md#returns) que a envolve.
 >
 {style="note"}
+
+<!-- ia-translate: true -->

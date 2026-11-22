@@ -1,16 +1,16 @@
-[//]: # (title: Visibility modifiers)
+[//]: # (title: Modificadores de visibilidade)
 
-Classes, objects, interfaces, constructors, and functions, as well as properties and their setters, can have *visibility modifiers*.
-Getters always have the same visibility as their properties.
+Classes, objects, interfaces, construtores e funções, além de propriedades e seus setters, podem ter *modificadores de visibilidade*.
+Os getters sempre têm a mesma visibilidade de suas propriedades.
 
-There are four visibility modifiers in Kotlin: `private`, `protected`, `internal`, and `public`.
-The default visibility is `public`.
+Existem quatro modificadores de visibilidade no Kotlin: `private`, `protected`, `internal` e `public`.
+A visibilidade padrão é `public`.
 
-On this page, you'll learn how the modifiers apply to different types of declaring scopes.
+Nesta página, você vai aprender como os modificadores se aplicam a diferentes tipos de escopos de declaração.
 
-## Packages
+## Pacotes {id="packages"}
 
-Functions, properties, classes, objects, and interfaces can be declared at the "top-level" directly inside a package:
+Funções, propriedades, classes, objects e interfaces podem ser declarados no "nível superior" diretamente dentro de um pacote:
 
 ```kotlin
 // file name: example.kt
@@ -20,17 +20,17 @@ fun baz() { ... }
 class Bar { ... }
 ```
 
-* If you don't use a visibility modifier, `public` is used by default, which means that your declarations will be
-  visible everywhere.
-* If you mark a declaration as `private`, it will only be visible inside the file that contains the declaration.
-* If you mark it as `internal`, it will be visible everywhere in the same [module](#modules).
-* The `protected` modifier is not available for top-level declarations.
+* Se você não usar um modificador de visibilidade, `public` é usado por padrão, o que significa que suas declarações ficam
+  visíveis em qualquer lugar.
+* Se você marcar uma declaração como `private`, ela ficará visível apenas dentro do arquivo que contém a declaração.
+* Se você marcar como `internal`, ela ficará visível em qualquer lugar do mesmo [módulo](#modules).
+* O modificador `protected` não está disponível para declarações de nível superior.
 
->To use a visible top-level declaration from another package, you should [import](packages.md#imports) it.
+>Para usar uma declaração de nível superior visível a partir de outro pacote, você deve [importá-la](packages.md#imports).
 >
 {style="note"}
 
-Examples:
+Exemplos:
 
 ```kotlin
 // file name: example.kt
@@ -44,23 +44,23 @@ public var bar: Int = 5 // property is visible everywhere
 internal val baz = 6    // visible inside the same module
 ```
 
-## Class members
+## Membros de classe {id="class-members"}
 
-For members declared inside a class:
+Para membros declarados dentro de uma classe:
 
-* `private` means that the member is visible inside this class only (including all its members).
-* `protected` means that the member has the same visibility as one marked as `private`, but that it is also visible in subclasses.
-* `internal` means that any client *inside this module* who sees the declaring class sees its `internal` members.
-* `public` means that any client who sees the declaring class sees its `public` members.
+* `private` significa que o membro é visível apenas dentro desta classe (incluindo todos os seus membros).
+* `protected` significa que o membro tem a mesma visibilidade de um marcado como `private`, mas também fica visível nas subclasses.
+* `internal` significa que qualquer cliente *dentro deste módulo* que enxergar a classe declarante enxerga os membros `internal` dela.
+* `public` significa que qualquer cliente que enxergar a classe declarante enxerga os membros `public` dela.
 
-> In Kotlin, an outer class does not see private members of its inner classes.
+> No Kotlin, uma classe externa não enxerga os membros private de suas classes internas.
 >
 {style="note"}
 
-If you override a `protected` or an `internal` member and do not specify the visibility explicitly, the overriding member
-will also have the same visibility as the original.
+Se você sobrescrever um membro `protected` ou `internal` e não especificar a visibilidade explicitamente, o membro
+que sobrescreve também terá a mesma visibilidade do original.
 
-Examples:
+Exemplos:
 
 ```kotlin
 open class Outer {
@@ -90,11 +90,11 @@ class Unrelated(o: Outer) {
 }
 ```
 
-### Constructors
+### Construtores {id="constructors"}
 
-Use the following syntax to specify the visibility of the primary constructor of a class:
+Use a sintaxe a seguir para especificar a visibilidade do construtor primário de uma classe:
 
-> You need to add an explicit `constructor` keyword.
+> Você precisa adicionar a palavra-chave `constructor` explicitamente.
 >
 {style="note"}
 
@@ -102,21 +102,23 @@ Use the following syntax to specify the visibility of the primary constructor of
 class C private constructor(a: Int) { ... }
 ```
 
-Here the constructor is `private`. By default, all constructors are `public`, which effectively
-amounts to them being visible everywhere the class is visible (this means that a constructor of an `internal` class is only
-visible within the same module).
+Aqui o construtor é `private`. Por padrão, todos os construtores são `public`, o que na prática significa que eles
+ficam visíveis em qualquer lugar onde a classe é visível (ou seja, um construtor de uma classe `internal` é visível apenas
+dentro do mesmo módulo).
 
-For sealed classes, constructors are `protected` by default. For more information, see [Sealed classes](sealed-classes.md#constructors).
+Para classes seladas, os construtores são `protected` por padrão. Para mais informações, consulte [Classes seladas](sealed-classes.md#constructors).
 
-### Local declarations
+### Declarações locais {id="local-declarations"}
 
-Local variables, functions, and classes can't have visibility modifiers.
+Variáveis, funções e classes locais não podem ter modificadores de visibilidade.
 
-## Modules
+## Módulos {id="modules"}
 
-The `internal` visibility modifier means that the member is visible within the same module. More specifically,
-a module is a set of Kotlin files compiled together, for example:
+O modificador de visibilidade `internal` significa que o membro é visível dentro do mesmo módulo. Mais especificamente,
+um módulo é um conjunto de arquivos Kotlin compilados juntos, por exemplo:
 
-* An IntelliJ IDEA module.
-* A Maven project.
-* A Gradle source set (with the exception that the `test` source set can access the internal declarations of `main`).
+* Um módulo do IntelliJ IDEA.
+* Um projeto Maven.
+* Um source set do Gradle (com a exceção de que o source set `test` pode acessar as declarações internal de `main`).
+
+<!-- ia-translate: true -->

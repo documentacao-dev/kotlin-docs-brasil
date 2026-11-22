@@ -1,48 +1,48 @@
 [//]: # (title: Arrays)
-[//]: # (description: Learn how to create, access, modify, compare, and convert arrays in Kotlin.)
+<web-summary>Aprenda a criar, acessar, modificar, comparar e converter arrays em Kotlin.</web-summary>
 
-An array is a data structure that holds a fixed number of values of the same type or its subtypes.
-Array elements are ordered and accessed by index.
+Um array é uma estrutura de dados que armazena um número fixo de valores do mesmo tipo ou de seus subtipos.
+Os elementos de um array são ordenados e acessados por índice.
 
-Kotlin provides the [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) class and [primitive-type arrays](#primitive-type-arrays).
+O Kotlin oferece a classe [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) e [arrays de tipos primitivos](#primitive-type-arrays).
 
-## When to use arrays
+## Quando usar arrays {id="when-to-use-arrays"}
 
-Use arrays for interoperability with Java APIs or low-level requirements. For example, if you have 
-performance requirements beyond what is needed for regular applications, or you need to build custom data structures.
+Use arrays para interoperabilidade com APIs Java ou requisitos de baixo nível. Por exemplo, se você tem requisitos de desempenho
+além do que aplicações comuns exigem, ou precisa criar estruturas de dados personalizadas.
 
-For most use cases, prefer [collections](collections-overview.md) instead.
+Na maioria dos casos, prefira [coleções](collections-overview.md).
 
-| Functionality                                       | Arrays                                                                                                                                               | Collections                                       |
+| Funcionalidade                                      | Arrays                                                                                                                                               | Coleções                                          |
 |-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| Size                                                | Fixed                                                                                                                                                | Depends on the type                               |           
-| Read-only variant                                   | No, always mutable                                                                                                                                   | Yes (`List` and `Set`)                            |
-| Adding and removing elements                        | No native support.<br/> Allocate and copy to a new array                                                                                             | Yes (mutable collections)                         |
-| Structural equality with `==`                       | No, compares references.<br/> Use [`.contentEquals()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/content-equals.html) instead | Yes                                               |
-| Primitive values                                    | Primitive-type arrays store values<br/> without boxing                                                                                               | Usually boxed                                     |
-| Java interoperability                               | Maps to `T[]`                                                                                                                                        | Maps to `java.util.List` and<br/> `java.util.Set` |
-| Functional-style filtering and<br/> transformations | Limited                                                                                                                                              | Extensive                                         |
+| Tamanho                                             | Fixo                                                                                                                                                 | Depende do tipo                                   |
+| Variante somente leitura                            | Não, sempre mutável                                                                                                                                  | Sim (`List` e `Set`)                              |
+| Adicionar e remover elementos                       | Sem suporte nativo.<br/> Aloque e copie para um novo array                                                                                           | Sim (coleções mutáveis)                           |
+| Igualdade estrutural com `==`                       | Não, compara referências.<br/> Use [`.contentEquals()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/content-equals.html) no lugar | Sim                                               |
+| Valores primitivos                                  | Arrays de tipos primitivos armazenam valores<br/> sem boxing                                                                                         | Geralmente com boxing                             |
+| Interoperabilidade com Java                         | Mapeia para `T[]`                                                                                                                                    | Mapeia para `java.util.List` e<br/> `java.util.Set` |
+| Filtragem e transformações<br/> no estilo funcional | Limitado                                                                                                                                             | Extenso                                           |
 
-Learn how to [convert arrays to collections](#convert-to-collections). 
+Saiba como [converter arrays em coleções](#convert-to-collections).
 
-## Create arrays
+## Criar arrays {id="create-arrays"}
 
-To create arrays, you can use:
+Para criar arrays, você pode usar:
 
-* The [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html), [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)), 
-or [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) functions.
-* The `Array` constructor.
+* As funções [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html), [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)),
+ou [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html).
+* O construtor `Array`.
 
-> Declaring an array with `val` only prevents reassigning the variable but doesn't make the contents read-only.
-> Elements are mutable in both `val` and `var` arrays. The distinction only affects the reference, not the contents.
-> For a read-only view, use [collections](collections-overview.md) instead.
+> Declarar um array com `val` apenas impede a reatribuição da variável, mas não torna o conteúdo somente leitura.
+> Os elementos são mutáveis tanto em arrays `val` quanto em arrays `var`. A distinção afeta apenas a referência, não o conteúdo.
+> Para uma visão somente leitura, use [coleções](collections-overview.md).
 > 
 {style="note"}
 
-### Array with values
+### Array com valores {id="array-with-values"}
 
-To create a typed array from a known set of values, use the [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) function.
-Kotlin infers the type automatically:
+Para criar um array tipado a partir de um conjunto conhecido de valores, use a função [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html).
+O Kotlin infere o tipo automaticamente:
 
 ```kotlin
 fun main() {
@@ -55,22 +55,22 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-simple-array-kotlin"}
 
-### Empty array
+### Array vazio {id="empty-array"}
 
-To create an array with no elements, use the [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html) function.
-You can specify the type of elements on the left-hand or right-hand side of the assignment:
+Para criar um array sem elementos, use a função [`emptyArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/empty-array.html).
+Você pode especificar o tipo dos elementos do lado esquerdo ou direito da atribuição:
 
 ```kotlin
 val emptyArrayRight = emptyArray<String>()
 val emptyArrayLeft: Array<String> = emptyArray()
 ```
 
-Learn [how to add elements](#add-and-remove-elements) to an array.
+Saiba [como adicionar elementos](#add-and-remove-elements) a um array.
 
-### Array with nulls
+### Array com nulls {id="array-with-nulls"}
 
-To create an array of a given size filled with `null` elements,
-use the [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)) function:
+Para criar um array de um tamanho determinado preenchido com elementos `null`,
+use a função [`arrayOfNulls()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of-nulls.html#kotlin$arrayOfNulls(kotlin.Int)):
 
 ```kotlin
 fun main() {
@@ -83,9 +83,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-null-array-kotlin"}
 
-### Array constructor
+### Construtor de array {id="array-constructor"}
 
-The `Array` constructor takes the array size and a function that returns values of array elements:
+O construtor `Array` recebe o tamanho do array e uma função que retorna os valores dos elementos:
 
 ```kotlin
 fun main() {
@@ -102,10 +102,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-array-constructor-kotlin"}
 
-### Nested arrays
+### Arrays aninhados {id="nested-arrays"}
 
-To create a nested or multidimensional array, use an array of arrays.
-Nested arrays don't have to be the same type or the same size.
+Para criar um array aninhado ou multidimensional, use um array de arrays.
+Arrays aninhados não precisam ser do mesmo tipo nem ter o mesmo tamanho.
 
 ```kotlin
 fun main() {
@@ -124,31 +124,31 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-multidimensional-array-kotlin"}
 
-### Primitive-type arrays
+### Arrays de tipos primitivos {id="primitive-type-arrays"}
 
-If you use the `Array` class with primitive values, the compiler boxes these values into objects.
-To avoid boxing overhead, you can use dedicated primitive-type arrays.
-They are not subclasses of the [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/) class, but they provide a similar set of functions and properties.
+Se você usa a classe `Array` com valores primitivos, o compilador encapsula esses valores em objetos (boxing).
+Para evitar o custo do boxing, você pode usar arrays de tipos primitivos dedicados.
+Eles não são subclasses da classe [`Array<T>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/), mas oferecem um conjunto semelhante de funções e propriedades.
 
-| Kotlin type                                                                             | Java equivalent |
-|-----------------------------------------------------------------------------------------|-----------------|
-| [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/)   | `boolean[]`     |
-| [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)         | `byte[]`        |
-| [`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/)         | `char[]`        |
-| [`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/)     | `double[]`      |
-| [`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)       | `float[]`       |
-| [`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)           | `int[]`         |
-| [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)         | `long[]`        |
-| [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)       | `short[]`       |
+| Tipo do Kotlin                                                                          | Equivalente em Java |
+|-----------------------------------------------------------------------------------------|---------------------|
+| [`BooleanArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean-array/)   | `boolean[]`         |
+| [`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/)         | `byte[]`            |
+| [`CharArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/)         | `char[]`            |
+| [`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/)     | `double[]`          |
+| [`FloatArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float-array/)       | `float[]`           |
+| [`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/)           | `int[]`             |
+| [`LongArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long-array/)         | `long[]`            |
+| [`ShortArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-short-array/)       | `short[]`           |
 
-> Kotlin doesn't have a dedicated `StringArray` type. `String` is not a primitive, so
-> use the [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) or `arrayOf<String>()` functions with inferred type instead.
+> O Kotlin não tem um tipo `StringArray` dedicado. `String` não é um primitivo, então
+> use as funções [`arrayOf()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/array-of.html) ou `arrayOf<String>()` com tipo inferido, em vez disso.
 > 
 {style="note"}
 
-To create a primitive-type array, use one of the following options:
+Para criar um array de tipo primitivo, use uma das seguintes opções:
 
-* Constructor functions:
+* Funções construtoras:
 
   ```kotlin
   fun main() {
@@ -167,7 +167,7 @@ To create a primitive-type array, use one of the following options:
   ```
   {kotlin-runnable="true" id="arrays-primitive-type-array-kotlin"}
 
-* Factory functions:
+* Funções de fábrica:
 
   ```kotlin
   fun main() {
@@ -191,41 +191,40 @@ To create a primitive-type array, use one of the following options:
   ```
   {kotlin-runnable="true"}
 
-> To convert primitive-type arrays to object-type arrays, use the [`.toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html)
-> function.
+> Para converter arrays de tipos primitivos em arrays de tipos objeto, use a função [`.toTypedArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-typed-array.html).
 >
-> To convert object-type arrays to primitive-type arrays, use [`.toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html),
+> Para converter arrays de tipos objeto em arrays de tipos primitivos, use [`.toBooleanArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-boolean-array.html),
 > [`.toByteArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-byte-array.html), [`.toCharArray()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-char-array.html),
-> and so on.
+> e assim por diante.
 >
 {style="note"}
 
-## Work with arrays
+## Trabalhar com arrays {id="work-with-arrays"}
 
-Arrays support many of the same operations as collections, including iteration,
-searching, sorting, and transformations.
-In Kotlin, you can work with arrays by using them to pass a variable number of arguments to a function or perform operations
-on the arrays themselves.
-Find the most common properties and functions in the following table:
+Arrays aceitam muitas das mesmas operações que as coleções, incluindo iteração,
+busca, ordenação e transformações.
+No Kotlin, você pode trabalhar com arrays usando-os para passar um número variável de argumentos para uma função ou realizando operações
+sobre os próprios arrays.
+Veja as propriedades e funções mais comuns na tabela a seguir:
 
-| Member                                                                                                                                                                                                 | Returns                               |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-| [`size`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/size.html)                                                                                                                        | The number of elements                |
-| [`indices`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/indices.html)                                                                                                             | The range of valid indices            |
-| [`lastIndex`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/last-index.html)                                                                                                        | The last valid index                  |
-| [`first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) and [`last()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/last.html)                    | First and last element                |
-| [`isEmpty()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/is-empty.html) and [`isNotEmpty()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/is-not-empty.html) | `true` if array is empty or not empty |
-| [`contains()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/contains.html)                                                                                                         | `true` if array has the element       |
+| Membro                                                                                                                                                                                                 | Retorna                                       |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
+| [`size`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/size.html)                                                                                                                        | O número de elementos                         |
+| [`indices`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/indices.html)                                                                                                             | O intervalo de índices válidos                |
+| [`lastIndex`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/last-index.html)                                                                                                        | O último índice válido                        |
+| [`first()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/first.html) e [`last()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/last.html)                    | Primeiro e último elemento                    |
+| [`isEmpty()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/is-empty.html) e [`isNotEmpty()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/is-not-empty.html) | `true` se o array estiver vazio ou não vazio  |
+| [`contains()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/contains.html)                                                                                                         | `true` se o array tiver o elemento            |
 
-> Learn more about array properties and functions in the [API reference](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/).
+> Saiba mais sobre propriedades e funções de arrays na [referência da API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/).
 > 
 {style="tip"}
 
-This section introduces some of the most commonly used operations.
+Esta seção apresenta algumas das operações mais usadas.
 
-### Access and modify elements
+### Acessar e modificar elementos {id="access-and-modify-elements"}
 
-To access and modify elements in an array, use the [indexed access operator](operator-overloading.md#indexed-access-operator)
+Para acessar e modificar elementos em um array, use o [operador de acesso por índice](operator-overloading.md#indexed-access-operator)
 (`[]`):
 
 ```kotlin
@@ -248,12 +247,12 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-access-array-kotlin"}
 
-> If you try to access an index outside the bounds of an array, Kotlin throws `ArrayIndexOutOfBoundsException` at runtime.
+> Se você tentar acessar um índice fora dos limites de um array, o Kotlin lança `ArrayIndexOutOfBoundsException` em tempo de execução.
 >
 {style="note"} 
 
-You can also use the [`fill(element, fromIndex, toIndex)`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/fill.html) function
-to replace elements in a range in place. `fromIndex` is inclusive, and `toIndex` is exclusive:
+Você também pode usar a função [`fill(element, fromIndex, toIndex)`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/fill.html) para substituir elementos em um intervalo, no próprio array.
+`fromIndex` é inclusivo, e `toIndex` é exclusivo:
 
 ```kotlin
 fun main() {
@@ -274,9 +273,9 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-In Kotlin, arrays are _invariant_. This means that `Array<String>` is not a subtype
-of `Array<Any>`. This prevents possible runtime type failures. To express covariance, use the `Array<out Any>`
-[type projection](generics.md#type-projections):
+No Kotlin, arrays são _invariantes_. Isso significa que `Array<String>` não é um subtipo
+de `Array<Any>`. Isso evita possíveis falhas de tipo em tempo de execução. Para expressar covariância, use a
+[projeção de tipo](generics.md#type-projections) `Array<out Any>`:
 
 ```kotlin
 fun main() {
@@ -292,12 +291,12 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### Add and remove elements
+### Adicionar e remover elementos {id="add-and-remove-elements"}
 
-Since arrays have a fixed size, they don't support the `.add()` and `.remove()` functions. To perform these operations,
-you need to create a new array. For that, you can use one of the following options:
+Como arrays têm tamanho fixo, eles não oferecem as funções `.add()` e `.remove()`. Para realizar essas operações,
+você precisa criar um novo array. Para isso, você pode usar uma das seguintes opções:
 
-* Use the [`.copyOf`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html) function:
+* Use a função [`.copyOf`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/copy-of.html):
 
   ```kotlin
   fun main() {
@@ -316,7 +315,7 @@ you need to create a new array. For that, you can use one of the following optio
   ```
   {kotlin-runnable="true"}
 
-* Use the `+` or `+=` operators:
+* Use os operadores `+` ou `+=`:
 
   ```kotlin
   fun main() {
@@ -335,16 +334,15 @@ you need to create a new array. For that, you can use one of the following optio
   ```
   {kotlin-runnable="true"}
 
-> If you need to frequently add or remove elements,
-> use [mutable collections](collections-overview.md#read-only-and-mutable-collections) instead.
+> Se você precisar adicionar ou remover elementos com frequência,
+> use [coleções mutáveis](collections-overview.md#read-only-and-mutable-collections).
 >
 {style="tip"}
 
-### Compare arrays
+### Comparar arrays {id="compare-arrays"}
 
-To compare whether two arrays have the same elements in the same order, use the [`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html)
-and [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html)
-functions:
+Para comparar se dois arrays têm os mesmos elementos na mesma ordem, use as funções [`.contentEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-equals.html)
+e [`.contentDeepEquals()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-deep-equals.html):
 
 ```kotlin
 fun main() {
@@ -366,22 +364,21 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-compare-array-kotlin"}
 
-> Don't use equality (`==`) and inequality (`!=`) [operators](equality.md#structural-equality) to compare the contents
-> of arrays. These operators check whether the assigned variables point to the same object.
+> Não use os [operadores](equality.md#structural-equality) de igualdade (`==`) e desigualdade (`!=`) para comparar o conteúdo
+> de arrays. Esses operadores verificam se as variáveis atribuídas apontam para o mesmo objeto.
 >
-> To learn more about why arrays in Kotlin behave this way, see our [blog post](https://blog.jetbrains.com/kotlin/2015/09/feedback-request-limitations-on-data-classes/#Appendix.Comparingarrays).
+> Para saber mais sobre por que os arrays no Kotlin se comportam dessa forma, veja nosso [post no blog](https://blog.jetbrains.com/kotlin/2015/09/feedback-request-limitations-on-data-classes/#Appendix.Comparingarrays).
 >
 {style="warning"}
 
-### Transform arrays
+### Transformar arrays {id="transform-arrays"}
 
-Kotlin has many useful functions to transform arrays. This section highlights some of them. 
-See the complete list in our [API reference](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/).
+O Kotlin tem muitas funções úteis para transformar arrays. Esta seção destaca algumas delas.
+Veja a lista completa na nossa [referência da API](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/).
 
-#### Sum
+#### Soma {id="sum"}
 
-To return the sum of all elements in an array, use the [`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html)
-function:
+Para retornar a soma de todos os elementos de um array, use a função [`.sum()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sum.html):
 
 ```kotlin
 fun main() {
@@ -394,15 +391,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-sum-array-kotlin"}
 
-> The `.sum()` function can only be used with arrays of [numeric data types](numbers.md), such as `Int`.
+> A função `.sum()` só pode ser usada com arrays de [tipos numéricos](numbers.md), como `Int`.
 >
 {style="note"}
 
-#### Sort and shuffle
+#### Ordenar e embaralhar {id="sort-and-shuffle"}
 
-You can sort the elements in the array according to their natural order with the [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) function or
-randomly shuffle them with the [`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html)
-function:
+Você pode ordenar os elementos do array de acordo com a ordem natural com a função [`.sort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sort.html) ou
+embaralhá-los aleatoriamente com a função [`.shuffle()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/shuffle.html):
 
 ```kotlin
 fun main() {
@@ -422,17 +418,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-shuffle-array-kotlin"}
 
-To get a new sorted array without modifying the original, use the
-[`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html) function instead.
+Para obter um novo array ordenado sem modificar o original, use a função
+[`.sortedArray()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/sorted-array.html).
 
-### Pass variable number of arguments to a function
+### Passar um número variável de argumentos para uma função {id="pass-variable-number-of-arguments-to-a-function"}
 
-In Kotlin, you can pass a variable number of arguments to a function via the [`vararg`](functions.md#variable-number-of-arguments-varargs)
-parameter. This is useful when you don't know the number of arguments in advance, like when formatting a message or
-creating an SQL query.
+No Kotlin, você pode passar um número variável de argumentos para uma função por meio do parâmetro
+[`vararg`](functions.md#variable-number-of-arguments-varargs). Isso é útil quando você não sabe de antemão o número de argumentos, como ao formatar uma mensagem ou criar uma consulta SQL.
 
-To pass an array containing a variable number of arguments to a function, use the _spread operator_
-(`*`). The spread operator passes each element of the array as individual arguments to your chosen function:
+Para passar um array com um número variável de argumentos para uma função, use o _operador spread_
+(`*`). O operador spread passa cada elemento do array como argumentos individuais para a função escolhida:
 
 ```kotlin
 fun main() {
@@ -449,19 +444,18 @@ fun printAllStrings(vararg strings: String) {
 ```
 {kotlin-runnable="true" id="arrays-vararg-array-kotlin"}
 
-For more information, see [Variable number of arguments (varargs)](functions.md#variable-number-of-arguments-varargs).
+Para mais informações, veja [Número variável de argumentos (varargs)](functions.md#variable-number-of-arguments-varargs).
 
-## Convert to collections
+## Converter para coleções {id="convert-to-collections"}
 
-If you work with different APIs where some use arrays and some use collections, you can convert your arrays to collections
-and vice versa. For that, use the [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html), [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html), and [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html) functions.
-These functions copy the content from your array to the independent copy. They don't reflect subsequent changes
-to the array.
+Se você trabalha com APIs diferentes, em que algumas usam arrays e outras usam coleções, pode converter arrays em coleções e vice-versa.
+Para isso, use as funções [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html), [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) e [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html).
+Essas funções copiam o conteúdo do array para uma cópia independente. Elas não refletem alterações posteriores no array.
 
-### Convert to List or Set
+### Converter para List ou Set {id="convert-to-list-or-set"}
 
-To convert an array to a `List` or `Set`, use the [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)
-and [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html) functions:
+Para converter um array em `List` ou `Set`, use as funções [`.toList()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)
+e [`.toSet()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html):
 
 ```kotlin
 fun main() {
@@ -480,10 +474,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-convert-list-set-kotlin"}
 
-Unless you are completely sure that the original array isn't changed or shared elsewhere,
-don't use [`.asList()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/as-list.html)
-and related `as*` functions. These functions wrap the original array instead of copying it. Therefore,
-changes to the array are reflected in the list and vice versa.
+A menos que você tenha certeza absoluta de que o array original não será alterado nem compartilhado em outro lugar,
+não use [`.asList()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/as-list.html)
+e as demais funções `as*` relacionadas. Essas funções envolvem o array original em vez de copiá-lo. Por isso,
+alterações no array são refletidas na lista e vice-versa.
 
 ```kotlin
 fun main() {
@@ -499,17 +493,16 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### Convert to Map
+### Converter para Map {id="convert-to-map"}
 
-To convert an array to a `Map`, use the [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html)
-function.
+Para converter um array em `Map`, use a função [`.toMap()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html).
 
-You can convert only an array of [`Pair<K,V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) to a `Map`.
-The first value of a `Pair` instance becomes a key, and the second becomes a value. 
-If the same key appears more than once, the last value is used.
+Você só pode converter um array de [`Pair<K,V>`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/) em `Map`.
+O primeiro valor de uma instância de `Pair` se torna uma chave, e o segundo se torna um valor.
+Se a mesma chave aparecer mais de uma vez, o último valor é usado.
 
-This example uses the [infix notation](functions.md#infix-notation)
-to call the [`.to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) function to create tuples of `Pair`:
+Este exemplo usa a [notação infix](functions.md#infix-notation)
+para chamar a função [`.to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html) e criar tuplas de `Pair`:
 
 ```kotlin
 fun main() {
@@ -526,8 +519,10 @@ fun main() {
 ```
 {kotlin-runnable="true" id="arrays-convert-map-kotlin"}
 
-## What's next?
+## Próximos passos {id="what-s-next"}
 
-* Learn more about why we recommend using collections for most use cases in the [Collections overview](collections-overview.md).
-* Learn about other [basic types](types-overview.md).
-* If you are a Java developer, read our [Java to Kotlin migration guide for Collections](java-to-kotlin-collections-guide.md).
+* Saiba mais sobre por que recomendamos usar coleções na maioria dos casos na [visão geral de coleções](collections-overview.md).
+* Conheça outros [tipos básicos](types-overview.md).
+* Se você é desenvolvedor Java, leia nosso [guia de migração de coleções de Java para Kotlin](java-to-kotlin-collections-guide.md).
+
+<!-- ia-translate: true -->

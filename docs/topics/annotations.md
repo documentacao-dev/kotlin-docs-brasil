@@ -1,34 +1,34 @@
-[//]: # (title: Annotations)
+[//]: # (title: Anotações)
 
-Annotations are tags that you can use to attach metadata to elements in your code. Tools and frameworks process this 
-metadata during compilation and runtime, and perform different actions based on it.
+Anotações são tags que você pode usar para anexar metadados a elementos do seu código. Ferramentas e frameworks processam esses
+metadados durante a compilação e em tempo de execução, e executam ações diferentes com base neles.
 
-You can annotate your code to simplify and automate common tasks, such as generating boilerplate code, enforcing coding standards or writing documentation.
+Você pode anotar seu código para simplificar e automatizar tarefas comuns, como gerar código repetitivo (boilerplate), impor padrões de codificação ou escrever documentação.
 
-> If you want to develop your own annotation processors, you can use the [Kotlin Symbol Processing (KSP)](ksp-overview.md) API.
+> Se você quiser desenvolver seus próprios processadores de anotações, pode usar a API [Kotlin Symbol Processing (KSP)](ksp-overview.md).
 >
 {style="tip"}
 
-## Declaration
+## Declaração {id="declaration"}
 
-Annotations are a special type of class. To declare an annotation, use the `annotation` keyword before the class declaration:
+Anotações são um tipo especial de classe. Para declarar uma anotação, use a palavra-chave `annotation` antes da declaração da classe:
 
 ```kotlin
 annotation class Fancy
 ```
 
-Additional attributes of the annotation can be specified by annotating the annotation class with meta-annotations:
+Atributos adicionais da anotação podem ser especificados anotando a classe da anotação com meta-anotações:
 
-  * [`@Target`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/index.html) specifies the possible kinds of
-    elements which can be annotated with the annotation (such as classes, functions, properties, and expressions);
-  * [`@Retention`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/index.html) specifies whether the
-    annotation is stored in the compiled class files and whether it's visible through reflection at runtime
-    (by default, both are true);
-  * [`@Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/index.html) allows using the same annotation
-    on a single element multiple times;
-  * [`@MustBeDocumented`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-must-be-documented/index.html) specifies that the
-    annotation is part of the public API and should be included in the class or method signature shown in the
-    generated API documentation.
+  * [`@Target`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-target/index.html) especifica os tipos possíveis de
+    elementos que podem ser anotados com a anotação (como classes, funções, propriedades e expressões);
+  * [`@Retention`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-retention/index.html) especifica se a
+    anotação é armazenada nos arquivos de classe compilados e se ela fica visível por reflexão em tempo de execução
+    (por padrão, ambos são verdadeiros);
+  * [`@Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/index.html) permite usar a mesma anotação
+    em um único elemento várias vezes;
+  * [`@MustBeDocumented`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-must-be-documented/index.html) especifica que a
+    anotação faz parte da API pública e deve ser incluída na assinatura da classe ou do método exibida na
+    documentação gerada da API.
 
 ```kotlin
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION,
@@ -39,7 +39,7 @@ Additional attributes of the annotation can be specified by annotating the annot
 annotation class Fancy
 ```
 
-## Usage
+## Uso {id="usage"}
 
 ```kotlin
 @Fancy class Foo {
@@ -49,14 +49,14 @@ annotation class Fancy
 }
 ```
 
-If you need to annotate the primary constructor of a class, you need to add the `constructor` keyword
-to the constructor declaration, and add the annotations before it:
+Se você precisar anotar o construtor primário de uma classe, precisa adicionar a palavra-chave `constructor`
+na declaração do construtor e colocar as anotações antes dela:
 
 ```kotlin
 class Foo @Inject constructor(dependency: MyDependency) { ... }
 ```
 
-You can also annotate property accessors:
+Você também pode anotar os acessores de propriedades:
 
 ```kotlin
 class Foo {
@@ -65,9 +65,9 @@ class Foo {
 }
 ```
 
-## Constructors
+## Construtores {id="constructors"}
 
-Annotations can have constructors that take parameters.
+Anotações podem ter construtores que recebem parâmetros.
 
 ```kotlin
 annotation class Special(val why: String)
@@ -75,19 +75,19 @@ annotation class Special(val why: String)
 @Special("example") class Foo {}
 ```
 
-Allowed parameter types are:
+Os tipos de parâmetro permitidos são:
 
- * Types that correspond to Java primitive types (Int, Long etc.)
+ * Tipos que correspondem aos tipos primitivos do Java (Int, Long etc.)
  * Strings
  * Classes (`Foo::class`)
  * Enums
- * Other annotations
- * Arrays of the types listed above
+ * Outras anotações
+ * Arrays dos tipos listados acima
 
-Annotation parameters cannot have nullable types, because the JVM does not support storing `null` as a value
-of an annotation attribute.
+Parâmetros de anotação não podem ter tipos nullable, porque a JVM não oferece suporte a armazenar `null` como valor
+de um atributo de anotação.
 
-If an annotation is used as a parameter of another annotation, its name is not prefixed with the `@` character:
+Se uma anotação for usada como parâmetro de outra anotação, seu nome não recebe o prefixo `@`:
 
 ```kotlin
 annotation class ReplaceWith(val expression: String)
@@ -99,10 +99,10 @@ annotation class Deprecated(
 @Deprecated("This function is deprecated, use === instead", ReplaceWith("this === other"))
 ```
 
-If you need to specify a class as an argument of an annotation, use a Kotlin class
-([KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html)). The Kotlin compiler will
-automatically convert it to a Java class, so that the Java code can access the annotations and arguments
-normally.
+Se você precisar especificar uma classe como argumento de uma anotação, use uma classe do Kotlin
+([KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html)). O compilador do Kotlin
+converte automaticamente para uma classe Java, para que o código Java possa acessar as anotações e os argumentos
+normalmente.
 
 ```kotlin
 
@@ -113,11 +113,11 @@ annotation class Ann(val arg1: KClass<*>, val arg2: KClass<out Any>)
 @Ann(String::class, Int::class) class MyClass
 ```
 
-## Instantiation
+## Instanciação {id="instantiation"}
 
-In Java, an annotation type is a form of an interface, so you can implement it and use an instance.
-As an alternative to this mechanism, Kotlin lets you call a constructor of an annotation class in arbitrary code
-and similarly use the resulting instance.
+Em Java, um tipo de anotação é uma forma de interface, então você pode implementá-lo e usar uma instância.
+Como alternativa a esse mecanismo, o Kotlin permite chamar um construtor de uma classe de anotação em código arbitrário
+e usar a instância resultante da mesma forma.
 
 ```kotlin
 annotation class InfoMarker(val info: String)
@@ -132,13 +132,13 @@ fun main(args: Array<String>) {
 }
 ```
 
-Learn more about instantiation of annotation classes in [this KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md).
+Saiba mais sobre a instanciação de classes de anotação neste [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/annotation-instantiation.md).
 
 ## Lambdas
 
-Annotations can also be used on lambdas. They will be applied to the `invoke()` method into which the body
-of the lambda is generated. This is useful for frameworks like [Quasar](https://docs.paralleluniverse.co/quasar/),
-which uses annotations for concurrency control.
+Anotações também podem ser usadas em lambdas. Elas são aplicadas ao método `invoke()` no qual o corpo
+da lambda é gerado. Isso é útil para frameworks como o [Quasar](https://docs.paralleluniverse.co/quasar/),
+que usa anotações para controle de concorrência.
 
 ```kotlin
 annotation class Suspendable
@@ -146,11 +146,11 @@ annotation class Suspendable
 val f = @Suspendable { Fiber.sleep(10) }
 ```
 
-## Annotation use-site targets
+## Alvos de uso da anotação (use-site targets) {id="annotation-use-site-targets"}
 
-When you're annotating a property or a primary constructor parameter, there are multiple Java elements that are
-generated from the corresponding Kotlin element, and therefore multiple possible locations for the annotation in
-the generated Java bytecode. To specify how exactly the annotation should be generated, use the following syntax:
+Quando você anota uma propriedade ou um parâmetro do construtor primário, há vários elementos Java gerados a partir do
+elemento Kotlin correspondente e, portanto, vários locais possíveis para a anotação no
+bytecode Java gerado. Para especificar exatamente como a anotação deve ser gerada, use a seguinte sintaxe:
 
 ```kotlin
 class Example(@field:Ann val foo,    // annotate only the Java field
@@ -158,8 +158,8 @@ class Example(@field:Ann val foo,    // annotate only the Java field
               @param:Ann val quux)   // annotate only the Java constructor parameter
 ```
 
-The same syntax can be used to annotate the entire file. To do this, put an annotation with the target `file` at
-the top level of a file, before the package directive or before all imports if the file is in the default package:
+A mesma sintaxe pode ser usada para anotar o arquivo inteiro. Para isso, coloque uma anotação com o alvo `file` no
+nível superior do arquivo, antes da diretiva package ou antes de todos os imports, se o arquivo estiver no pacote padrão:
 
 ```kotlin
 @file:JvmName("Foo")
@@ -167,8 +167,8 @@ the top level of a file, before the package directive or before all imports if t
 package org.jetbrains.demo
 ```
 
-If you have multiple annotations with the same target, you can avoid repeating the target by adding brackets after the
-target and putting all the annotations inside the brackets (except for the `all` meta-target):
+Se você tiver várias anotações com o mesmo alvo, pode evitar repetir o alvo adicionando colchetes após o
+alvo e colocando todas as anotações dentro dos colchetes (exceto para o meta-alvo `all`):
 
 ```kotlin
 class Example {
@@ -177,45 +177,45 @@ class Example {
 }
 ```
 
-The full list of supported use-site targets is:
+A lista completa de alvos de uso disponíveis é:
 
   * `file`
   * `field`
-  * `property` (annotations with this target are not visible to Java)
-  * `get` (property getter)
-  * `set` (property setter)
-  * `all` (a meta-target for properties, see the [`all` meta-target](#all-meta-target) section for more information)
-  * `receiver` (receiver parameter of an extension function or property)
+  * `property` (anotações com este alvo não são visíveis para o Java)
+  * `get` (getter da propriedade)
+  * `set` (setter da propriedade)
+  * `all` (um meta-alvo para propriedades, veja a seção [meta-alvo `all`](#all-meta-target) para mais informações)
+  * `receiver` (parâmetro receiver de uma extension function ou extension property)
 
-    To annotate the receiver parameter of an extension function, use the following syntax:
+    Para anotar o parâmetro receiver de uma extension function, use a seguinte sintaxe:
 
     ```kotlin
     fun @receiver:Fancy String.myExtension() { ... }
     ```
 
-  * `param` (constructor parameter)
-  * `setparam` (property setter parameter)
-  * `delegate` (the field storing the delegate instance for a delegated property)
+  * `param` (parâmetro do construtor)
+  * `setparam` (parâmetro do setter da propriedade)
+  * `delegate` (o campo que armazena a instância do delegate de uma propriedade delegada)
 
-### Defaults when no use-site targets are specified
+### Valores padrão quando nenhum alvo de uso é especificado {id="defaults-when-no-use-site-targets-are-specified"}
 
-If you don't specify a use-site target, the compiler chooses the target according to the `@Target` annotation of the annotation
-you use. If there are multiple applicable targets, the compiler chooses one or more of them in the following order:
+Se você não especificar um alvo de uso, o compilador escolhe o alvo de acordo com a anotação `@Target` da anotação
+que você está usando. Se houver vários alvos aplicáveis, o compilador escolhe um ou mais deles na seguinte ordem:
 
-* The constructor parameter target (`param`).
-* The property target (`property`).
-* The field target (`field`), if it's applicable and the property target (`property`) isn't.
+* O alvo de parâmetro do construtor (`param`).
+* O alvo de propriedade (`property`).
+* O alvo de campo (`field`), se ele for aplicável e o alvo de propriedade (`property`) não for.
 
-If none of `param`, `property`, or `field` are applicable, the annotation is invalid, and you need to specify a use-site target explicitly.
+Se nenhum dos alvos `param`, `property` ou `field` for aplicável, a anotação é inválida, e você precisa especificar um alvo de uso explicitamente.
 
-Let's use the [`@Email` annotation from Jakarta Bean Validation](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email):
+Vamos usar a [anotação `@Email` do Jakarta Bean Validation](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email):
 
 ```java
 @Target(value={METHOD,FIELD,ANNOTATION_TYPE,CONSTRUCTOR,PARAMETER,TYPE_USE})
 public @interface Email { }
 ```
 
-With this annotation, consider the following example:
+Com essa anotação, considere o seguinte exemplo:
 
 ```kotlin
 data class User(val username: String,
@@ -226,38 +226,38 @@ data class User(val username: String,
 }
 ```
 
-In this example, the `@Email` annotation applies to both the constructor parameter and the field targets for the `email` property because the property:
+Neste exemplo, a anotação `@Email` se aplica tanto ao alvo de parâmetro do construtor quanto ao alvo de campo da propriedade `email`, porque a propriedade:
 
-* Is declared in the primary constructor.
-* Has no custom getter or setter, so the compiler generates a backing field.
+* É declarada no construtor primário.
+* Não tem getter ou setter personalizado, então o compilador gera um campo de suporte (backing field).
 
-The `@Email` annotation only applies to the field target for the `secondaryEmail` property because the property:
+A anotação `@Email` se aplica apenas ao alvo de campo da propriedade `secondaryEmail`, porque a propriedade:
 
-* Isn't declared in the primary constructor.
-* Has no custom getter or setter, so the compiler generates a backing field.
+* Não é declarada no construtor primário.
+* Não tem getter ou setter personalizado, então o compilador gera um campo de suporte (backing field).
 
-### `all` meta-target
+### Meta-alvo `all` {id="all-meta-target"}
 
-The `all` target makes it easier to apply the same annotation not only to the parameter and the property or field, but also to the corresponding getter and setter.
+O alvo `all` facilita aplicar a mesma anotação não apenas ao parâmetro e à propriedade ou ao campo, mas também ao getter e ao setter correspondentes.
 
-Specifically, the annotation marked with `all` is propagated, if applicable:
+Especificamente, a anotação marcada com `all` é propagada, se aplicável:
 
-* To the constructor parameter (`param`) if the property is defined in the primary constructor.
-* To the property itself (`property`).
-* To the backing field (`field`) if the property has one.
-* To the getter (`get`).
-* To the setter parameter (`setparam`) if the property is defined as `var`.
-* To the Java-only target `RECORD_COMPONENT` if the class has the `@JvmRecord` annotation.
+* Para o parâmetro do construtor (`param`), se a propriedade for definida no construtor primário.
+* Para a própria propriedade (`property`).
+* Para o campo de suporte (`field`), se a propriedade tiver um.
+* Para o getter (`get`).
+* Para o parâmetro do setter (`setparam`), se a propriedade for definida como `var`.
+* Para o alvo exclusivo do Java `RECORD_COMPONENT`, se a classe tiver a anotação `@JvmRecord`.
 
-Let's use the [`@Email` annotation from Jakarta Bean Validation](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email),
-which is defined as follows:
+Vamos usar a [anotação `@Email` do Jakarta Bean Validation](https://jakarta.ee/specifications/bean-validation/3.0/apidocs/jakarta/validation/constraints/email),
+que é definida assim:
 
 ```java
 @Target(value={METHOD,FIELD,ANNOTATION_TYPE,CONSTRUCTOR,PARAMETER,TYPE_USE})
 public @interface Email { }
 ```
 
-In the example below, this `@Email` annotation is applied to all relevant targets:
+No exemplo abaixo, essa anotação `@Email` é aplicada a todos os alvos relevantes:
 
 ```kotlin
 data class User(
@@ -272,23 +272,23 @@ data class User(
 }
 ```
 
-You can use the `all` meta-target with any property, both inside and outside the primary constructor.
+Você pode usar o meta-alvo `all` com qualquer propriedade, tanto dentro quanto fora do construtor primário.
 
-#### Limitations
+#### Limitações {id="limitations"}
 
-The `all` target comes with some limitations:
+O alvo `all` tem algumas limitações:
 
-* It does not propagate an annotation to types, potential extension receivers, or context receivers or parameters.
-* It cannot be used with multiple annotations:
+* Ele não propaga a anotação para tipos, possíveis extension receivers ou receivers e parâmetros de contexto.
+* Ele não pode ser usado com várias anotações:
     ```kotlin
     @all:[A B] // forbidden, use @all:A @all:B
     val x: Int = 5
     ```
-* It cannot be used with [delegated properties](delegated-properties.md).
+* Ele não pode ser usado com [propriedades delegadas](delegated-properties.md).
 
-## Java annotations
+## Anotações Java {id="java-annotations"}
 
-Java annotations are 100% compatible with Kotlin:
+Anotações Java são 100% compatíveis com o Kotlin:
 
 ```kotlin
 import org.junit.Test
@@ -307,8 +307,8 @@ class Tests {
 }
 ```
 
-Since the order of parameters for an annotation written in Java is not defined, you can't use a regular function
-call syntax for passing the arguments. Instead, you need to use the named argument syntax:
+Como a ordem dos parâmetros de uma anotação escrita em Java não é definida, você não pode usar a sintaxe comum de chamada
+de função para passar os argumentos. Em vez disso, use a sintaxe de argumentos nomeados:
 
 ``` java
 // Java
@@ -323,7 +323,7 @@ public @interface Ann {
 @Ann(intValue = 1, stringValue = "abc") class C
 ```
 
-Just like in Java, a special case is the `value` parameter; its value can be specified without an explicit name:
+Assim como em Java, um caso especial é o parâmetro `value`; o valor dele pode ser especificado sem um nome explícito:
 
 ``` java
 // Java
@@ -337,9 +337,9 @@ public @interface AnnWithValue {
 @AnnWithValue("abc") class C
 ```
 
-### Arrays as annotation parameters
+### Arrays como parâmetros de anotação {id="arrays-as-annotation-parameters"}
 
-If the `value` argument in Java has an array type, it becomes a `vararg` parameter in Kotlin:
+Se o argumento `value` em Java tiver um tipo array, ele se torna um parâmetro `vararg` no Kotlin:
 
 ``` java
 // Java
@@ -353,7 +353,7 @@ public @interface AnnWithArrayValue {
 @AnnWithArrayValue("abc", "foo", "bar") class C
 ```
 
-For other arguments that have an array type, you need to use the array literal syntax or
+Para outros argumentos que têm tipo array, você precisa usar a sintaxe de literal de array ou
 `arrayOf(...)`:
 
 ``` java
@@ -368,9 +368,9 @@ public @interface AnnWithArrayMethod {
 class C
 ```
 
-### Accessing properties of an annotation instance
+### Acessar propriedades de uma instância de anotação {id="accessing-properties-of-an-annotation-instance"}
 
-Values of an annotation instance are exposed as properties to Kotlin code:
+Os valores de uma instância de anotação são expostos como propriedades para o código Kotlin:
 
 ``` java
 // Java
@@ -386,26 +386,26 @@ fun foo(ann: Ann) {
 }
 ```
 
-### Ability to not generate JVM 1.8+ annotation targets
+### Possibilidade de não gerar alvos de anotação do JVM 1.8+ {id="ability-to-not-generate-jvm-1-8-annotation-targets"}
 
-If a Kotlin annotation has `TYPE` among its Kotlin targets, the annotation maps to `java.lang.annotation.ElementType.TYPE_USE`
-in its list of Java annotation targets. This is just like how the `TYPE_PARAMETER` Kotlin target maps to
-the `java.lang.annotation.ElementType.TYPE_PARAMETER` Java target. This is an issue for Android clients with API levels
-less than 26, which don't have these targets in the API.
+Se uma anotação Kotlin tiver `TYPE` entre seus alvos Kotlin, a anotação é mapeada para `java.lang.annotation.ElementType.TYPE_USE`
+em sua lista de alvos de anotação Java. Isso é igual ao que acontece com o alvo Kotlin `TYPE_PARAMETER`, que é mapeado para
+o alvo Java `java.lang.annotation.ElementType.TYPE_PARAMETER`. Isso é um problema para clientes Android com níveis de API
+abaixo de 26, que não têm esses alvos na API.
 
-To avoid generating the `TYPE_USE` and `TYPE_PARAMETER` annotation targets, use the new compiler argument `-Xno-new-java-annotation-targets`.
+Para evitar a geração dos alvos de anotação `TYPE_USE` e `TYPE_PARAMETER`, use o novo argumento do compilador `-Xno-new-java-annotation-targets`.
 
-## Repeatable annotations
+## Anotações repetíveis {id="repeatable-annotations"}
 
-Just like [in Java](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html), Kotlin has repeatable annotations,
-which can be applied to a single code element multiple times. To make your annotation repeatable, mark its declaration
-with the [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/)
-meta-annotation. This will make it repeatable both in Kotlin and Java. Java repeatable annotations are also supported
-from the Kotlin side.
+Assim como [em Java](https://docs.oracle.com/javase/tutorial/java/annotations/repeating.html), o Kotlin tem anotações repetíveis,
+que podem ser aplicadas a um único elemento de código várias vezes. Para tornar sua anotação repetível, marque a declaração dela
+com a meta-anotação [`@kotlin.annotation.Repeatable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.annotation/-repeatable/).
+Isso a torna repetível tanto no Kotlin quanto no Java. Anotações repetíveis do Java também têm suporte
+do lado do Kotlin.
 
-The main difference with the scheme used in Java is the absence of a _containing annotation_, which the Kotlin compiler
-generates automatically with a predefined name. For an annotation in the example below, it will generate the containing
-annotation `@Tag.Container`:
+A principal diferença em relação ao esquema usado em Java é a ausência de uma _anotação contêiner_, que o compilador do Kotlin
+gera automaticamente com um nome predefinido. Para a anotação do exemplo abaixo, ele vai gerar a anotação contêiner
+`@Tag.Container`:
 
 ```kotlin
 @Repeatable
@@ -414,9 +414,9 @@ annotation class Tag(val name: String)
 // The compiler generates the @Tag.Container containing annotation
 ```
 
-You can set a custom name for a containing annotation by applying the
-[`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/) meta-annotation
-and passing an explicitly declared containing annotation class as an argument:
+Você pode definir um nome personalizado para a anotação contêiner aplicando a
+meta-anotação [`@kotlin.jvm.JvmRepeatable`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-repeatable/)
+e passando como argumento uma classe de anotação contêiner declarada explicitamente:
 
 ```kotlin
 @JvmRepeatable(Tags::class)
@@ -425,7 +425,8 @@ annotation class Tag(val name: String)
 annotation class Tags(val value: Array<Tag>)
 ```
 
-To extract Kotlin or Java repeatable annotations via reflection, use the [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html)
-function.
+Para extrair anotações repetíveis do Kotlin ou do Java via reflexão, use a função [`KAnnotatedElement.findAnnotations()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect.full/find-annotations.html).
 
-Learn more about Kotlin repeatable annotations in [this KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md).
+Saiba mais sobre anotações repetíveis do Kotlin neste [KEEP](https://github.com/Kotlin/KEEP/blob/master/proposals/repeatable-annotations.md).
+
+<!-- ia-translate: true -->

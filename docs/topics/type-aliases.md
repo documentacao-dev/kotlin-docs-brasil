@@ -1,9 +1,9 @@
-[//]: # (title: Type aliases)
+[//]: # (title: Aliases de tipo)
 
-Type aliases provide alternative names for existing types. They can make long or frequently used type expressions shorter
-and easier to understand.
+Aliases de tipo fornecem nomes alternativos para tipos existentes. Eles podem tornar expressões de tipo longas ou muito usadas
+mais curtas e fáceis de entender.
 
-For example, you can create aliases for generic types, function types, and nested or inner classes:
+Por exemplo, você pode criar aliases para tipos genéricos, tipos de função e classes internas ou aninhadas:
 
 ```kotlin
 // Generic types
@@ -21,10 +21,10 @@ class Database {
 typealias DatabaseTransaction = Database.Transaction
 ```
 
-A type alias doesn't create a new type. It introduces an alternative name for an existing type. The alias and its underlying
-type are interchangeable. For example, when you add `typealias Predicate<T>` and use `Predicate<Int>`, the compiler
-expands it to `(Int) -> Boolean`. You can use a value declared with the alias wherever the underlying type is expected, and
-the other way around:
+Um alias de tipo não cria um novo tipo. Ele introduz um nome alternativo para um tipo existente. O alias e o tipo
+subjacente são intercambiáveis. Por exemplo, quando você adiciona `typealias Predicate<T>` e usa `Predicate<Int>`, o compilador
+expande para `(Int) -> Boolean`. Você pode usar um valor declarado com o alias em qualquer lugar onde o tipo subjacente for esperado, e
+vice-versa:
 
 ```kotlin
 typealias Predicate<T> = (T) -> Boolean
@@ -43,26 +43,26 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Declare type aliases
+## Declarar aliases de tipo {id="declare-type-aliases"}
 
-You can declare a type alias:
+Você pode declarar um alias de tipo:
 
-* At the top level of a Kotlin file, as a [top-level type alias](#top-level-type-aliases).
-* Inside a class, interface, or object, as a [nested type alias](#nested-type-aliases).
+* No nível superior de um arquivo Kotlin, como um [alias de tipo de nível superior](#top-level-type-aliases).
+* Dentro de uma classe, interface ou object, como um [alias de tipo aninhado](#nested-type-aliases).
 
-You can't declare a type alias in a local scope, such as inside a function or [lambda expression](lambdas.md#lambda-expressions-and-anonymous-functions).
+Você não pode declarar um alias de tipo em um escopo local, como dentro de uma função ou de uma [expressão lambda](lambdas.md#lambda-expressions-and-anonymous-functions).
 
-The declaration location determines the scope of a type alias, while its visibility determines which code can access it.
-By default, a type alias is `public`. A [nested type alias](#nested-type-aliases) is accessible only where its containing class, interface,
-or object is accessible. For example, a `public` alias inside an `internal` class isn't accessible from outside the module.
+A localização da declaração determina o escopo de um alias de tipo, enquanto a visibilidade determina quais trechos de código podem acessá-lo.
+Por padrão, um alias de tipo é `public`. Um [alias de tipo aninhado](#nested-type-aliases) é acessível apenas onde sua classe, interface
+ou object que o contém é acessível. Por exemplo, um alias `public` dentro de uma classe `internal` não é acessível de fora do módulo.
 
-A type alias can't expose an underlying type with more restrictive [visibility](visibility-modifiers.md) than its own. For example, a `public`
-type alias can't refer to a `private` class.
+Um alias de tipo não pode expor um tipo subjacente com [visibilidade](visibility-modifiers.md) mais restritiva que a sua própria. Por exemplo, um alias
+`public` não pode se referir a uma classe `private`.
 
-### Top-level type aliases
+### Aliases de tipo de nível superior {id="top-level-type-aliases"}
 
-A top-level type alias is a package-level declaration. Within the same package, you can refer to an alias by its unqualified name.
-To use the alias from another package, import the alias or refer to it by its qualified name:
+Um alias de tipo de nível superior é uma declaração no nível do pacote. Dentro do mesmo pacote, você pode se referir a um alias pelo nome não qualificado.
+Para usar o alias a partir de outro pacote, importe o alias ou referencie-o pelo nome qualificado:
 
 ```kotlin
 // UserId.kt
@@ -91,16 +91,16 @@ fun deleteUser(id: org.example.users.UserId) {
 }
 ```
 
-### Nested type aliases
+### Aliases de tipo aninhados {id="nested-type-aliases"}
 
-Nested type aliases allow for cleaner, more maintainable code by improving encapsulation, reducing package-level clutter,
-and simplifying internal implementations. Nested type aliases follow the same scope and name-resolution rules as [nested classes](nested-classes.md).
+Aliases de tipo aninhados permitem um código mais limpo e fácil de manter, melhorando o encapsulamento, reduzindo a poluição no nível do pacote
+e simplificando implementações internas. Aliases de tipo aninhados seguem as mesmas regras de escopo e de resolução de nomes das [classes aninhadas](nested-classes.md).
 
-Declare a type alias inside a class, interface, or object when the alternative name is relevant only in the context of
-that declaration. This keeps the alias close to the code that uses it and avoids adding another name to the package scope.
+Declare um alias de tipo dentro de uma classe, interface ou object quando o nome alternativo for relevante apenas no contexto
+dessa declaração. Isso mantém o alias próximo do código que o utiliza e evita adicionar mais um nome ao escopo do pacote.
 
-Within the containing declaration, you can refer to the alias by its unqualified name. Outside the declaration, qualify
-the alias with the name of its containing declaration:
+Dentro da declaração que o contém, você pode se referir ao alias pelo nome não qualificado. Fora dela, qualifique
+o alias com o nome da declaração que o contém:
 
 ```kotlin
 class UserRepository {
@@ -118,13 +118,13 @@ fun synchronizeUsers(users: UserRepository.UserIndex) {
 }
 ```
 
-> Nested type aliases aren't supported in Kotlin Multiplatform [`expect/actual` declarations](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html).
+> Aliases de tipo aninhados não são aceitos em [declarações `expect/actual`](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html) do Kotlin Multiplatform.
 >
 {style="note"}
 
-#### Type parameters
+#### Parâmetros de tipo {id="type-parameters"}
 
-To use type parameters in a nested type alias, add them to the alias declaration:
+Para usar parâmetros de tipo em um alias de tipo aninhado, adicione-os à declaração do alias:
 
 ```kotlin
 class Graph<Node> {
@@ -134,10 +134,10 @@ class Graph<Node> {
 val cityPath: Graph.Path<String> = listOf("London", "Berlin")
 ```
 
-In this example, `Path` declares its type parameter `T`. In `Graph.Path<String>`, `String` is the type argument for `T`
-and is independent of the `Node` type parameter declared by `Graph`.
+Neste exemplo, `Path` declara seu parâmetro de tipo `T`. Em `Graph.Path<String>`, `String` é o argumento de tipo para `T`
+e é independente do parâmetro de tipo `Node` declarado por `Graph`.
 
-If you refer to a type parameter declared by its containing class or interface, the compiler reports an error:
+Se você se referir a um parâmetro de tipo declarado pela sua classe ou interface que o contém, o compilador reporta um erro:
 
 ```kotlin
 class Graph<Node> {
@@ -146,4 +146,6 @@ class Graph<Node> {
 }
 ```
 
-Here, `Path` refers to `Node` from `Graph` instead of declaring its own type parameter.
+Aqui, `Path` se refere a `Node` de `Graph` em vez de declarar seu próprio parâmetro de tipo.
+
+<!-- ia-translate: true -->

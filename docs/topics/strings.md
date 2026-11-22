@@ -1,34 +1,34 @@
 [//]: # (title: Strings)
-[//]: # (description: Learn how to work with strings in Kotlin, including string literals, string templates, multiline strings, and common text operations.)
+<web-summary>Aprenda a trabalhar com strings em Kotlin, incluindo literais de string, templates de string, strings de múltiplas linhas e operações comuns com texto.</web-summary>
 
-The [`String`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/) type represents a sequence of
-[characters](characters.md). You can use it for text values, such as words, sentences, messages, or structured text.
+O tipo [`String`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/) representa uma sequência de
+[caracteres](characters.md). Você pode usá-lo para valores de texto, como palavras, frases, mensagens ou texto estruturado.
 
-The `String` type is immutable. After you create a `String` object,
-its contents stay the same for the rest of its lifetime. Any operation that appears
-to modify the string actually creates a new string.
+O tipo `String` é imutável. Depois que você cria um objeto `String`,
+o conteúdo dele permanece o mesmo durante toda a vida útil. Qualquer operação que pareça
+modificar a string, na verdade, cria uma nova string.
 
-## Declare strings
+## Declarar strings {id="declare-strings"}
 
-To declare a `String` literal, enclose the value in double quotes (`""`). You can specify the `String` type
-explicitly or let Kotlin infer it from the value:
+Para declarar um literal `String`, coloque o valor entre aspas duplas (`""`). Você pode especificar o tipo `String`
+explicitamente ou deixar o Kotlin inferir o tipo a partir do valor:
 
 ```kotlin
 val name: String = "Kotlin"
 val message = "Hello, world!" // Kotlin infers String
 ```
 
-Double-quoted string literals support [escape sequences](characters.md#escape-sequences) such as `\n` or `\t`:
+Literais de string entre aspas duplas aceitam [sequências de escape](characters.md#escape-sequences), como `\n` ou `\t`:
 
 ```kotlin
 val message = "Hello,\nworld!"
 val quote = "Kotlin says, \"Hi\"."
 ```
 
-### Multiline strings
+### Strings de múltiplas linhas {id="multiline-strings"}
 
-To store text that consists of multiple lines or contains quotes that you don't want to escape,
-use a multiline string enclosed in triple quotes (`""" """`):
+Para armazenar um texto que consiste em várias linhas ou que contém aspas que você não quer escapar,
+use uma string de múltiplas linhas delimitada por aspas triplas (`""" """`):
 
 ```kotlin
 val text = """
@@ -39,16 +39,15 @@ Kotlin
 val quote = """Kotlin says, "Hi"."""
 ```
 
-> Multiline strings don't support escape sequences.
-> Kotlin treats these characters as regular text.
+> Strings de múltiplas linhas não aceitam sequências de escape.
+> O Kotlin trata esses caracteres como texto comum.
 >
 {style="note"}
 
-Multiline strings preserve line breaks and indentations as written in the source code.
-This behavior is useful when you want the runtime value to match the text layout in your file.
+Strings de múltiplas linhas preservam as quebras de linha e as indentações conforme escritas no código-fonte.
+Esse comportamento é útil quando você quer que o valor em tempo de execução corresponda ao layout do texto no arquivo.
 
-In the following example, the spaces before each line are part
-of the resulting string:
+No exemplo a seguir, os espaços antes de cada linha fazem parte da string resultante:
 
 ```kotlin
 val text = """
@@ -57,9 +56,8 @@ val text = """
 """
 ```
 
-To remove common leading indentation, use
-the [`trimIndent()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim-indent.html) function. It detects the common
-minimal indent of non-empty lines and removes it:
+Para remover a indentação inicial comum, use
+a função [`trimIndent()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim-indent.html). Ela detecta a indentação mínima comum das linhas não vazias e a remove:
 
 ```kotlin
 fun main() {
@@ -75,9 +73,9 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-To control indentation removal more explicitly, use
-the [`trimMargin()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim-margin.html) function. It
-removes everything before and including the margin prefix on each line:
+Para controlar a remoção de indentação de forma mais explícita, use
+a função [`trimMargin()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim-margin.html). Ela
+remove tudo antes e incluindo o prefixo de margem em cada linha:
 
 ```kotlin
 fun main() {
@@ -93,22 +91,22 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-By default, the `trimMargin()` function uses a pipe symbol (`|`) as the margin prefix, but you can pass another character
-as a parameter. For example: `trimMargin(">")`.
+Por padrão, a função `trimMargin()` usa o caractere de barra vertical (`|`) como prefixo de margem, mas você pode passar outro caractere
+como parâmetro. Por exemplo: `trimMargin(">")`.
 
-> When you process a string with functions like `trimIndent()` or `trimMargin()`, the resulting string
-> uses only newline (`\n`) separators, regardless of the platform.
+> Quando você processa uma string com funções como `trimIndent()` ou `trimMargin()`, a string resultante
+> usa apenas separadores de nova linha (`\n`), independentemente da plataforma.
 >
 {style="note"}
 
 
-## String templates
+## Templates de string {id="string-templates"}
 
-String templates let you embed variables and expressions directly inside a `String` literal.
-This process is called _interpolation_. You can use string templates in both
-regular and multiline strings.
+Templates de string permitem incluir variáveis e expressões diretamente dentro de um literal `String`.
+Esse processo é chamado de _interpolação_. Você pode usar templates de string tanto em strings comuns
+quanto em strings de múltiplas linhas.
 
-To insert a variable into a string, use the `$` symbol:
+Para inserir uma variável em uma string, use o símbolo `$`:
 
 ```kotlin
 fun main() { 
@@ -121,7 +119,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-To insert an expression into a string or to place a variable directly next to other text, use `${}`:
+Para inserir uma expressão em uma string ou colocar uma variável diretamente ao lado de outro texto, use `${}`:
 
 ```kotlin
 fun main() {
@@ -138,12 +136,12 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-> You can also combine strings with the `+` operator. However, string templates are usually easier
-> to read and more idiomatic.
+> Você também pode combinar strings com o operador `+`. No entanto, templates de string costumam ser
+> mais fáceis de ler e mais idiomáticos.
 >
 {style="tip"}
 
-Template expressions can also contain double-quoted strings without escaping:
+Expressões de template também podem conter strings entre aspas duplas sem escape:
 
 ```kotlin
 // Double-quoted string
@@ -155,11 +153,11 @@ Result: ${"OK".lowercase()}
 """
 ```
 
-### Nullable values in string templates
+### Valores anuláveis em templates de string {id="nullable-values-in-string-templates"}
 
-If an interpolated expression or variable evaluates to `null`, the Kotlin compiler
-inserts the text `null` into the resulting string. To replace `null` with another value,
-use the [Elvis operator](null-safety.md#elvis-operator) (`?:`):
+Se uma expressão ou variável interpolada resultar em `null`, o compilador do Kotlin
+insere o texto `null` na string resultante. Para substituir `null` por outro valor,
+use o [operador Elvis](null-safety.md#elvis-operator) (`?:`):
 
 ```kotlin 
 fun main(){
@@ -176,16 +174,16 @@ fun main(){
 ```
 {kotlin-runnable="true"}
 
-### Multi-dollar string interpolation
+### Interpolação de string com múltiplos cifrões {id="multi-dollar-string-interpolation"}
 
-In regular string templates, a single dollar sign (`$`) starts interpolation. If you need
-to include literal dollar signs in a string, use **multi-dollar string interpolation**.
+Em templates de string comuns, um único cifrão (`$`) inicia a interpolação. Se você precisar
+incluir cifrões literais em uma string, use a **interpolação de string com múltiplos cifrões**.
 
-Multi-dollar string interpolation allows you to specify how many consecutive dollar signs are required
-to trigger interpolation. Dollar signs below that number are treated as literal characters.
+A interpolação de string com múltiplos cifrões permite especificar quantos cifrões consecutivos são
+necessários para disparar a interpolação. Cifrões em quantidade menor que esse número são tratados como caracteres literais.
 
-For example, when you use `$$` before a string literal,
-interpolation begins only with two consecutive dollar signs:
+Por exemplo, quando você usa `$$` antes de um literal de string,
+a interpolação começa somente com dois cifrões consecutivos:
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -200,26 +198,25 @@ val KClass<*>.jsonSchema : String
     """
 ```
 
-> If you use single-dollar string interpolation, multi-dollar string interpolation doesn't affect your code.
-> You can continue using a single `$` and apply multi-dollar signs
-> when needed.
+> Se você usa a interpolação de string com um único cifrão, a interpolação com múltiplos cifrões não afeta o código.
+> Você pode continuar usando um único `$` e aplicar múltiplos cifrões
+> quando precisar.
 >
 {style="tip"}
 
-## Basic string operations
+## Operações básicas com strings {id="basic-string-operations"}
 
-Kotlin provides a range of operations for working with strings. This section introduces some of
-the most commonly used operations.
+O Kotlin oferece várias operações para trabalhar com strings. Esta seção apresenta algumas das mais usadas.
 
-> Learn more about all available functions in the
-> [API Reference](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/).
+> Saiba mais sobre todas as funções disponíveis na
+> [referência da API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/).
 >
 {style="tip"}
 
-### Get string length
+### Obter o tamanho da string {id="get-string-length"}
 
-To get the number of characters in a string, use the
-[`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html) property:
+Para obter o número de caracteres em uma string, use a propriedade
+[`length`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/length.html):
 
 ```kotlin 
 fun main (){
@@ -232,10 +229,10 @@ fun main (){
 ```
 {kotlin-runnable="true"}
 
-### Access characters
+### Acessar caracteres {id="access-characters"}
 
-You can access an individual character in a string
-with the indexing operator (`[]`):
+Você pode acessar um caractere individual em uma string
+com o operador de índice (`[]`):
 
 ```kotlin 
 fun main (){
@@ -251,12 +248,12 @@ fun main (){
 ```
 {kotlin-runnable="true"}
 
-> A string index starts at zero.
-> If you try to access an index outside the valid range, Kotlin throws an exception.
+> O índice de uma string começa em zero.
+> Se você tentar acessar um índice fora do intervalo válido, o Kotlin lança uma exceção.
 >
 {style="tip"}
 
-You can also iterate over the characters in a string:
+Você também pode iterar sobre os caracteres de uma string:
 
 ```kotlin
 fun main(){
@@ -269,16 +266,16 @@ fun main(){
 ```
 {kotlin-runnable="true"}
 
-### Extract parts of a string
+### Extrair partes de uma string {id="extract-parts-of-a-string"}
 
-To extract parts of a string, use one of the following functions:
+Para extrair partes de uma string, use uma das seguintes funções:
 
-* [`substring()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/substring.html) to return a new string with the selected part of
-  the original text.
-* [`subSequence()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/sub-sequence.html) to return a `CharSequence` with the selected
-  part of the original text.
+* [`substring()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/substring.html) para retornar uma nova string com a parte selecionada do
+  texto original.
+* [`subSequence()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/sub-sequence.html) para retornar uma `CharSequence` com a parte selecionada
+  do texto original.
 
-For example:
+Por exemplo:
 
 ```kotlin
 fun main() {
@@ -295,11 +292,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Since the `String` type is immutable, these functions don't modify the original string.
+Como o tipo `String` é imutável, essas funções não modificam a string original.
 
-### Compare strings
+### Comparar strings {id="compare-strings"}
 
-You can check whether two strings have the same content with the `==` operator:
+Você pode verificar se duas strings têm o mesmo conteúdo com o operador `==`:
 
 ```kotlin
 fun main(){
@@ -314,12 +311,12 @@ fun main(){
 ```
 {kotlin-runnable="true"}
 
-You can also compare strings lexicographically (character by character) with the [`compareTo()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/compare-to.html)
-function. It scans both strings until it finds the first differing pair of characters and returns:
+Você também pode comparar strings lexicograficamente (caractere por caractere) com a função [`compareTo()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/compare-to.html).
+Ela percorre as duas strings até encontrar o primeiro par de caracteres diferentes e retorna:
 
-* `0` when the strings are equal.
-* A value less than `0` when the receiver is smaller than the argument.
-* A value greater than `0` when the receiver is greater than the argument.
+* `0` quando as strings são iguais.
+* Um valor menor que `0` quando o receiver é menor que o argumento.
+* Um valor maior que `0` quando o receiver é maior que o argumento.
 
 ```kotlin
 fun main() {
@@ -338,11 +335,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### Work with string content
+### Trabalhar com o conteúdo da string {id="work-with-string-content"}
 
-If you want to change the content of a string, create a modified copy of it
-with functions like [`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html), [`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html),
-[`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html), and [`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html):
+Se você quiser alterar o conteúdo de uma string, crie uma cópia modificada dela
+com funções como [`.trim()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/trim.html), [`.replace()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/replace.html),
+[`.uppercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/uppercase.html) e [`.lowercase()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lowercase.html):
 
 ```kotlin
 fun main() {
@@ -365,9 +362,9 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-You can also inspect the string content with the
-[`contains()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/contains.html), [`startsWith()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/starts-with.html),
-and [`endsWith()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/ends-with.html) functions:
+Você também pode verificar o conteúdo da string com as funções
+[`contains()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/contains.html), [`startsWith()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/starts-with.html)
+e [`endsWith()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/ends-with.html):
 
 ```kotlin
 fun main() { 
@@ -390,10 +387,10 @@ fun main() {
  ```
 {kotlin-runnable="true"}
 
-### Split strings
+### Dividir strings {id="split-strings"}
 
-You can divide a string into parts around a delimiter with
-the [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html) function:
+Você pode dividir uma string em partes usando um delimitador com
+a função [`split()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/split.html):
 
 ```kotlin
 fun main() { 
@@ -406,8 +403,8 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-If you want to split a string into individual lines, use
-the [`lines()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lines.html) function:
+Se você quiser dividir uma string em linhas individuais, use
+a função [`lines()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/lines.html):
 
 ```kotlin
 fun main() { 
@@ -420,22 +417,21 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### Build and format strings
+### Montar e formatar strings {id="build-and-format-strings"}
 
-> For most formatting tasks in Kotlin, use [string templates](#string-templates).
+> Para a maioria das tarefas de formatação no Kotlin, use [templates de string](#string-templates).
 >
 {style="tip"}
 
-When you concatenate strings with the `+` operator,
-Kotlin creates a new `String` object for each operation. However, this approach
-may not be beneficial in loops or when you assemble many pieces. 
-To avoid such issues, you can use the `buildString()` function or `StringBuilder`. They collect all pieces in a single mutable buffer
-and produce only one string at the end.
+Quando você concatena strings com o operador `+`, o Kotlin cria um novo objeto `String` a cada operação.
+No entanto, essa abordagem pode ser ineficiente em loops ou ao montar muitos pedaços.
+Para evitar esses problemas, você pode usar a função `buildString()` ou `StringBuilder`. Eles reúnem
+todos os pedaços em um único buffer mutável e produzem apenas uma string no final.
 
-Use the [`buildString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/build-string.html) function
-when the logic that determines what to append is complex. For example, when you have multiple conditions
-that contribute a different fragment. With `buildString()`, you don't handle the buffer directly.
-The function creates a `StringBuilder` internally, runs your block, and returns the resulting string.
+Use a função [`buildString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/build-string.html)
+quando a lógica que determina o que anexar for complexa. Por exemplo, quando você tem várias condições
+que contribuem com um fragmento diferente. Com `buildString()`, você não manipula o buffer diretamente.
+A função cria um `StringBuilder` internamente, executa o bloco e retorna a string resultante.
 
 ```kotlin
 fun main() {
@@ -471,8 +467,8 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Use [`StringBuilder`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-string-builder/) when you need the buffer as an explicit value.
-For example, to change the existing text:
+Use [`StringBuilder`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-string-builder/) quando precisar do buffer como um valor explícito.
+Por exemplo, para alterar o texto existente:
 
 ```kotlin
 fun main() {
@@ -488,41 +484,42 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-On the JVM, you can also format a string with the [`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html) function:
+Na JVM, você também pode formatar uma string com a função [`String.format()`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/format.html):
 
 ```kotlin
 val text = String.format("Hello, %s", "Kotlin") 
 ```  
 
-> Use the `String.format()` function only when you specifically need formatter-style specifiers on the JVM.
-> Learn more about format specifiers in the [Java Class Formatter documentation](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#summary).
+> Use a função `String.format()` somente quando precisar especificamente de especificadores de formatação
+> no estilo do formatador na JVM.
+> Saiba mais sobre especificadores de formatação na [documentação da Java Class Formatter](https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#summary).
 >
 {style="note"}
 
-## String conversion
+## Conversão de strings {id="string-conversion"}
 
-Often you may use strings to represent values of other types, such as numbers, `Boolean` values, or identifiers from the input.
-Kotlin provides functions for converting values to strings and for parsing strings into other types.
+Muitas vezes, strings são usadas para representar valores de outros tipos, como números, valores `Boolean` ou identificadores vindos da entrada.
+O Kotlin oferece funções para converter valores em strings e para converter strings em outros tipos.
 
-To return a string representation of a value, use the [`toString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/to-string.html) function:
+Para retornar uma representação em string de um valor, use a função [`toString()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/to-string.html):
 
 ```kotlin
 val number = 10
 val text = number.toString()
 ```
 
-In string templates and string concatenation, Kotlin converts values to strings automatically.
+Em templates de string e na concatenação de strings, o Kotlin converte valores para string automaticamente.
 
-To convert a string to another type, use the corresponding parsing functions:
+Para converter uma string em outro tipo, use as funções de parsing correspondentes:
 
-* For integer values: [`toByte()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-byte.html), [`toShort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-short.html), [`toInt()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-int.html), [`toLong()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-long.html)
-* For floating-point values: [`toDouble()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-double.html), [`toFloat()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-float.html)
-* For booleans: [`toBoolean()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-boolean.html), [`toBooleanStrict()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-boolean-strict.html)
+* Para valores inteiros: [`toByte()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-byte.html), [`toShort()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-short.html), [`toInt()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-int.html), [`toLong()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-long.html)
+* Para valores de ponto flutuante: [`toDouble()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-double.html), [`toFloat()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-float.html)
+* Para booleanos: [`toBoolean()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-boolean.html), [`toBooleanStrict()`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/to-boolean-strict.html)
 
-These functions return a value of the requested type if the string has a valid format.
-If the input may be invalid, use the `OrNull` variants. These functions return `null` 
-instead of throwing an exception making them safe for user input or data that you don't
-fully control:
+Essas funções retornam um valor do tipo solicitado se a string tiver um formato válido.
+Se a entrada puder ser inválida, use as variantes `OrNull`. Elas retornam `null`
+em vez de lançar uma exceção, o que as torna seguras para entrada do usuário ou para dados que você não controla
+totalmente:
 
 ```kotlin
 val toInt = "10".toInt() // 10
@@ -533,3 +530,5 @@ val toIntInvalid = "1000000000000".toIntOrNull()
 val toBoolean = "true".toBooleanStrict() // true
 val toBooleanInvalid = "yes".toBooleanStrictOrNull() // null
 ```
+
+<!-- ia-translate: true -->

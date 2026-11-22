@@ -1,77 +1,69 @@
-[//]: # (title: Coding conventions)
+[//]: # (title: Convenções de código)
 
-Commonly known and easy-to-follow coding conventions are vital for any programming language.
-Here we provide guidelines on the code style and code organization for projects that use Kotlin.
+Convenções de código comumente conhecidas e fáceis de seguir são essenciais para qualquer linguagem de programação.
+Aqui oferecemos diretrizes sobre o estilo de código e a organização de código para projetos que usam Kotlin.
 
-## Configure style in IDE
+## Configurar o estilo na IDE {id="configure-style-in-ide"}
 
-Two most popular IDEs for Kotlin - [IntelliJ IDEA](https://www.jetbrains.com/idea/) and [Android Studio](https://developer.android.com/studio/)
-provide powerful support for code styling. You can configure them to automatically format your code in consistence with
-the given code style. 
+As duas IDEs mais populares para Kotlin, [IntelliJ IDEA](https://www.jetbrains.com/idea/) e [Android Studio](https://developer.android.com/studio/),
+oferecem recursos poderosos para formatação de código. Você pode configurá-las para formatar seu código automaticamente de acordo com o
+estilo de código definido.
  
-### Apply the style guide
+### Aplicar o guia de estilo {id="apply-the-style-guide"}
 
-1. Go to **Settings/Preferences | Editor | Code Style | Kotlin**.
-2. Click **Set from...**.
-3. Select **Kotlin style guide** .
+1. Acesse **Settings/Preferences | Editor | Code Style | Kotlin**.
+2. Clique em **Set from...**.
+3. Selecione **Kotlin style guide** .
 
-### Verify that your code follows the style guide
+### Verificar se o código segue o guia de estilo {id="verify-that-your-code-follows-the-style-guide"}
 
-1. Go to **Settings/Preferences | Editor | Inspections | General**.
-2. Switch on **Incorrect formatting** inspection.
-Additional inspections that verify other issues described in the style guide (such as naming conventions) are enabled by default.
+1. Acesse **Settings/Preferences | Editor | Inspections | General**.
+2. Ative a inspeção **Incorrect formatting**.
+Inspeções adicionais que verificam outros problemas descritos no guia de estilo (como convenções de nomenclatura) já vêm ativadas por padrão.
 
 <!-- Replace with an external link when the guide is moved -->
 
-For more information, see the [Migrate to Kotlin code style with IntelliJ IDEA](code-style-migration-guide.md) guide.
+Para mais informações, veja o guia [Migre para o estilo de código do Kotlin com o IntelliJ IDEA](code-style-migration-guide.md).
 
-## Source code organization
+## Organização do código-fonte {id="source-code-organization"}
 
-### Directory structure
+### Estrutura de diretórios {id="directory-structure"}
 
-In pure Kotlin projects, the recommended directory structure follows the package structure with
-the common root package omitted. For example, if all the code in the project is in the `org.example.kotlin` package and its
-subpackages, files with the `org.example.kotlin` package should be placed directly under the source root, and
-files in `org.example.kotlin.network.socket` should be in the `network/socket` subdirectory of the source root.
+Em projetos Kotlin puros, a estrutura de diretórios recomendada segue a estrutura de pacotes, com o pacote raiz comum omitido. Por exemplo, se todo o código do projeto está no pacote `org.example.kotlin` e em seus subpacotes, os arquivos do pacote `org.example.kotlin` devem ser colocados diretamente sob a raiz de código-fonte, e os arquivos em `org.example.kotlin.network.socket` devem estar no subdiretório `network/socket` da raiz de código-fonte.
 
->On JVM: In projects where Kotlin is used together with Java, Kotlin source files should reside in the same 
->source root as the Java source files, and follow the same directory structure: each file should be stored in the 
->directory corresponding to each package statement.
+>No JVM: em projetos em que Kotlin é usado junto com Java, os arquivos-fonte Kotlin devem ficar na mesma 
+>raiz de código-fonte dos arquivos Java e seguir a mesma estrutura de diretórios: cada arquivo deve ser armazenado no 
+>diretório correspondente a cada declaração `package`.
 >
 {style="note"}
 
-### Source file names
+### Nomes de arquivos-fonte {id="source-file-names"}
 
-If a Kotlin file contains a single class or interface (potentially with related top-level declarations), its name should be the same
-as the name of the class, with the `.kt` extension appended. It applies to all types of classes and interfaces.
-If a file contains multiple classes, or only top-level declarations, choose a name describing what the file contains, and name the file accordingly.
-Use [upper camel case](https://en.wikipedia.org/wiki/Camel_case), where the first letter of each word is capitalized.
-For example, `ProcessDeclarations.kt`.
+Se um arquivo Kotlin contém uma única classe ou interface (possivelmente com declarações de nível superior relacionadas), seu nome deve ser igual ao nome da classe, com a extensão `.kt` acrescentada.
+Isso se aplica a todos os tipos de classes e interfaces.
+Se um arquivo contém várias classes, ou apenas declarações de nível superior, escolha um nome que descreva o que o arquivo contém e nomeie o arquivo de acordo.
+Use [upper camel case](https://en.wikipedia.org/wiki/Camel_case), em que a primeira letra de cada palavra é maiúscula.
+Por exemplo, `ProcessDeclarations.kt`.
 
-The name of the file should describe what the code in the file does. Therefore, you should avoid using meaningless
-words such as `Util` in file names.
+O nome do arquivo deve descrever o que o código nele faz. Por isso, evite usar palavras sem significado, como `Util`, nos nomes de arquivos.
 
-#### Multiplatform projects
+#### Projetos multiplataforma {id="multiplatform-projects"}
 
-In multiplatform projects, files with top-level declarations in platform-specific source sets should have a suffix
-associated with the name of the source set. For example:
+Em projetos multiplataforma, arquivos com declarações de nível superior em source sets específicos de plataforma devem ter um sufixo associado ao nome do source set. Por exemplo:
 
 * **jvm**Main/kotlin/Platform.**jvm**.kt
 * **android**Main/kotlin/Platform.**android**.kt
 * **ios**Main/kotlin/Platform.**ios**.kt
 
-As for the common source set, files with top-level declarations should not have a suffix. For example, `commonMain/kotlin/Platform.kt`.
+Quanto ao source set comum, arquivos com declarações de nível superior não devem ter sufixo. Por exemplo, `commonMain/kotlin/Platform.kt`.
 
-##### Technical details {initial-collapse-state="collapsed" collapsible="true"}
+##### Detalhes técnicos {id="technical-details" initial-collapse-state="collapsed" collapsible="true"}
 
-We recommend following this file naming scheme in multiplatform projects due to JVM limitations: it doesn't allow
-top-level members (functions, properties).
+Recomendamos seguir este esquema de nomenclatura de arquivos em projetos multiplataforma por causa de limitações da JVM: ela não permite membros de nível superior (funções, propriedades).
 
-To work around this, the Kotlin JVM compiler creates wrapper classes (so-called "file facades") that contain top-level
-member declarations. File facades have an internal name derived from the file name.
+Para contornar isso, o compilador Kotlin para JVM cria classes wrapper (chamadas de "file facades") que contêm as declarações de membros de nível superior. File facades têm um nome interno derivado do nome do arquivo.
 
-In turn, JVM doesn't allow several classes with the same fully qualified name (FQN). This might lead to situations when
-a Kotlin project cannot be compiled to JVM:
+Por sua vez, a JVM não permite várias classes com o mesmo nome totalmente qualificado (FQN). Isso pode fazer com que um projeto Kotlin não consiga ser compilado para JVM:
 
 ```none
 root
@@ -79,69 +71,53 @@ root
 |- jvmMain/kotlin/myPackage/Platform.kt // contains 'fun multiply() { }'
 ```
 
-Here both `Platform.kt` files are in the same package, so the Kotlin JVM compiler produces two file facades, both of which
-have FQN `myPackage.PlatformKt`. This produces the "Duplicate JVM classes" error.
+Aqui, ambos os arquivos `Platform.kt` estão no mesmo pacote, então o compilador Kotlin para JVM produz dois file facades, ambos com o FQN `myPackage.PlatformKt`. Isso gera o erro "Duplicate JVM classes".
 
-The simplest way to avoid that is renaming one of the files according to the guideline above. This naming scheme helps
-avoid clashes while retaining code readability.
+A forma mais simples de evitar isso é renomear um dos arquivos de acordo com a diretriz acima. Esse esquema de nomenclatura ajuda a evitar conflitos sem perder a legibilidade do código.
 
-> There are two scenarios where these recommendations may seem redundant, but we still advise to follow them:
+> Há dois cenários em que essas recomendações podem parecer redundantes, mas ainda assim aconselhamos segui-las:
 > 
-> * Non-JVM platforms don't have issues with duplicating file facades. However, this naming scheme can help you keep
-> file naming consistent.
-> * On JVM, if source files don't have top-level declarations, the file facades aren't generated, and you won't face
-> naming clashes.
+> * Plataformas que não são JVM não têm problemas com file facades duplicados. No entanto, esse esquema de nomenclatura pode ajudar a manter os nomes de arquivos consistentes.
+> * Na JVM, se os arquivos-fonte não têm declarações de nível superior, os file facades não são gerados, e você não enfrentará conflitos de nomes.
 > 
->   However, this naming scheme can help you avoid situations when a simple refactoring
-> or an addition could include a top-level function and result in the same "Duplicate JVM classes" error.
+>   No entanto, esse esquema de nomenclatura pode ajudar a evitar situações em que uma simples refatoração ou uma adição inclua uma função de nível superior e resulte no mesmo erro "Duplicate JVM classes".
 > 
 {style="tip"}
 
-### Source file organization
+### Organização dos arquivos-fonte {id="source-file-organization"}
 
-Placing multiple declarations (classes, top-level functions or properties) in the same Kotlin source file is encouraged
-as long as these declarations are closely related to each other semantically, and the file size remains reasonable
-(not exceeding a few hundred lines).
+Colocar várias declarações (classes, funções ou propriedades de nível superior) no mesmo arquivo-fonte Kotlin é recomendado, desde que essas declarações estejam semanticamente relacionadas entre si e o tamanho do arquivo continue razoável (não ultrapassando algumas centenas de linhas).
 
-In particular, when defining extension functions for a class which are relevant for all clients of this class,
-put them in the same file with the class itself. When defining extension functions that make sense 
-only for a specific client, put them next to the code of that client. Avoid creating files just to hold 
-all extensions of some class.
+Em particular, ao definir extension functions para uma classe que são relevantes para todos os clientes dessa classe, coloque-as no mesmo arquivo da própria classe. Ao definir extension functions que fazem sentido apenas para um cliente específico, coloque-as junto ao código desse cliente. Evite criar arquivos apenas para conter todas as extensões de alguma classe.
 
-### Class layout
+### Layout da classe {id="class-layout"}
 
-The contents of a class should go in the following order:
+O conteúdo de uma classe deve seguir esta ordem:
 
-1. Property declarations and initializer blocks
-2. Secondary constructors
-3. Method declarations
+1. Declarações de propriedades e blocos de inicialização
+2. Construtores secundários
+3. Declarações de métodos
 4. Companion object
 
-Do not sort the method declarations alphabetically or by visibility, and do not separate regular methods
-from extension methods. Instead, put related stuff together, so that someone reading the class from top to bottom can 
-follow the logic of what's happening. Choose an order (either higher-level stuff first, or vice versa) and stick to it.
+Não ordene as declarações de métodos em ordem alfabética ou por visibilidade, e não separe métodos regulares de extension methods. Em vez disso, mantenha itens relacionados juntos, para que quem lê a classe de cima para baixo consiga acompanhar a lógica do que está acontecendo. Escolha uma ordem (primeiro os itens de nível mais alto, ou o contrário) e mantenha-a.
 
-Put nested classes next to the code that uses those classes. If the classes are intended to be used externally and aren't
-referenced inside the class, put them in the end, after the companion object.
+Coloque classes aninhadas junto ao código que as usa. Se as classes forem destinadas a uso externo e não forem referenciadas dentro da classe, coloque-as no final, depois do companion object.
 
-### Interface implementation layout
+### Layout da implementação de interface {id="interface-implementation-layout"}
 
-When implementing an interface, keep the implementing members in the same order as members of the interface (if necessary,
-interspersed with additional private methods used for the implementation).
+Ao implementar uma interface, mantenha os membros implementados na mesma ordem dos membros da interface (se necessário, intercalados com métodos privados adicionais usados na implementação).
 
-### Overload layout
+### Layout de sobrecargas {id="overload-layout"}
 
-Always put overloads next to each other in a class.
+Sempre coloque as sobrecargas umas ao lado das outras em uma classe.
 
-## Naming rules
+## Regras de nomenclatura {id="naming-rules"}
 
-Package and class naming rules in Kotlin are quite simple:
+As regras de nomenclatura de pacotes e classes em Kotlin são bastante simples:
 
-* Names of packages are always lowercase and do not use underscores (`org.example.project`). Using multi-word
-names is generally discouraged, but if you do need to use multiple words, you can either just concatenate them together
-or use camel case (`org.example.myProject`).
+* Nomes de pacotes são sempre em letras minúsculas e não usam sublinhados (`org.example.project`). Usar nomes com várias palavras geralmente não é recomendado, mas, se você precisar usar várias palavras, pode concatená-las ou usar camel case (`org.example.myProject`).
 
-* Names of classes and objects use upper camel case:
+* Nomes de classes e objects usam upper camel case:
 
 ```kotlin
 open class DeclarationProcessor { /*...*/ }
@@ -149,21 +125,20 @@ open class DeclarationProcessor { /*...*/ }
 object EmptyDeclarationProcessor : DeclarationProcessor() { /*...*/ }
 ```
 
-### Function names
- 
-Names of functions, properties, and local variables start with a lowercase letter and use camel case without underscores:
+### Nomes de funções {id="function-names"}
+
+Nomes de funções, propriedades e variáveis locais começam com letra minúscula e usam camel case sem sublinhados:
 
 ```kotlin
 fun processDeclarations() { /*...*/ }
 var declarationCount = 1
 ```
 
-### Names for class-like functions
+### Nomes para funções semelhantes a classes {id="names-for-class-like-functions"}
 
-There are two exceptions where function names should follow class-naming convention instead.
-Functions of this kind are usually defined at the top level.
+Há duas exceções em que nomes de funções devem seguir a convenção de nomenclatura de classes. Funções desse tipo geralmente são definidas no nível superior.
 
-* Factory functions that create class instances can have the same name as the abstract return type:
+* Funções de fábrica que criam instâncias de classes podem ter o mesmo nome do tipo de retorno abstrato:
 
    ```kotlin
    interface Foo { /*...*/ }
@@ -173,17 +148,15 @@ Functions of this kind are usually defined at the top level.
    fun Foo(): Foo { return FooImpl() }
    ```
 
-* `@Composable` functions that return `Unit`:
+* Funções `@Composable` que retornam `Unit`:
 
    ```kotlin
    @Composable fun TabHeader { /*...*/ }
    ```
 
-### Names for test methods
+### Nomes para métodos de teste {id="names-for-test-methods"}
 
-In tests (and **only** in tests), you can use method names with spaces enclosed in backticks.
-Note that such method names are only supported by Android runtime from API level 30. Underscores
-in method names are also allowed in test code.
+Em testes (e **somente** em testes), você pode usar nomes de métodos com espaços entre crases. Observe que esses nomes só funcionam no runtime do Android a partir do API level 30. Sublinhados nos nomes de métodos também são permitidos em código de teste.
 
 ```kotlin
 class MyTestCase {
@@ -193,36 +166,32 @@ class MyTestCase {
 }
 ```
 
-### Property names
+### Nomes de propriedades {id="property-names"}
 
-Names of constants (properties marked with `const`, or top-level or object `val` properties with no custom `get` function
-that hold deeply immutable data) should use all uppercase, underscore-separated names following the [screaming snake case](https://en.wikipedia.org/wiki/Snake_case)
-convention:
+Nomes de constantes (propriedades marcadas com `const`, ou propriedades `val` de nível superior ou de objeto sem função `get` customizada que contenham dados profundamente imutáveis) devem usar apenas letras maiúsculas, com palavras separadas por sublinhado, seguindo a convenção de [screaming snake case](https://en.wikipedia.org/wiki/Snake_case):
 
 ```kotlin
 const val MAX_COUNT = 8
 val USER_NAME_FIELD = "UserName"
 ```
 
-Names of top-level or object properties which hold objects with behavior or mutable data should use camel case names:
+Nomes de propriedades de nível superior ou de objeto que contenham objetos com comportamento ou dados mutáveis devem usar camel case:
 
 ```kotlin
 val mutableCollection: MutableSet<String> = HashSet()
 ```
 
-Names of properties holding references to singleton objects can use the same naming style as `object` declarations:
+Nomes de propriedades que referenciam objetos singleton podem usar o mesmo estilo de nomenclatura das declarações `object`:
 
 ```kotlin
 val PersonComparator: Comparator<Person> = /*...*/
 ```
 
-For enum constants, it's OK to use either all uppercase, underscore-separated ([screaming snake case](https://en.wikipedia.org/wiki/Snake_case)) names
-(`enum class Color { RED, GREEN }`) or upper camel case names, depending on the usage. 
+Para constantes de enum, é aceitável usar tanto nomes em letras maiúsculas, separados por sublinhado ([screaming snake case](https://en.wikipedia.org/wiki/Snake_case)) (`enum class Color { RED, GREEN }`), quanto nomes em upper camel case, dependendo do uso. 
    
-### Names for backing properties
+### Nomes para propriedades de apoio {id="names-for-backing-properties"}
 
-If a class has two properties which are conceptually the same but one is part of a public API and another is an implementation
-detail, use an underscore as the prefix for the name of the private property:
+Se uma classe tem duas propriedades que são conceitualmente iguais, mas uma faz parte de uma API pública e a outra é um detalhe de implementação, use um sublinhado como prefixo no nome da propriedade privada:
 
 ```kotlin
 class C {
@@ -233,30 +202,27 @@ class C {
 }
 ```
 
-### Choose good names
+### Escolha bons nomes {id="choose-good-names"}
 
-The name of a class is usually a noun or a noun phrase explaining what the class _is_: `List`, `PersonReader`.
+O nome de uma classe geralmente é um substantivo ou uma locução substantiva que explica o que a classe _é_: `List`, `PersonReader`.
 
-The name of a method is usually a verb or a verb phrase saying what the method _does_: `close`, `readPersons`.
-The name should also suggest if the method is mutating the object or returning a new one. For instance, `sort` is
-sorting a collection in place, while `sorted` is returning a sorted copy of the collection.
+O nome de um método geralmente é um verbo ou uma locução verbal que diz o que o método _faz_: `close`, `readPersons`.
+O nome também deve sugerir se o método modifica o objeto ou retorna um novo. Por exemplo, `sort` ordena uma coleção diretamente (in place), enquanto `sorted` retorna uma cópia ordenada da coleção.
 
-The names should make it clear what the purpose of the entity is, so it's best to avoid using meaningless words
-(`Manager`, `Wrapper`) in names.
+Os nomes devem deixar claro qual é o propósito da entidade, por isso é melhor evitar palavras sem significado (`Manager`, `Wrapper`) nos nomes.
 
-When using an acronym as part of a declaration name, follow these rules:
+Ao usar uma sigla como parte do nome de uma declaração, siga estas regras:
 
-* For two-letter acronyms, use uppercase for both letters. For example, `IOStream`.
-* For acronyms longer than two letters, capitalize only the first letter. For example, `XmlFormatter` or `HttpInputStream`.
+* Para siglas de duas letras, use maiúsculas nas duas letras. Por exemplo, `IOStream`.
+* Para siglas com mais de duas letras, deixe maiúscula apenas a primeira letra. Por exemplo, `XmlFormatter` ou `HttpInputStream`.
 
-## Formatting
+## Formatação {id="formatting"}
 
-### Indentation
+### Indentação {id="indentation"}
 
-Use four spaces for indentation. Do not use tabs.
+Use quatro espaços para indentação. Não use tabulações.
 
-For curly braces, put the opening brace at the end of the line where the construct begins, and the closing brace
-on a separate line aligned horizontally with the opening construct.
+Para as chaves, coloque a chave de abertura no final da linha em que a construção começa, e a chave de fechamento em uma linha separada, alinhada horizontalmente com a construção de abertura.
 
 ```kotlin
 if (elements != null) {
@@ -266,17 +232,16 @@ if (elements != null) {
 }
 ```
 
->In Kotlin, semicolons are optional, and therefore line breaks are significant. The language design assumes 
->Java-style braces, and you may encounter surprising behavior if you try to use a different formatting style.
+>Em Kotlin, o ponto e vírgula é opcional, e por isso as quebras de linha são significativas. O design da linguagem assume chaves no estilo Java, e você pode encontrar comportamentos inesperados se tentar usar um estilo de formatação diferente.
 >
 {style="note"}
 
-### Horizontal whitespace
+### Espaços horizontais {id="horizontal-whitespace"}
 
-* Put spaces around binary operators (`a + b`). Exception: don't put spaces around the "range to" operator (`0..i`).
-* Do not put spaces around unary operators (`a++`).
-* Put spaces between control flow keywords (`if`, `when`, `for`, and `while`) and the corresponding opening parenthesis.
-* Do not put a space before an opening parenthesis in a primary constructor declaration, method declaration or method call.
+* Coloque espaços em torno de operadores binários (`a + b`). Exceção: não use espaços em torno do operador "range to" (`0..i`).
+* Não use espaços em torno de operadores unários (`a++`).
+* Coloque espaços entre as palavras-chave de controle de fluxo (`if`, `when`, `for` e `while`) e o parêntese de abertura correspondente.
+* Não coloque espaço antes do parêntese de abertura em uma declaração de construtor primário, em uma declaração de método ou em uma chamada de método.
 
 ```kotlin
 class A(val x: Int)
@@ -288,27 +253,26 @@ fun bar() {
 }
 ```
 
-* Never put a space after `(`, `[`, or before `]`, `)`.
-* Never put a space around `.` or `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`.
-* Put a space after `//`: `// This is a comment`.
-* Do not put spaces around angle brackets used to specify type parameters: `class Map<K, V> { ... }`.
-* Do not put spaces around `::`: `Foo::class`, `String::length`.
-* Do not put a space before `?` used to mark a nullable type: `String?`.
+* Nunca coloque espaço depois de `(`, `[`, nem antes de `]`, `)`.
+* Nunca coloque espaços em torno de `.` ou `?.`: `foo.bar().filter { it > 2 }.joinToString()`, `foo?.bar()`.
+* Coloque um espaço depois de `//`: `// This is a comment`.
+* Não coloque espaços em torno dos colchetes angulares usados para especificar parâmetros de tipo: `class Map<K, V> { ... }`.
+* Não coloque espaços em torno de `::`: `Foo::class`, `String::length`.
+* Não coloque espaço antes de `?` usado para marcar um tipo que aceita `null`: `String?`.
 
-As a general rule, avoid horizontal alignment of any kind. Renaming an identifier to a name with a different length
-should not affect the formatting of either the declaration or any of the usages.
+Como regra geral, evite alinhamento horizontal de qualquer tipo. Renomear um identificador para um nome com tamanho diferente não deve afetar a formatação da declaração nem a de nenhum dos seus usos.
 
-### Colon
+### Dois-pontos {id="colon"}
 
-Put a space before `:` in the following scenarios:
+Coloque um espaço antes de `:` nos seguintes cenários:
 
-* When it's used to separate a type and a supertype.
-* When delegating to a superclass constructor or a different constructor of the same class.
-* After the `object` keyword.
+* Quando ele é usado para separar um tipo de um supertipo.
+* Ao delegar para o construtor da superclasse ou para outro construtor da mesma classe.
+* Depois da palavra-chave `object`.
     
-Don't put a space before `:` when it separates a declaration and its type.
+Não coloque espaço antes de `:` quando ele separa uma declaração do seu tipo.
  
-Always put a space after `:`.
+Sempre coloque um espaço depois de `:`.
 
 ```kotlin
 abstract class Foo<out T : Any> : IFoo {
@@ -322,17 +286,16 @@ class FooImpl : Foo() {
 }
 ```
 
-### Class headers
+### Cabeçalhos de classe {id="class-headers"}
 
-Classes with a few primary constructor parameters can be written in a single line:
+Classes com poucos parâmetros no construtor primário podem ser escritas em uma única linha:
 
 ```kotlin
 class Person(id: Int, name: String)
 ```
 
-Classes with longer headers should be formatted so that each primary constructor parameter is in a separate line with indentation.
-Also, the closing parenthesis should be on a new line. If you use inheritance, the superclass constructor call, or 
-the list of implemented interfaces should be located on the same line as the parenthesis:
+Classes com cabeçalhos mais longos devem ser formatadas de modo que cada parâmetro do construtor primário fique em uma linha separada, com indentação.
+Além disso, o parêntese de fechamento deve ficar em uma nova linha. Se você usar herança, a chamada do construtor da superclasse ou a lista de interfaces implementadas deve ficar na mesma linha do parêntese:
 
 ```kotlin
 class Person(
@@ -342,8 +305,7 @@ class Person(
 ) : Human(id, name) { /*...*/ }
 ```
 
-For multiple interfaces, the superclass constructor call should be located first and then each interface should
-be located in a different line:
+Para várias interfaces, a chamada do construtor da superclasse deve vir primeiro, e cada interface deve ficar em uma linha diferente:
 
 ```kotlin
 class Person(
@@ -354,7 +316,7 @@ class Person(
     KotlinMaker { /*...*/ }
 ```
 
-For classes with a long supertype list, put a line break after the colon and align all supertype names horizontally:
+Para classes com uma lista longa de supertipos, coloque uma quebra de linha depois dos dois-pontos e alinhe horizontalmente todos os nomes dos supertipos:
 
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
@@ -366,8 +328,7 @@ class MyFavouriteVeryLongClassHolder :
 }
 ```
 
-To clearly separate the class header and body when the class header is long, either put a blank line
-following the class header (as in the example above), or put the opening curly brace on a separate line:
+Para separar claramente o cabeçalho e o corpo da classe quando o cabeçalho é longo, coloque uma linha em branco depois do cabeçalho da classe (como no exemplo acima) ou coloque a chave de abertura em uma linha separada:
 
 ```kotlin
 class MyFavouriteVeryLongClassHolder :
@@ -379,12 +340,11 @@ class MyFavouriteVeryLongClassHolder :
 }
 ```
 
-Use regular indent (four spaces) for constructor parameters. This ensures that properties declared in the primary constructor have the same indentation as properties
-declared in the body of a class.
+Use a indentação regular (quatro espaços) para os parâmetros do construtor. Isso garante que as propriedades declaradas no construtor primário tenham a mesma indentação das propriedades declaradas no corpo da classe.
 
-### Modifiers order
+### Ordem dos modificadores {id="modifiers-order"}
 
-If a declaration has multiple modifiers, always put them in the following order:
+Se uma declaração tem vários modificadores, sempre os coloque na seguinte ordem:
 
 ```kotlin
 public / protected / private / internal
@@ -405,41 +365,40 @@ operator
 data
 ```
 
-Place all annotations before modifiers:
+Coloque todas as anotações antes dos modificadores:
 
 ```kotlin
 @Named("Foo")
 private val foo: Foo
 ```
 
-Unless you're working on a library, omit redundant modifiers (for example, `public`).
+A menos que você esteja trabalhando em uma biblioteca, omita modificadores redundantes (por exemplo, `public`).
 
-### Annotations
+### Anotações {id="annotations"}
 
-Place annotations on separate lines before the declaration to which they are attached, and with the same indentation:
+Coloque as anotações em linhas separadas, antes da declaração à qual estão associadas, e com a mesma indentação:
 
 ```kotlin
 @Target(AnnotationTarget.PROPERTY)
 annotation class JsonExclude
 ```
 
-Annotations without arguments may be placed on the same line:
+Anotações sem argumentos podem ser colocadas na mesma linha:
 
 ```kotlin
 @JsonExclude @JvmField
 var x: String
 ```
 
-A single annotation without arguments may be placed on the same line as the corresponding declaration:
+Uma única anotação sem argumentos pode ser colocada na mesma linha da declaração correspondente:
 
 ```kotlin
 @Test fun foo() { /*...*/ }
 ```
 
-### File annotations
+### Anotações de arquivo {id="file-annotations"}
 
-File annotations are placed after the file comment (if any), before the `package` statement, 
-and are separated from `package` with a blank line (to emphasize the fact that they target the file and not the package).
+Anotações de arquivo são colocadas depois do comentário do arquivo (se houver), antes da instrução `package`, e são separadas de `package` por uma linha em branco (para enfatizar que elas se referem ao arquivo, e não ao pacote).
 
 ```kotlin
 /** License, copyright and whatever */
@@ -448,9 +407,9 @@ and are separated from `package` with a blank line (to emphasize the fact that t
 package foo.bar
 ```
 
-### Functions
+### Funções {id="functions"}
 
-If the function signature doesn't fit on a single line, use the following syntax:
+Se a assinatura da função não couber em uma única linha, use a seguinte sintaxe:
 
 ```kotlin
 fun longMethodName(
@@ -461,9 +420,9 @@ fun longMethodName(
 }
 ```
 
-Use regular indent (four spaces) for function parameters. It helps ensure consistency with constructor parameters.
+Use a indentação regular (quatro espaços) para os parâmetros da função. Isso ajuda a manter a consistência com os parâmetros do construtor.
 
-Prefer using an expression body for functions with the body consisting of a single expression.
+Prefira usar um corpo de expressão em funções cujo corpo consiste em uma única expressão.
 
 ```kotlin
 fun foo(): Int {     // bad
@@ -473,44 +432,42 @@ fun foo(): Int {     // bad
 fun foo() = 1        // good
 ```
 
-### Expression bodies
+### Corpos de expressão {id="expression-bodies"}
 
-If the function has an expression body whose first line doesn't fit on the same line as the declaration, put the `=` sign on the first line
-and indent the expression body by four spaces.
+Se a função tem um corpo de expressão cuja primeira linha não cabe na mesma linha da declaração, coloque o sinal `=` na primeira linha e indente o corpo da expressão em quatro espaços.
 
 ```kotlin
 fun f(x: String, y: String, z: String) =
     veryLongFunctionCallWithManyWords(andLongParametersToo(), x, y, z)
 ```
 
-### Properties
+### Propriedades {id="properties"}
 
-For very simple read-only properties, consider one-line formatting:
+Para propriedades somente leitura bem simples, considere a formatação em uma linha:
 
 ```kotlin
 val isEmpty: Boolean get() = size == 0
 ```
 
-For more complex properties, always put `get` and `set` keywords on separate lines:
+Para propriedades mais complexas, sempre coloque as palavras-chave `get` e `set` em linhas separadas:
 
 ```kotlin
 val foo: String
     get() { /*...*/ }
 ```
 
-For properties with an initializer, if the initializer is long, add a line break after the `=` sign
-and indent the initializer by four spaces:
+Para propriedades com inicializador, se o inicializador for longo, adicione uma quebra de linha depois do sinal `=` e indente o inicializador em quatro espaços:
 
 ```kotlin
 private val defaultCharset: Charset? =
     EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)
 ```
 
-### Control flow statements
+### Instruções de controle de fluxo {id="control-flow-statements"}
 
-If the condition of an `if` or `when` statement is multiline, always use curly braces around the body of the statement.
-Indent each subsequent line of the condition by four spaces relative to the statement start. 
-Put the closing parentheses of the condition together with the opening curly brace on a separate line:
+Se a condição de uma instrução `if` ou `when` ocupa várias linhas, use sempre chaves ao redor do corpo da instrução.
+Indente cada linha subsequente da condição em quatro espaços em relação ao início da instrução.
+Coloque o parêntese de fechamento da condição junto com a chave de abertura, em uma linha separada:
 
 ```kotlin
 if (!component.isSyncing &&
@@ -520,10 +477,9 @@ if (!component.isSyncing &&
 }
 ```
 
-This helps align the condition and statement bodies. 
+Isso ajuda a alinhar a condição e os corpos das instruções. 
 
-Put the `else`, `catch`, `finally` keywords, as well as the `while` keyword of a `do-while` loop, on the same line as the 
-preceding curly brace:
+Coloque as palavras-chave `else`, `catch` e `finally`, assim como a palavra-chave `while` de um laço `do-while`, na mesma linha da chave anterior:
 
 ```kotlin
 if (condition) {
@@ -539,7 +495,7 @@ try {
 }
 ```
 
-In a `when` statement, if a branch is more than a single line, consider separating it from adjacent case blocks with a blank line:
+Em uma instrução `when`, se um ramo ocupa mais de uma linha, considere separá-lo dos blocos de caso adjacentes com uma linha em branco:
 
 ```kotlin
 private fun parsePropertyValue(propName: String, token: Token) {
@@ -553,7 +509,7 @@ private fun parsePropertyValue(propName: String, token: Token) {
 }
 ```
 
-Put short branches on the same line as the condition, without braces.
+Coloque ramos curtos na mesma linha da condição, sem chaves.
 
 ```kotlin
 when (foo) {
@@ -562,10 +518,10 @@ when (foo) {
 }
 ```
 
-### Method calls
+### Chamadas de método {id="method-calls"}
 
-In long argument lists, put a line break after the opening parenthesis. Indent arguments by four spaces. 
-Group multiple closely related arguments on the same line.
+Em listas longas de argumentos, coloque uma quebra de linha depois do parêntese de abertura. Indente os argumentos em quatro espaços.
+Agrupe vários argumentos intimamente relacionados na mesma linha.
 
 ```kotlin
 drawSquare(
@@ -575,11 +531,11 @@ drawSquare(
 )
 ```
 
-Put spaces around the `=` sign separating the argument name and value.
+Coloque espaços em torno do sinal `=` que separa o nome do argumento e o valor.
 
-### Wrap chained calls
+### Quebrar chamadas encadeadas {id="wrap-chained-calls"}
 
-When wrapping chained calls, put the `.` character or the `?.` operator on the next line, with a single indent:
+Ao quebrar chamadas encadeadas, coloque o caractere `.` ou o operador `?.` na linha seguinte, com uma única indentação:
 
 ```kotlin
 val anchor = owner
@@ -588,18 +544,17 @@ val anchor = owner
     .dropWhile { it is PsiComment || it is PsiWhiteSpace }
 ```
 
-The first call in the chain should usually have a line break before it, but it's OK to omit it if the code makes more sense that way.
+A primeira chamada da cadeia geralmente deve ter uma quebra de linha antes dela, mas é aceitável omiti-la se o código fizer mais sentido assim.
 
 ### Lambdas
 
-In lambda expressions, spaces should be used around the curly braces, as well as around the arrow which separates the parameters
-from the body. If a call takes a single lambda, pass it outside parentheses whenever possible.
+Em expressões lambda, use espaços ao redor das chaves, assim como ao redor da seta que separa os parâmetros do corpo. Se uma chamada recebe um único lambda, passe-o fora dos parênteses sempre que possível.
 
 ```kotlin
 list.filter { it > 10 }
 ```
 
-If assigning a label for a lambda, do not put a space between the label and the opening curly brace:
+Ao atribuir um rótulo a um lambda, não coloque espaço entre o rótulo e a chave de abertura:
 
 ```kotlin
 fun foo() {
@@ -609,7 +564,7 @@ fun foo() {
 }
 ```
 
-When declaring parameter names in a multiline lambda, put the names on the first line, followed by the arrow and the newline:
+Ao declarar nomes de parâmetros em um lambda de várias linhas, coloque os nomes na primeira linha, seguidos da seta e da quebra de linha:
 
 ```kotlin
 appendCommaSeparated(properties) { prop ->
@@ -617,7 +572,7 @@ appendCommaSeparated(properties) { prop ->
 }
 ```
 
-If the parameter list is too long to fit on a line, put the arrow on a separate line:
+Se a lista de parâmetros for longa demais para caber em uma linha, coloque a seta em uma linha separada:
 
 ```kotlin
 foo {
@@ -628,9 +583,9 @@ foo {
 }
 ```
 
-### Trailing commas
+### Vírgulas finais {id="trailing-commas"}
 
-A trailing comma is a comma symbol after the last item in a series of elements:
+Uma vírgula final é o símbolo de vírgula depois do último item em uma série de elementos:
 
 ```kotlin
 class Person(
@@ -640,18 +595,17 @@ class Person(
 )
 ```
 
-Using trailing commas has several benefits:
+Usar vírgulas finais tem vários benefícios:
 
-* It makes version-control diffs cleaner – as all the focus is on the changed value.
-* It makes it easy to add and reorder elements – there is no need to add or delete the comma if you manipulate elements.
-* It simplifies code generation, for example, for object initializers. The last element can also have a comma.
+* Deixa os diffs do controle de versão mais limpos, já que todo o foco fica no valor alterado.
+* Facilita adicionar e reordenar elementos: não é preciso adicionar ou remover a vírgula ao manipular os elementos.
+* Simplifica a geração de código, por exemplo, para inicializadores de objetos. O último elemento também pode ter uma vírgula.
 
-Trailing commas are entirely optional – your code will still work without them. The Kotlin style guide encourages the use of trailing commas at the declaration site and leaves it at your discretion for the call site.
+Vírgulas finais são totalmente opcionais: seu código continua funcionando sem elas. O guia de estilo do Kotlin incentiva o uso de vírgulas finais na declaração e deixa a seu critério usá-las na chamada.
 
-To enable trailing commas in the IntelliJ IDEA formatter, go to **Settings/Preferences | Editor | Code Style | Kotlin**, 
-open the **Other** tab and select the **Use trailing comma** option.
+Para ativar vírgulas finais no formatador do IntelliJ IDEA, acesse **Settings/Preferences | Editor | Code Style | Kotlin**, abra a aba **Other** e selecione a opção **Use trailing comma**.
 
-#### Enumerations {initial-collapse-state="collapsed" collapsible="true"}
+#### Enumerações {id="enumerations" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 enum class Direction {
@@ -662,7 +616,7 @@ enum class Direction {
 }
 ```
 
-#### Value arguments {initial-collapse-state="collapsed" collapsible="true"}
+#### Argumentos de valor {id="value-arguments" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun shift(x: Int, y: Int) { /*...*/ }
@@ -677,7 +631,7 @@ val colors = listOf(
 )
 ```
 
-#### Class properties and parameters {initial-collapse-state="collapsed" collapsible="true"}
+#### Propriedades e parâmetros de classe {id="class-properties-and-parameters" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 class Customer(
@@ -690,7 +644,7 @@ class Customer(
 )
 ```
 
-#### Function value parameters {initial-collapse-state="collapsed" collapsible="true"}
+#### Parâmetros de valor de função {id="function-value-parameters" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun powerOf(
@@ -707,7 +661,7 @@ fun print(
 ) {}
 ```
 
-#### Parameters with optional type (including setters) {initial-collapse-state="collapsed" collapsible="true"}
+#### Parâmetros com tipo opcional (incluindo setters) {id="parameters-with-optional-type-including-setters" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 val sum: (Int, Int, Int) -> Int = fun(
@@ -720,7 +674,7 @@ val sum: (Int, Int, Int) -> Int = fun(
 println(sum(8, 8, 8))
 ```
 
-#### Indexing suffix {initial-collapse-state="collapsed" collapsible="true"}
+#### Sufixo de indexação {id="indexing-suffix" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 class Surface {
@@ -733,7 +687,7 @@ fun getZValue(mySurface: Surface, xValue: Int, yValue: Int) =
     ]
 ```
 
-#### Parameters in lambdas {initial-collapse-state="collapsed" collapsible="true"}
+#### Parâmetros em lambdas {id="parameters-in-lambdas" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun main() {
@@ -747,7 +701,7 @@ fun main() {
 }
 ```
 
-#### when entry {initial-collapse-state="collapsed" collapsible="true"}
+#### Entradas do when {id="when-entry" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun isReferenceApplicable(myReference: KClass<*>) = when (myReference) {
@@ -759,7 +713,7 @@ fun isReferenceApplicable(myReference: KClass<*>) = when (myReference) {
 }
 ```
 
-#### Collection literals (in annotations) {initial-collapse-state="collapsed" collapsible="true"}
+#### Literais de coleção (em anotações) {id="collection-literals-in-annotations" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 annotation class ApplicableFor(val services: Array<String>)
@@ -772,7 +726,7 @@ annotation class ApplicableFor(val services: Array<String>)
 fun run() {}
 ```
 
-#### Type arguments {initial-collapse-state="collapsed" collapsible="true"}
+#### Argumentos de tipo {id="type-arguments" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 fun <T1, T2> foo() {}
@@ -784,7 +738,7 @@ fun main() {
 }
 ```
 
-#### Type parameters {initial-collapse-state="collapsed" collapsible="true"}
+#### Parâmetros de tipo {id="type-parameters" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 class MyMap<
@@ -793,7 +747,7 @@ class MyMap<
         > {}
 ```
 
-#### Destructuring declarations {initial-collapse-state="collapsed" collapsible="true"}
+#### Declarações de desestruturação {id="destructuring-declarations" initial-collapse-state="collapsed" collapsible="true"}
 
 ```kotlin
 data class Car(val manufacturer: String, val model: String, val year: Int)
@@ -818,10 +772,9 @@ fun printMeanValue() {
 printMeanValue()
 ```
 
-## Documentation comments
+## Comentários de documentação {id="documentation-comments"}
 
-For longer documentation comments, place the opening `/**` on a separate line and begin each subsequent line
-with an asterisk:
+Para comentários de documentação mais longos, coloque o `/**` de abertura em uma linha separada e comece cada linha seguinte com um asterisco:
 
 ```kotlin
 /**
@@ -830,15 +783,13 @@ with an asterisk:
  */
 ```
 
-Short comments can be placed on a single line:
+Comentários curtos podem ser colocados em uma única linha:
 
 ```kotlin
 /** This is a short documentation comment. */
 ```
 
-Generally, avoid using `@param` and `@return` tags. Instead, incorporate the description of parameters and return values
-directly into the documentation comment, and add links to parameters wherever they are mentioned. Use `@param` and
-`@return` only when a lengthy description is required which doesn't fit into the flow of the main text.
+De modo geral, evite usar as tags `@param` e `@return`. Em vez disso, incorpore a descrição dos parâmetros e dos valores de retorno diretamente no comentário de documentação, e adicione links para os parâmetros sempre que forem mencionados. Use `@param` e `@return` apenas quando for necessária uma descrição extensa que não caiba no fluxo do texto principal.
 
 ```kotlin
 // Avoid doing this:
@@ -858,15 +809,13 @@ fun abs(number: Int): Int { /*...*/ }
 fun abs(number: Int): Int { /*...*/ }
 ```
 
-## Avoid redundant constructs
+## Evite construções redundantes {id="avoid-redundant-constructs"}
 
-In general, if a certain syntactic construction in Kotlin is optional and highlighted by the IDE
-as redundant, you should omit it in your code. Do not leave unnecessary syntactic elements in code
-just "for clarity".
+De modo geral, se uma certa construção sintática do Kotlin é opcional e destacada pela IDE como redundante, você deve omiti-la do código. Não deixe elementos sintáticos desnecessários no código apenas "para deixar mais claro".
 
-### Unit return type
+### Tipo de retorno Unit {id="unit-return-type"}
 
-If a function returns Unit, the return type should be omitted:
+Se uma função retorna Unit, o tipo de retorno deve ser omitido:
 
 ```kotlin
 fun foo() { // ": Unit" is omitted here
@@ -874,20 +823,19 @@ fun foo() { // ": Unit" is omitted here
 }
 ```
 
-### Semicolons
+### Ponto e vírgula {id="semicolons"}
 
-Omit semicolons whenever possible.
+Omita pontos e vírgulas sempre que possível.
 
-### String templates
+### Templates de string {id="string-templates"}
 
-Don't use curly braces when inserting a simple variable into a string template. Use curly braces only for longer expressions:
+Não use chaves ao inserir uma variável simples em um template de string. Use chaves apenas para expressões mais longas:
 
 ```kotlin
 println("$name has ${children.size} children")
 ```
 
-Use [multi-dollar string interpolation](strings.md#multi-dollar-string-interpolation)
-to treat the dollar sign chars `$` as string literals:
+Use a [interpolação de strings com múltiplos cifrões](strings.md#multi-dollar-string-interpolation) para tratar o caractere de cifrão `$` como literal de string:
 
 ```kotlin
 val KClass<*>.jsonSchema : String
@@ -902,16 +850,13 @@ val KClass<*>.jsonSchema : String
         """
 ```
 
-## Idiomatic use of language features
+## Uso idiomático dos recursos da linguagem {id="idiomatic-use-of-language-features"}
 
-### Immutability
+### Imutabilidade {id="immutability"}
 
-Prefer using immutable data to mutable. Always declare local variables and properties as `val` rather than `var` if
-they are not modified after initialization.
+Prefira dados imutáveis a dados mutáveis. Sempre declare variáveis locais e propriedades como `val`, em vez de `var`, se elas não forem modificadas após a inicialização.
 
-Always use immutable collection interfaces (`Collection`, `List`, `Set`, `Map`) to declare collections which are not
-mutated. When using factory functions to create collection instances, always use functions that return immutable
-collection types when possible:
+Sempre use as interfaces de coleção imutáveis (`Collection`, `List`, `Set`, `Map`) para declarar coleções que não são modificadas. Ao usar funções de fábrica para criar instâncias de coleções, sempre que possível use funções que retornam tipos de coleção imutáveis:
 
 ```kotlin
 // Bad: use of a mutable collection type for value which will not be mutated
@@ -927,9 +872,9 @@ val allowedValues = arrayListOf("a", "b", "c")
 val allowedValues = listOf("a", "b", "c")
 ```
 
-### Default parameter values
+### Valores padrão de parâmetros {id="default-parameter-values"}
 
-Prefer declaring functions with default parameter values to declaring overloaded functions.
+Prefira declarar funções com valores padrão de parâmetros a declarar funções sobrecarregadas.
 
 ```kotlin
 // Bad
@@ -940,42 +885,40 @@ fun foo(a: String) { /*...*/ }
 fun foo(a: String = "a") { /*...*/ }
 ```
 
-### Type aliases
+### Aliases de tipo {id="type-aliases"}
 
-If you have a functional type or a type with type parameters which is used multiple times in a codebase, prefer defining
-a type alias for it:
+Se você tem um tipo função ou um tipo com parâmetros de tipo que é usado várias vezes em uma base de código, prefira definir um alias de tipo para ele:
 
 ```kotlin
 typealias MouseClickHandler = (Any, MouseEvent) -> Unit
 typealias PersonIndex = Map<String, Person>
 ```
-If you use a private or internal type alias for avoiding name collision, prefer the `import ... as ...` mentioned in 
-[Packages and Imports](packages.md).
+Se você usar um alias de tipo privado ou interno para evitar colisão de nomes, prefira o `import ... as ...` mencionado em 
+[Pacotes e imports](packages.md).
 
-### Lambda parameters
+### Parâmetros de lambda {id="lambda-parameters"}
 
-In lambdas which are short and not nested, it's recommended to use the `it` convention instead of declaring the parameter
-explicitly. In nested lambdas with parameters, always declare parameters explicitly.
+Em lambdas curtas e não aninhadas, recomenda-se usar a convenção `it` em vez de declarar o parâmetro explicitamente. Em lambdas aninhadas com parâmetros, sempre declare os parâmetros explicitamente.
 
-### Returns in a lambda
+### Retornos em lambdas {id="returns-in-a-lambda"}
 
-Avoid using multiple labeled returns in a lambda. Consider restructuring the lambda so that it will have a single exit point.
-If that's not possible or not clear enough, consider converting the lambda into an anonymous function.
+Evite usar múltiplos retornos rotulados em uma lambda. Considere reestruturar a lambda para que ela tenha um único ponto de saída.
+Se isso não for possível ou não ficar claro o suficiente, considere converter a lambda em uma função anônima.
 
-Do not use a labeled return for the last statement in a lambda.
+Não use um retorno rotulado para a última instrução de uma lambda.
 
-### Named arguments
+### Argumentos nomeados {id="named-arguments"}
 
-Use the named argument syntax when a method takes multiple parameters of the same primitive type, or for parameters of `Boolean` type,
-unless the meaning of all parameters is absolutely clear from context.
+Use a sintaxe de argumento nomeado quando um método recebe vários parâmetros do mesmo tipo primitivo, ou para parâmetros do tipo `Boolean`,
+a menos que o significado de todos os parâmetros seja absolutamente claro pelo contexto.
 
 ```kotlin
 drawSquare(x = 10, y = 10, width = 100, height = 100, fill = true)
 ```
 
-### Conditional statements
+### Instruções condicionais {id="conditional-statements"}
 
-Prefer using the expression form of `try`, `if`, and `when`.
+Prefira usar a forma de expressão de `try`, `if` e `when`.
 
 ```kotlin
 return if (x) foo() else bar()
@@ -988,7 +931,7 @@ return when(x) {
 }
 ```
 
-The above is preferable to:
+O exemplo acima é preferível a:
 
 ```kotlin
 if (x)
@@ -1006,14 +949,14 @@ when(x) {
 
 ### if versus when
 
-Prefer using `if` for binary conditions instead of `when`. 
-For example, use this syntax with `if`:
+Prefira usar `if` para condições binárias em vez de `when`.
+Por exemplo, use esta sintaxe com `if`:
 
 ```kotlin
 if (x == null) ... else ...
 ```
 
-Instead of this one with `when`:
+Em vez desta, com `when`:
 
 ```kotlin
 when (x) {
@@ -1022,11 +965,11 @@ when (x) {
 }
 ```
 
-Prefer using `when` if there are three or more options.
+Prefira usar `when` se houver três ou mais opções.
 
-### Guard conditions in when expression
+### Condições de guarda em expressões when {id="guard-conditions-in-when-expression"}
 
-Use parentheses when combining multiple boolean expressions in `when` expressions or statements with [guard conditions](control-flow.md#guard-conditions-in-when-expressions):
+Use parênteses ao combinar múltiplas expressões booleanas em expressões ou instruções `when` com [condições de guarda](control-flow.md#guard-conditions-in-when-expressions):
 
 ```kotlin
 when (status) {
@@ -1034,7 +977,7 @@ when (status) {
 }
 ```
 
-Instead of:
+Em vez de:
 
 ```kotlin
 when (status) {
@@ -1042,21 +985,19 @@ when (status) {
 }
 ```
 
-### Nullable Boolean values in conditions
+### Valores Boolean anuláveis em condições {id="nullable-boolean-values-in-conditions"}
 
-If you need to use a nullable `Boolean` in a conditional statement, use `if (value == true)` or `if (value == false)` checks.
+Se você precisar usar um `Boolean` anulável em uma instrução condicional, use verificações `if (value == true)` ou `if (value == false)`.
 
-### Loops
+### Laços de repetição {id="loops"}
 
-Prefer using higher-order functions (`filter`, `map` etc.) to loops. Exception: `forEach` (prefer using a regular `for` loop instead,
-unless the receiver of `forEach` is nullable or `forEach` is used as part of a longer call chain).
+Prefira usar funções de ordem superior (`filter`, `map` etc.) a laços. Exceção: `forEach` (prefira um `for` regular, a menos que o receiver de `forEach` seja anulável ou que `forEach` seja usado como parte de uma cadeia de chamadas mais longa).
 
-When making a choice between a complex expression using multiple higher-order functions and a loop, understand the cost
-of the operations being performed in each case and keep performance considerations in mind. 
+Ao escolher entre uma expressão complexa que usa várias funções de ordem superior e um laço, entenda o custo das operações executadas em cada caso e tenha em mente as considerações de desempenho.
 
-### Loops on ranges
+### Laços em intervalos {id="loops-on-ranges"}
 
-Use the `..<` operator to loop over a range with an exclusive upper bound:
+Use o operador `..<` para percorrer um intervalo com limite superior exclusivo:
 
 ```kotlin
 for (i in 0..n - 1) { /*...*/ }  // bad
@@ -1065,12 +1006,11 @@ for (i in 0..<n) { /*...*/ }  // good
 
 ### Strings
 
-Prefer string templates to string concatenation.
+Prefira templates de string à concatenação de strings.
 
-Prefer multiline strings to embedding `\n` escape sequences into regular string literals.
+Prefira strings de múltiplas linhas a incluir sequências de escape `\n` em literais de string comuns.
 
-To maintain indentation in multiline strings, use `trimIndent` when the resulting string does not require any internal
-indentation, or `trimMargin` when internal indentation is required:
+Para manter a indentação em strings de múltiplas linhas, use `trimIndent` quando a string resultante não exigir nenhuma indentação interna, ou `trimMargin` quando a indentação interna for necessária:
 
 ```kotlin
 fun main() {
@@ -1101,38 +1041,32 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Learn the difference between [Java and Kotlin multiline strings](java-to-kotlin-idioms-strings.md#use-multiline-strings).
+Saiba qual é a diferença entre as [strings de várias linhas em Java e em Kotlin](java-to-kotlin-idioms-strings.md#use-multiline-strings).
 
-### Functions vs properties
+### Funções versus propriedades {id="functions-vs-properties"}
 
-In some scenarios, functions with no arguments might be interchangeable with read-only properties. 
-Although the semantics are similar, there are some stylistic conventions on when to prefer one to another.
+Em alguns cenários, funções sem argumentos podem ser intercambiáveis com propriedades somente leitura. Embora a semântica seja parecida, há convenções de estilo sobre quando preferir uma à outra.
 
-Prefer a property over a function when the underlying algorithm:
+Prefira uma propriedade a uma função quando o algoritmo subjacente:
 
-* Does not throw.
-* Is cheap to calculate (or cached on the first run).
-* Returns the same result over invocations if the object state hasn't changed.
+* Não lança exceções.
+* É barato de calcular (ou é armazenado em cache na primeira execução).
+* Retorna o mesmo resultado nas invocações, se o estado do objeto não tiver mudado.
 
-### Extension functions
+### Extension functions {id="extension-functions"}
 
-Use extension functions liberally. Every time you have a function that works primarily on an object, consider making it
-an extension function accepting that object as a receiver. To minimize API pollution, restrict the visibility of
-extension functions as much as it makes sense. As necessary, use local extension functions, member extension functions,
-or top-level extension functions with private visibility.
+Use extension functions com liberdade. Sempre que tiver uma função que trabalha principalmente sobre um objeto, considere torná-la uma extension function que recebe esse objeto como receiver. Para minimizar a poluição da API, restrinja a visibilidade das extension functions na medida em que faça sentido. Quando necessário, use extension functions locais, extension functions de membro ou extension functions de nível superior com visibilidade `private`.
 
-### Infix functions
+### Funções infix {id="infix-functions"}
 
-Declare a function as `infix` only when it works on two objects which play a similar role. Good examples: `and`, `to`, `zip`.
-Bad example: `add`.
+Declare uma função como `infix` apenas quando ela trabalhar com dois objetos que desempenham um papel semelhante. Bons exemplos: `and`, `to`, `zip`.
+Mau exemplo: `add`.
 
-Do not declare a method as `infix` if it mutates the receiver object.
+Não declare um método como `infix` se ele modifica o objeto receiver.
 
-### Factory functions
+### Funções de fábrica {id="factory-functions"}
 
-If you declare a factory function for a class, avoid giving it the same name as the class itself. Prefer using a distinct name,
-making it clear why the behavior of the factory function is special. Only if there is really no special semantics,
-you can use the same name as the class.
+Se você declarar uma função de fábrica para uma classe, evite dar a ela o mesmo nome da própria classe. Prefira um nome distinto, deixando claro por que o comportamento da função de fábrica é especial. Somente se realmente não houver nenhuma semântica especial você pode usar o mesmo nome da classe.
 
 ```kotlin
 class Point(val x: Double, val y: Double) {
@@ -1142,19 +1076,17 @@ class Point(val x: Double, val y: Double) {
 }
 ```
 
-If you have an object with multiple overloaded constructors that don't call different superclass constructors and
-can't be reduced to a single constructor including parameters with default values, prefer to replace the overloaded constructors with
-factory functions.
+Se você tem um objeto com vários construtores sobrecarregados que não chamam construtores de superclasses diferentes e não podem ser reduzidos a um único construtor com parâmetros que tenham valores padrão, prefira substituir os construtores sobrecarregados por funções de fábrica.
 
-### Platform types
+### Tipos de plataforma {id="platform-types"}
 
-A public function/method returning an expression of a platform type must declare its Kotlin type explicitly:
+Uma função ou método público que retorna uma expressão de tipo de plataforma deve declarar explicitamente seu tipo Kotlin:
 
 ```kotlin
 fun apiCall(): String = MyJavaApi.getProperty("name")
 ```
 
-Any property (package-level or class-level) initialized with an expression of a platform type must declare its Kotlin type explicitly:
+Qualquer propriedade (em nível de pacote ou de classe) inicializada com uma expressão de tipo de plataforma deve declarar explicitamente seu tipo Kotlin:
 
 ```kotlin
 class Person {
@@ -1162,7 +1094,7 @@ class Person {
 }
 ```
 
-A local value initialized with an expression of a platform type may or may not have a type declaration:
+Um valor local inicializado com uma expressão de tipo de plataforma pode ou não ter declaração de tipo:
 
 ```kotlin
 fun main() {
@@ -1173,17 +1105,17 @@ fun main() {
 
 ### Scope functions apply/with/run/also/let
 
-Kotlin provides a set of functions to execute a block of code in the context of a given object: `let`, `run`, `with`, `apply`, and `also`.
-For the guidance on choosing the right scope function for your case, refer to [Scope Functions](scope-functions.md).
+O Kotlin oferece um conjunto de funções para executar um bloco de código no contexto de um determinado objeto: `let`, `run`, `with`, `apply` e `also`.
+Para orientação sobre como escolher a scope function certa para o seu caso, consulte [Scope functions](scope-functions.md).
 
-## Coding conventions for libraries
+## Convenções de código para bibliotecas {id="coding-conventions-for-libraries"}
 
-When writing libraries, it's recommended to follow an additional set of rules to ensure API stability:
+Ao escrever bibliotecas, é recomendado seguir um conjunto adicional de regras para garantir a estabilidade da API:
 
- * Always explicitly specify member visibility (to avoid accidentally exposing declarations as public API).
- * Always explicitly specify function return types and property types (to avoid accidentally changing the return type
-   when the implementation changes).
- * Provide [KDoc](kotlin-doc.md) comments for all public members, except for overrides that do not require any new documentation
-   (to support generating documentation for the library).
+ * Sempre especifique explicitamente a visibilidade dos membros (para evitar expor declarações como API pública por acidente).
+ * Sempre especifique explicitamente os tipos de retorno das funções e os tipos das propriedades (para evitar alterar o tipo de retorno por acidente quando a implementação mudar).
+ * Forneça comentários [KDoc](kotlin-doc.md) para todos os membros públicos, exceto para overrides que não exijam nova documentação (para viabilizar a geração de documentação da biblioteca).
 
-Learn more about best practices and ideas to consider when writing an API for your library in the [Library authors' guidelines](api-guidelines-introduction.md).
+Saiba mais sobre boas práticas e ideias a considerar ao escrever uma API para sua biblioteca em [Diretrizes para autores de bibliotecas](api-guidelines-introduction.md).
+
+<!-- ia-translate: true -->
