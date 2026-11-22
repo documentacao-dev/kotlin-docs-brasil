@@ -601,7 +601,7 @@ Usar vírgulas finais tem vários benefícios:
 * Facilita adicionar e reordenar elementos: não é preciso adicionar ou remover a vírgula ao manipular os elementos.
 * Simplifica a geração de código, por exemplo, para inicializadores de objetos. O último elemento também pode ter uma vírgula.
 
-Vírgulas finais são totalmente opcionais: seu código continua funcionando sem elas. O guia de estilo do Kotlin incentiva o uso de vírgulas finais na declaração e deixa a critério de você usá-las na chamada.
+Vírgulas finais são totalmente opcionais: seu código continua funcionando sem elas. O guia de estilo do Kotlin incentiva o uso de vírgulas finais na declaração e deixa a seu critério usá-las na chamada.
 
 Para ativar vírgulas finais no formatador do IntelliJ IDEA, acesse **Settings/Preferences | Editor | Code Style | Kotlin**, abra a aba **Other** e selecione a opção **Use trailing comma**.
 

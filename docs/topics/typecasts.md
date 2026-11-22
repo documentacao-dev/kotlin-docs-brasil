@@ -401,13 +401,13 @@ fun main() {
 
 ### Pré-requisitos do smart cast {id="smart-cast-prerequisites"}
 
-Smart casts funcionam somente quando o compilador pode garantir que a variável não muda entre a verificação e o seu uso.
+Smart casts funcionam somente quando o compilador pode garantir que a variável não muda entre a verificação e seu uso.
 Eles podem ser usados nas seguintes condições:
 
 <table style="none">
     <tr>
         <td>
-            <code>val</code> local variables
+            Variáveis locais <code>val</code>
         </td>
         <td>
             Sempre, exceto <a href="delegated-properties.md">propriedades delegadas locais</a>.
@@ -415,7 +415,7 @@ Eles podem ser usados nas seguintes condições:
     </tr>
     <tr>
         <td>
-            <code>val</code> properties
+            Propriedades <code>val</code>
         </td>
         <td>
             Se a propriedade for <code>private</code> ou <code>internal</code>, ou se a verificação for feita no mesmo <a href="visibility-modifiers.md#modules">módulo</a> onde a propriedade é declarada. Smart casts não podem ser usados em propriedades <code>open</code> nem em propriedades com getter personalizado.
@@ -423,15 +423,15 @@ Eles podem ser usados nas seguintes condições:
     </tr>
     <tr>
         <td>
-            <code>var</code> local variables
+            Variáveis locais <code>var</code>
         </td>
         <td>
-            Se a variável não for modificada entre a verificação e o seu uso, não for capturada por uma lambda que a modifica e não for uma propriedade delegada local.
+            Se a variável não for modificada entre a verificação e seu uso, não for capturada por uma lambda que a modifica e não for uma propriedade delegada local.
         </td>
     </tr>
     <tr>
         <td>
-            <code>var</code> properties
+            Propriedades <code>var</code>
         </td>
         <td>
             Nunca, porque a variável pode ser modificada a qualquer momento por outro código.
@@ -443,7 +443,7 @@ Eles podem ser usados nas seguintes condições:
 
 O Kotlin tem dois operadores de conversão: `as` e `as?`. Você pode usar ambos para converter, mas eles têm comportamentos diferentes.
 
-Se uma conversão falhar com o operador `as`, uma `ClassCastException` é lançada em tempo de execução. Por isso ele também é chamado de operador **unsafe**.
+Se uma conversão falhar com o operador `as`, uma `ClassCastException` é lançada em tempo de execução. Por isso ele também é chamado de operador **inseguro**.
 Você pode usar `as` ao converter para um tipo não nulo:
 
 ```kotlin
@@ -463,7 +463,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-unsafe-cast-operator" validate="false"}
 
-Se você usar o operador `as?`, e a conversão falhar, o operador retorna `null`. Por isso ele também é chamado de operador **safe**:
+Se você usar o operador `as?`, e a conversão falhar, o operador retorna `null`. Por isso ele também é chamado de operador **seguro**:
 
 ```kotlin
 fun main() {
@@ -605,6 +605,6 @@ Neste exemplo, `animal` é declarado com o tipo `Animal`, mas guarda uma instân
 `Dog` e usa uma [chamada segura](null-safety.md#safe-call-operator) (`?.`) para acessar a função `bark()`.
 
 Você vai usar downcasting em serialização ao desserializar uma classe base para um subtipo específico. Também é comum ao trabalhar 
-com bibliotecas Java que retornam objetos de supertipo, que talvez você precise converter com downcasting no Kotlin.
+com bibliotecas Java que retornam objetos de supertipo, que talvez seja necessário converter para um subtipo (downcasting) no Kotlin.
 
 <!-- ia-translate: true -->
