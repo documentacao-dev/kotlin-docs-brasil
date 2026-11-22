@@ -1,43 +1,43 @@
-[//]: # (title: Idioms)
+[//]: # (title: Idiomas)
 
-A collection of random and frequently used idioms in Kotlin. If you have a favorite idiom, contribute it by sending a pull request.
+Uma coleção de idiomas aleatórios e muito usados em Kotlin. Se você tem um idioma favorito, contribua enviando um pull request.
 
-## Create DTOs (POJOs/POCOs)
+## Criar DTOs (POJOs/POCOs) {id="create-dtos-pojos-pocos"}
 
 ```kotlin
 data class Customer(val name: String, val email: String)
 ```
 
-provides a `Customer` class with the following functionality:
+fornece uma classe `Customer` com a seguinte funcionalidade:
 
-* getters (and setters in case of `var`s) for all properties
+* getters (e setters, no caso de `var`s) para todas as propriedades
 * `equals()`
 * `hashCode()`
 * `toString()`
 * `copy()`
-* `component1()`, `component2()`, ..., for all properties (see [Data classes](data-classes.md))
+* `component1()`, `component2()`, ..., para todas as propriedades (veja [Data classes](data-classes.md))
 
-## Default values for function parameters
+## Valores padrão para parâmetros de função {id="default-values-for-function-parameters"}
 
 ```kotlin
 fun foo(a: Int = 0, b: String = "") { ... }
 ```
 
-## Filter a list
+## Filtrar uma lista {id="filter-a-list"}
 
 ```kotlin
 val positives = list.filter { x -> x > 0 }
 ```
 
-Or alternatively, even shorter:
+Ou, alternativamente, uma forma ainda mais curta:
 
 ```kotlin
 val positives = list.filter { it > 0 }
 ```
 
-Learn the difference between [Java and Kotlin filtering](java-to-kotlin-collections-guide.md#filter-elements).
+Saiba a diferença entre [filtragem em Java e em Kotlin](java-to-kotlin-collections-guide.md#filter-elements).
 
-## Check the presence of an element in a collection
+## Verificar a presença de um elemento em uma coleção {id="check-the-presence-of-an-element-in-a-collection"}
 
 ```kotlin
 if ("john@example.com" in emailsList) { ... }
@@ -45,15 +45,15 @@ if ("john@example.com" in emailsList) { ... }
 if ("jane@example.com" !in emailsList) { ... }
 ```
 
-## String interpolation
+## Interpolação de strings {id="string-interpolation"}
 
 ```kotlin
 println("Name $name")
 ```
 
-Learn the difference between [Java and Kotlin string concatenation](java-to-kotlin-idioms-strings.md#concatenate-strings).
+Saiba a diferença entre [concatenação de strings em Java e em Kotlin](java-to-kotlin-idioms-strings.md#concatenate-strings).
 
-## Read standard input safely
+## Ler a entrada padrão de forma segura {id="read-standard-input-safely"}
 
 ```kotlin
 // Reads a string and returns null if the input can't be converted into an integer. For example: Hi there!
@@ -67,9 +67,9 @@ println(correctInt)
 // 13
 ```
 
-For more information, see [Read standard input.](read-standard-input.md)
+Para mais informações, veja [Ler a entrada padrão.](read-standard-input.md)
 
-## Instance checks
+## Verificações de instância {id="instance-checks"}
 
 ```kotlin
 when (x) {
@@ -79,25 +79,25 @@ when (x) {
 }
 ```
 
-## Read-only list
+## Lista somente leitura {id="read-only-list"}
 
 ```kotlin
 val list = listOf("a", "b", "c")
 ```
-## Read-only map
+## Map somente leitura {id="read-only-map"}
 
 ```kotlin
 val map = mapOf("a" to 1, "b" to 2, "c" to 3)
 ```
 
-## Access a map entry
+## Acessar uma entrada de map {id="access-a-map-entry"}
 
 ```kotlin
 println(map["key"])
 map["key"] = value
 ```
 
-## Traverse a map or a list of pairs
+## Percorrer um map ou uma lista de pares {id="traverse-a-map-or-a-list-of-pairs"}
 
 ```kotlin
 for ((k, v) in map) {
@@ -105,9 +105,9 @@ for ((k, v) in map) {
 }
 ```
 
-`k` and `v` can be any convenient names, such as `name` and `age`.
+`k` e `v` podem ser quaisquer nomes convenientes, como `name` e `age`.
 
-## Iterate over a range
+## Iterar sobre um intervalo {id="iterate-over-a-range"}
 
 ```kotlin
 for (i in 1..100) { ... }  // includes 100
@@ -117,7 +117,7 @@ for (x in 10 downTo 1) { ... }
 (1..10).forEach { ... }
 ```
 
-## Lazy property
+## Propriedade lazy {id="lazy-property"}
 
 ```kotlin
 val p: String by lazy { // the value is computed only on first access
@@ -125,7 +125,7 @@ val p: String by lazy { // the value is computed only on first access
 }
 ```
 
-## Extension functions
+## Funções de extensão {id="extension-functions"}
 
 ```kotlin
 fun String.spaceToCamelCase() { ... }
@@ -133,7 +133,7 @@ fun String.spaceToCamelCase() { ... }
 "Convert this to camelcase".spaceToCamelCase()
 ```
 
-## Create a singleton
+## Criar um singleton {id="create-a-singleton"}
 
 ```kotlin
 object Resource {
@@ -141,7 +141,7 @@ object Resource {
 }
 ```
 
-## Use inline value classes for type-safe values
+## Usar inline value classes para valores com segurança de tipo {id="use-inline-value-classes-for-type-safe-values"}
 
 ```kotlin
 @JvmInline
@@ -151,13 +151,13 @@ value class EmployeeId(private val id: String)
 value class CustomerId(private val id: String)
 ```
 
-If you accidentally mix up `EmployeeId` and `CustomerId`, a compilation error is triggered.
+Se você misturar `EmployeeId` e `CustomerId` por acidente, um erro de compilação será gerado.
 
-> The `@JvmInline` annotation is only needed for JVM backends.
+> A anotação `@JvmInline` só é necessária para os backends da JVM.
 >
 {style="note"}
 
-## Instantiate an abstract class
+## Instanciar uma classe abstrata {id="instantiate-an-abstract-class"}
 
 ```kotlin
 abstract class MyAbstractClass {
@@ -178,7 +178,7 @@ fun main() {
 }
 ```
 
-## If-not-null shorthand
+## Atalho para if-not-null {id="if-not-null-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -186,7 +186,7 @@ val files = File("Test").listFiles()
 println(files?.size) // size is printed if files is not null
 ```
 
-## If-not-null-else shorthand
+## Atalho para if-not-null-else {id="if-not-null-else-shorthand"}
 
 ```kotlin
 val files = File("Test").listFiles()
@@ -202,23 +202,23 @@ val filesSize = files?.size ?: run {
 println(filesSize)
 ```
 
-## Execute an expression if null
+## Executar uma expressão se for null {id="execute-an-expression-if-null"}
 
 ```kotlin
 val values = ...
 val email = values["email"] ?: throw IllegalStateException("Email is missing!")
 ```
 
-## Get first item of a possibly empty collection
+## Obter o primeiro item de uma coleção que pode estar vazia {id="get-first-item-of-a-possibly-empty-collection"}
 
 ```kotlin
 val emails = ... // might be empty
 val mainEmail = emails.firstOrNull() ?: ""
 ```
 
-Learn the difference between [Java and Kotlin first item getting](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection).
+Saiba a diferença entre [obter o primeiro item em Java e em Kotlin](java-to-kotlin-collections-guide.md#get-the-first-and-the-last-items-of-a-possibly-empty-collection).
 
-## Execute if not null
+## Executar se não for null {id="execute-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -228,7 +228,7 @@ value?.let {
 }
 ```
 
-## Map nullable value if not null
+## Mapear um valor nullable se não for null {id="map-nullable-value-if-not-null"}
 
 ```kotlin
 val value = ...
@@ -237,7 +237,7 @@ val mapped = value?.let { transformValue(it) } ?: defaultValue
 // defaultValue is returned if the value or the transform result is null.
 ```
 
-## Return on when statement
+## Retornar a partir de uma instrução when {id="return-on-when-statement"}
 
 ```kotlin
 fun transform(color: String): Int {
@@ -250,7 +250,7 @@ fun transform(color: String): Int {
 }
 ```
 
-## try-catch expression
+## Expressão try-catch {id="try-catch-expression"}
 
 ```kotlin
 fun test() {
@@ -264,7 +264,7 @@ fun test() {
 }
 ```
 
-## if expression
+## Expressão if {id="if-expression"}
 
 ```kotlin
 val y = if (x == 1) {
@@ -276,7 +276,7 @@ val y = if (x == 1) {
 }
 ```
 
-## Builder-style usage of methods that return Unit
+## Uso no estilo builder de métodos que retornam Unit {id="builder-style-usage-of-methods-that-return-unit"}
 
 ```kotlin
 fun arrayOfMinusOnes(size: Int): IntArray {
@@ -284,13 +284,13 @@ fun arrayOfMinusOnes(size: Int): IntArray {
 }
 ```
 
-## Single-expression functions
+## Funções de expressão única {id="single-expression-functions"}
 
 ```kotlin
 fun theAnswer() = 42
 ```
 
-This is equivalent to
+Isso é equivalente a
 
 ```kotlin
 fun theAnswer(): Int {
@@ -298,7 +298,7 @@ fun theAnswer(): Int {
 }
 ```
 
-This can be effectively combined with other idioms, leading to shorter code. For example, with the `when` expression:
+Isso pode ser combinado de forma eficaz com outros idiomas, resultando em código mais curto. Por exemplo, com a expressão `when`:
 
 ```kotlin
 fun transform(color: String): Int = when (color) {
@@ -309,7 +309,7 @@ fun transform(color: String): Int = when (color) {
 }
 ```
 
-## Call multiple methods on an object instance (with)
+## Chamar vários métodos em uma instância de objeto (with) {id="call-multiple-methods-on-an-object-instance-with"}
 
 ```kotlin
 class Turtle {
@@ -330,7 +330,7 @@ with(myTurtle) { //draw a 100 pix square
 }
 ```
 
-## Configure properties of an object (apply)
+## Configurar propriedades de um objeto (apply) {id="configure-properties-of-an-object-apply"}
 
 ```kotlin
 val myRectangle = Rectangle().apply {
@@ -340,9 +340,9 @@ val myRectangle = Rectangle().apply {
 }
 ```
 
-This is useful for configuring properties that aren't present in the object constructor.
+Isso é útil para configurar propriedades que não estão presentes no construtor do objeto.
 
-## Java 7's try-with-resources
+## try-with-resources do Java 7 {id="java-7-s-try-with-resources"}
 
 ```kotlin
 val stream = Files.newInputStream(Paths.get("/some/file.txt"))
@@ -351,7 +351,7 @@ stream.buffered().reader().use { reader ->
 }
 ```
 
-## Generic function that requires the generic type information
+## Função genérica que precisa da informação de tipo genérico {id="generic-function-that-requires-the-generic-type-information"}
 
 ```kotlin
 //  public final class Gson {
@@ -362,7 +362,7 @@ stream.buffered().reader().use { reader ->
 inline fun <reified T: Any> Gson.fromJson(json: JsonElement): T = this.fromJson(json, T::class.java)
 ```
 
-## Swap two variables
+## Trocar o valor de duas variáveis {id="swap-two-variables"}
 
 ```kotlin
 var a = 1
@@ -370,21 +370,23 @@ var b = 2
 a = b.also { b = a }
 ```
 
-## Mark code as incomplete (TODO)
- 
-Kotlin's standard library has a `TODO()` function that will always throw a `NotImplementedError`.
-Its return type is `Nothing` so it can be used regardless of expected type.
-There's also an overload that accepts a reason parameter:
+## Marcar código como incompleto (TODO) {id="mark-code-as-incomplete-todo"}
+
+A biblioteca padrão do Kotlin tem uma função `TODO()` que sempre lança um `NotImplementedError`.
+Seu tipo de retorno é `Nothing`, então ela pode ser usada independentemente do tipo esperado.
+Também existe uma sobrecarga que aceita um parâmetro com o motivo:
 
 ```kotlin
 fun calcTaxes(): BigDecimal = TODO("Waiting for feedback from accounting")
 ```
 
-IntelliJ IDEA's kotlin plugin understands the semantics of `TODO()` and automatically adds a code pointer in the TODO tool window. 
+O plugin de Kotlin do IntelliJ IDEA entende a semântica de `TODO()` e adiciona automaticamente um marcador de código na janela de ferramentas TODO.
 
-## What's next?
+## Próximos passos {id="what-s-next"}
 
-* Solve [Advent of Code puzzles](advent-of-code.md) using the idiomatic Kotlin style.
-* Learn how to perform [typical tasks with strings in Java and Kotlin](java-to-kotlin-idioms-strings.md).
-* Learn how to perform [typical tasks with collections in Java and Kotlin](java-to-kotlin-collections-guide.md).
-* Learn how to [handle nullability in Java and Kotlin](java-to-kotlin-nullability-guide.md).
+* Resolva [os desafios do Advent of Code](advent-of-code.md) usando o estilo idiomático do Kotlin.
+* Saiba como realizar [tarefas típicas com strings em Java e Kotlin](java-to-kotlin-idioms-strings.md).
+* Saiba como realizar [tarefas típicas com coleções em Java e Kotlin](java-to-kotlin-collections-guide.md).
+* Saiba como [lidar com nullability em Java e Kotlin](java-to-kotlin-nullability-guide.md).
+
+<!-- ia-translate: true -->
