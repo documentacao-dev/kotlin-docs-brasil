@@ -1,40 +1,40 @@
-[//]: # (title: Booleans)
-<web-summary>Learn how to use Boolean values in Kotlin, including declaration, logical operators, and conditions.</web-summary>
+[//]: # (title: Booleanos)
+<web-summary>Saiba como usar valores booleanos no Kotlin, incluindo declaração, operadores lógicos e condições.</web-summary>
 
 <show-structure depth="1"/>
 
-The [`Boolean`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/) type represents
-logical values: `true` and `false`.
+O tipo [`Boolean`](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/) representa
+valores lógicos: `true` e `false`.
 
-Use `Boolean` values in functions that answer yes-or-no questions, and in the
-`while`, `if`, and `when` conditions.
+Use valores `Boolean` em funções que respondem perguntas de sim ou não, e nas
+condições de `while`, `if` e `when`.
 
 
-## Declare a `Boolean` variable
+## Declare uma variável `Boolean` {id="declare-a-boolean-variable"}
 
-To declare a `Boolean` variable, assign it `true` or `false`.
+Para declarar uma variável `Boolean`, atribua a ela `true` ou `false`.
 
-You can specify the `Boolean` type explicitly or let Kotlin infer it from the value:
+Você pode especificar o tipo `Boolean` explicitamente ou deixar que o Kotlin o infira a partir do valor:
 
 ```kotlin
 val isTrue: Boolean = true
 val isFalse = false // Kotlin infers Boolean
 ```
 
-If a value can be `null`, use `Boolean?`:
+Se um valor puder ser `null`, use `Boolean?`:
 
 ```kotlin
 val isEnabled: Boolean? = null
 ```
 
-> You cannot assign an integer value to a `Boolean` variable.
-> In Kotlin, `0` and `1` are not `Boolean` values.
+> Você não pode atribuir um valor inteiro a uma variável `Boolean`.
+> No Kotlin, `0` e `1` não são valores `Boolean`.
 >
 {style="note"}
 
-## Produce `Boolean` values
+## Produza valores `Boolean` {id="produce-boolean-values"}
 
-You can use comparison expressions and functions to produce `Boolean` values:
+Você pode usar expressões de comparação e funções para produzir valores `Boolean`:
 
 ```kotlin
 fun main() {
@@ -51,7 +51,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-You can use the results in conditions and other expressions as well:
+Você também pode usar os resultados em condições e em outras expressões:
 
 ```kotlin
 fun main() {
@@ -67,16 +67,16 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## `Boolean` operations
+## Operações com `Boolean` {id="boolean-operations"}
 
-Kotlin provides operators and infix functions for working with `Boolean` values.
-You can use them to invert a `Boolean` value or combine multiple `Boolean` values into a single result.
+O Kotlin oferece operadores e funções infixas para trabalhar com valores `Boolean`.
+Você pode usá-los para inverter um valor `Boolean` ou combinar vários valores `Boolean` em um único resultado.
 
-### Negation (NOT)
+### Negação (NOT) {id="negation-not"}
 
-The NOT operator inverts a `Boolean` value.
+O operador NOT inverte um valor `Boolean`.
 
-To use NOT, place the `!` operator before a `Boolean` value:
+Para usar NOT, coloque o operador `!` antes de um valor `Boolean`:
 
 
 ```kotlin
@@ -84,11 +84,11 @@ val isOn = true
 val isOff = !isOn // isOff is false
 ```
 
-### Logical AND
+### AND lógico {id="logical-and"}
 
-The AND operator returns `true` only if both operands are `true`.
+O operador AND retorna `true` somente se os dois operandos forem `true`.
 
-To use logical AND, place the `&&` operator between operands:
+Para usar AND lógico, coloque o operador `&&` entre os operandos:
 
 ```kotlin
 val a = false && false // false
@@ -97,16 +97,16 @@ val c = true && false // false
 val d = true && true  // true
 ```
 
-> If the first operand is `false`, the `&&` operator skips the second operand.
-> To evaluate both operands, use the `and` [infix function](functions.md#infix-notation) instead.
+> Se o primeiro operando for `false`, o operador `&&` ignora o segundo operando.
+> Para avaliar os dois operandos, use, em vez disso, a [função infixa](functions.md#infix-notation) `and`.
 >
 {style="note"}
 
-### Logical OR
+### OR lógico {id="logical-or"}
 
-The OR operator returns `true` if at least one operand is `true`.
+O operador OR retorna `true` se pelo menos um dos operandos for `true`.
 
-To use logical OR, place the `||` operator between operands:
+Para usar OR lógico, coloque o operador `||` entre os operandos:
 
 ```kotlin
 val a = false || false // false
@@ -115,16 +115,16 @@ val c = true || false  // true
 val d = true || true   // true
 ```
 
-> If the first operand is `true`, the `||` operator skips the second operand.
-> To evaluate both operands, use the `or` [infix function](functions.md#infix-notation) instead.
+> Se o primeiro operando for `true`, o operador `||` ignora o segundo operando.
+> Para avaliar os dois operandos, use, em vez disso, a [função infixa](functions.md#infix-notation) `or`.
 >
 {style="note"}
 
-### Exclusive OR (XOR)
+### OR exclusivo (XOR) {id="exclusive-or-xor"}
 
-The exclusive OR (XOR) operation returns `true` if the operands have different values.
+A operação OR exclusivo (XOR) retorna `true` se os operandos tiverem valores diferentes.
 
-To use XOR, write `xor` between operands:
+Para usar XOR, escreva `xor` entre os operandos:
 
 ```kotlin
 val a = false xor false // false
@@ -133,26 +133,26 @@ val c = true xor false  // true
 val d = true xor true   // false
 ```
 
-> `xor` is an [infix function](functions.md#infix-notation), not an operator.
+> `xor` é uma [função infixa](functions.md#infix-notation), não um operador.
 >
-> Learn more about `Boolean` functions in the [API Reference](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/).
+> Saiba mais sobre funções de `Boolean` na [Referência da API](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/).
 >
 {style="note"}
 
-## Operator precedence
+## Precedência de operadores {id="operator-precedence"}
 
-If an expression contains multiple logical operations and no parentheses to specify the evaluation order,
-Kotlin applies precedence rules. Operations with higher precedence are evaluated before
-operations with lower precedence.
+Se uma expressão contiver várias operações lógicas e não tiver parênteses para especificar a ordem de avaliação,
+o Kotlin aplica as regras de precedência. Operações com precedência maior são avaliadas antes de
+operações com precedência menor.
 
-For the `Boolean` operations described in this section, the precedence order is as follows:
+Para as operações `Boolean` descritas nesta seção, a ordem de precedência é a seguinte:
 
 1. `!`
-2. `xor` (and other infix functions)
+2. `xor` (e outras funções infixas)
 3. `&&`
 4. `||`
 
-In the following example, the compiler evaluates `&&` before `||`:
+No exemplo a seguir, o compilador avalia `&&` antes de `||`:
 
 ```kotlin
 fun main() {
@@ -164,7 +164,7 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-To make evaluation order explicit, use parentheses:
+Para deixar a ordem de avaliação explícita, use parênteses:
 
 ```kotlin
 fun main() {
@@ -177,12 +177,12 @@ fun main() {
 {kotlin-runnable="true" validate="false"}
 
 
-## `Boolean` in conditions
+## `Boolean` em condições {id="boolean-in-conditions"}
 
-[`if`](control-flow.md#if-expression), [`when`](control-flow.md#when-expressions-and-statements),
-and [`while`](control-flow.md#while-loops) evaluate `Boolean` expressions to direct program flow.
+[`if`](control-flow.md#if-expression), [`when`](control-flow.md#when-expressions-and-statements)
+e [`while`](control-flow.md#while-loops) avaliam expressões `Boolean` para direcionar o fluxo do programa.
 
-### `if` expressions
+### Expressões `if` {id="if-expressions"}
 
 ```kotlin
 fun main() {
@@ -203,7 +203,7 @@ fun main() {
 {kotlin-runnable="true"}
 
 
-### `when` expressions
+### Expressões `when` {id="when-expressions"}
 
 ```kotlin
 fun main() {
@@ -220,7 +220,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### `while` loops
+### Laços `while` {id="while-loops"}
 
 ```kotlin
 fun main() {
@@ -235,3 +235,5 @@ fun main() {
 }
 ```
 {kotlin-runnable="true"}
+
+<!-- ia-translate: true -->

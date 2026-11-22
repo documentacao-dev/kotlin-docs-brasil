@@ -1,57 +1,55 @@
-[//]: # (title: Numbers)
-<web-summary>Learn how to use numbers in Kotlin, including numeric types, literals, conversions, arithmetic operations, overflow, and JVM-specific behavior.</web-summary>
+[//]: # (title: Números)
+<web-summary>Saiba como usar números no Kotlin, incluindo tipos numéricos, literais, conversões, operações aritméticas, estouro (overflow) e comportamento específico da JVM.</web-summary>
 
-The Kotlin number types represent:
-* Integer values ([Byte](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/),
+Os tipos numéricos do Kotlin representam:
+* Valores inteiros ([Byte](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte/),
   [Short](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-short/),
   [Int](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/),
-  and [Long](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/))
-* Floating-point values ([Float](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/)
-  and [Double](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/))
+  e [Long](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/))
+* Valores de ponto flutuante ([Float](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/)
+  e [Double](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/))
 
-Use number types to store and process numeric data, for example, in arithmetic, counters, measurements,
-and other calculations.
+Use tipos numéricos para armazenar e processar dados numéricos, por exemplo, em aritmética, contadores, medições e outros cálculos.
 
-## Choose a number type
+## Escolha um tipo numérico {id="choose-a-number-type"}
 
-In most cases, you can refer to the following rules to determine the
-correct number type for your task:
+Na maioria dos casos, você pode seguir as regras abaixo para determinar o tipo numérico correto para a tarefa:
 
-* Use `Int` for whole numbers.
-* Use `Long` for whole numbers outside the `Int` range.
-* Use `Double` for decimal numbers.
-* Use `Float` when lower precision is acceptable or required.
-* Use `Byte` and `Short` when an API or data format requires them.
+* Use `Int` para números inteiros.
+* Use `Long` para números inteiros fora do intervalo de `Int`.
+* Use `Double` para números decimais.
+* Use `Float` quando uma precisão menor for aceitável ou exigida.
+* Use `Byte` e `Short` quando uma API ou um formato de dados exigir.
 
-> Kotlin also provides [](unsigned-integer-types.md) as a Beta feature. 
+> O Kotlin também oferece [](unsigned-integer-types.md) como um recurso Beta. 
 >
 {style="tip"}
 
-## Integer types
+## Tipos inteiros {id="integer-types"}
 
-Kotlin provides four integer types with different sizes and value ranges:
+O Kotlin oferece quatro tipos inteiros com tamanhos e intervalos de valores diferentes:
 
-| Type	    | Size (bits) | Min value                                    | Max value                                      |
-|----------|-------------|----------------------------------------------|------------------------------------------------|
-| `Byte`	  | 8           | -128                                         | 127                                            |
-| `Short`	 | 16          | -32768                                       | 32767                                          |
-| `Int`	   | 32          | -2,147,483,648 (-2<sup>31</sup>)             | 2,147,483,647 (2<sup>31</sup> - 1)             |
-| `Long`	  | 64          | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
+| Tipo     | Tamanho (bits) | Valor mínimo                                 | Valor máximo                                   |
+|----------|----------------|----------------------------------------------|------------------------------------------------|
+| `Byte`   | 8              | -128                                         | 127                                            |
+| `Short`  | 16             | -32768                                       | 32767                                          |
+| `Int`    | 32             | -2,147,483,648 (-2<sup>31</sup>)             | 2,147,483,647 (2<sup>31</sup> - 1)             |
+| `Long`   | 64             | -9,223,372,036,854,775,808 (-2<sup>63</sup>) | 9,223,372,036,854,775,807 (2<sup>63</sup> - 1) |
 
 
-### Declare integer values
+### Declare valores inteiros {id="declare-integer-values"}
 
-Kotlin supports the following literal forms for integer values:
+O Kotlin aceita as seguintes formas de literais para valores inteiros:
 
-* Decimals: `123`
-* Hexadecimals: `0x0F`
-* Binaries: `0b00001011`
+* Decimais: `123`
+* Hexadecimais: `0x0F`
+* Binários: `0b00001011`
 
-> Kotlin does not support octal literals.
+> O Kotlin não aceita literais octais.
 >
 {style="note"}
 
-To declare a numeric value, specify the type explicitly: 
+Para declarar um valor numérico, especifique o tipo explicitamente: 
 
 ```kotlin
 val one: Int = 1
@@ -65,14 +63,13 @@ val oneByte: Byte = 1
 val oneShort: Short = 1
 ```
 
-You can also append the `L` suffix, to declare a `Long` value:
+Você também pode adicionar o sufixo `L` para declarar um valor `Long`:
 
 ```kotlin
 val oneLong = 1L
 ```
 
-When you declare a numeric type explicitly, the compiler checks that the value
-fits in the range of that type:
+Quando você declara um tipo numérico explicitamente, o compilador verifica se o valor cabe no intervalo desse tipo:
 
 ```kotlin
 // Value fits in Byte
@@ -82,68 +79,66 @@ val oneByte: Byte = 1
 val tooBig: Byte = 128
 ```
 
-When you do not specify a numeric type, Kotlin infers `Int` if the
-value fits in the `Int` range. Otherwise, Kotlin infers `Long`:
+Quando você não especifica um tipo numérico, o Kotlin infere `Int` se o valor couber no intervalo de `Int`. Caso contrário, o Kotlin infere `Long`:
 
 ```kotlin
 val million = 1_000_000 // Int
 val threeBillion = 3_000_000_000 // Long
 ```
 
-If a value can be absent, use nullable types:
+Se um valor puder estar ausente, use tipos anuláveis:
 
 ```kotlin
 val maybeAbsent: Int? = null
 ```
 
-## Floating-point types
+## Tipos de ponto flutuante {id="floating-point-types"}
 
-For numbers with a fractional part, Kotlin provides `Float` and `Double`.
+Para números com parte fracionária, o Kotlin oferece `Float` e `Double`.
 
-Floating-point types follow
-the [IEEE 754 standard](https://en.wikipedia.org/wiki/IEEE_754).
-`Float` reflects the _single precision_. `Double` reflects the _double precision_.
+Os tipos de ponto flutuante seguem o [padrão IEEE 754](https://en.wikipedia.org/wiki/IEEE_754).
+`Float` representa a _precisão simples_. `Double` representa a _precisão dupla_.
 
-Floating-point types differ in size and precision:
+Os tipos de ponto flutuante diferem em tamanho e precisão:
 
-| Type	    | Size (bits) | Significant bits | Exponent bits | Decimal digits |
-|----------|-------------|------------------|---------------|----------------|
-| `Float`	 | 32          | 24               | 8             | 6-7            |
-| `Double` | 64          | 53               | 11            | 15-16          |    
+| Tipo     | Tamanho (bits) | Bits significativos | Bits do expoente | Dígitos decimais |
+|----------|----------------|---------------------|------------------|------------------|
+| `Float`  | 32             | 24                  | 8                | 6-7              |
+| `Double` | 64             | 53                  | 11               | 15-16            |    
 
 
-### Declare floating-point values
+### Declare valores de ponto flutuante {id="declare-floating-point-values"}
 
-To declare a floating-point literal, include a decimal point (`.`) or use exponent notation:
+Para declarar um literal de ponto flutuante, inclua um ponto decimal (`.`) ou use notação exponencial:
 
 ```kotlin
 val pi = 3.14
 val avogadro = 6.02214076e23
 ```
 
-By default, Kotlin infers floating-point literals as `Double`. 
-To declare a `Float`, add the `f` or `F` suffix:
+Por padrão, o Kotlin infere literais de ponto flutuante como `Double`. 
+Para declarar um `Float`, adicione o sufixo `f` ou `F`:
 
 ```kotlin
 val pi = 3.14 // Double
 val eFloat = 2.7182817f // Float
 ```
 
-> Kotlin rounds a `Float` literal that contains more precision than `Float` can store.
+> O Kotlin arredonda um literal `Float` que contém mais precisão do que `Float` consegue armazenar.
 >
 {style="note"}
 
-If a value can be absent, use nullable types:
+Se um valor puder estar ausente, use tipos anuláveis:
 
 ```kotlin
 val maybeAbsent: Double? = null
 ```
 
-## Arithmetic operations
+## Operações aritméticas {id="arithmetic-operations"}
 
-Kotlin supports the standard arithmetic operations on numbers: `+`, `-`, `*`, `/`, and `%`.
+O Kotlin oferece as operações aritméticas padrão sobre números: `+`, `-`, `*`, `/` e `%`.
 
-Use these operators to perform common calculations:
+Use esses operadores para fazer cálculos comuns:
 
 ```kotlin
 fun main() {
@@ -157,16 +152,16 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-The result type depends on the types of the operands. Learn more in [](#mixed-numeric-expressions).
+O tipo do resultado depende dos tipos dos operandos. Saiba mais em [](#mixed-numeric-expressions).
 
-> You can override these operators in custom number classes.
-> For more information, see [Operator overloading](operator-overloading.md).
+> Você pode sobrescrever esses operadores em classes numéricas personalizadas.
+> Para mais informações, consulte [Sobrecarga de operadores](operator-overloading.md).
 >
 {style="tip"}
 
-### Integer division
+### Divisão inteira {id="integer-division"}
 
-Division between integer values always returns an integer result. The compiler discards the fractional part:
+A divisão entre valores inteiros sempre retorna um resultado inteiro. O compilador descarta a parte fracionária:
 
 ```kotlin
 fun main() {
@@ -181,7 +176,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-To return a floating-point result, make at least one operand a `Float` or `Double`:
+Para retornar um resultado de ponto flutuante, faça pelo menos um dos operandos ser `Float` ou `Double`:
 
 ```kotlin
 fun main() {
@@ -196,12 +191,11 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Type conversion
+## Conversão de tipos {id="type-conversion"}
 
-Numeric types are not subtypes of one another. Kotlin requires explicit
-conversions to avoid silent data loss and unexpected behavior.
+Tipos numéricos não são subtipos uns dos outros. O Kotlin exige conversões explícitas para evitar perda silenciosa de dados e comportamentos inesperados.
 
-For example, a function that expects `Double` cannot accept an `Int` or a `Float` value without conversion:
+Por exemplo, uma função que espera `Double` não aceita um valor `Int` ou `Float` sem conversão:
 
 ```kotlin
 fun main() {
@@ -223,8 +217,8 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-All number types support conversions to other number types.
-To convert a number to another type, use an explicit conversion function:
+Todos os tipos numéricos aceitam conversões para outros tipos numéricos.
+Para converter um número para outro tipo, use uma função de conversão explícita:
 
 * `toByte()`
 * `toShort()`
@@ -233,7 +227,7 @@ To convert a number to another type, use an explicit conversion function:
 * `toFloat()`
 * `toDouble()`
 
-For example, the following code converts an `Int` value to `Double`:
+Por exemplo, o código a seguir converte um valor `Int` para `Double`:
 
 ```kotlin
 fun main() {
@@ -247,7 +241,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-When you convert a floating-point value to an integer type, the compiler discards the fractional part:
+Quando você converte um valor de ponto flutuante para um tipo inteiro, o compilador descarta a parte fracionária:
 
 ```kotlin
 fun main() {
@@ -261,12 +255,12 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-### Mixed numeric expressions
+### Expressões numéricas mistas {id="mixed-numeric-expressions"}
 
-Kotlin does not support implicit conversion for assignments or function arguments. 
-However, you can combine different numeric types in arithmetic expressions. In such cases, 
-Kotlin determines a result type based on the operand types, 
-and arithmetic operators handle the conversion automatically:
+O Kotlin não aceita conversão implícita em atribuições ou em argumentos de função. 
+No entanto, você pode combinar tipos numéricos diferentes em expressões aritméticas. Nesses casos, 
+o Kotlin determina o tipo do resultado com base nos tipos dos operandos, 
+e os operadores aritméticos fazem a conversão automaticamente:
 
 ```kotlin
 val intNumber: Int = 1
@@ -274,7 +268,7 @@ val longNumber: Long = 1000
 val result = intNumber + longNumber // 1001, Long
 ```
 
-If you try to assign the result to a smaller type, the compiler reports an error:
+Se você tentar atribuir o resultado a um tipo menor, o compilador reporta um erro:
 
 ```kotlin
 val intNumber: Int = 1
@@ -283,10 +277,10 @@ val result: Int = intNumber + longNumber
 // Error: Initializer type mismatch
 ```
 
-### Integer literal types
+### Tipos literais inteiros {id="integer-literal-types"}
 
-During type inference, Kotlin treats unsuffixed integer literals as a special [Integer Literal Type (ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)
-until the surrounding context determines a specific type:
+Durante a inferência de tipos, o Kotlin trata literais inteiros sem sufixo como um tipo especial [Integer Literal Type (ILT)](https://kotlinlang.org/spec/type-system.html#integer-literal-types)
+até que o contexto ao redor determine um tipo específico:
 
 ```kotlin
 //sampleStart
@@ -313,8 +307,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-It's especially easy to miss with the `Int` and `Long` values because they have the same string representation
-at runtime. To avoid this, specify the expected type or convert values explicitly:
+É especialmente fácil não notar essa diferença com valores `Int` e `Long`, porque eles têm a mesma representação em texto em tempo de execução. Para evitar isso, especifique o tipo esperado ou converta os valores explicitamente:
 
 ```kotlin
 //sampleStart
@@ -335,7 +328,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-You can also use an explicit type to catch unintended type inference:
+Você também pode usar um tipo explícito para detectar inferências de tipo não intencionais:
 
 ```kotlin
 fun main() {
@@ -347,24 +340,22 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-> Learn more about [Integer literal types](https://kotlinlang.org/spec/type-system.html#integer-literal-types).
+> Saiba mais sobre [Tipos literais inteiros](https://kotlinlang.org/spec/type-system.html#integer-literal-types).
 > 
 {style="tip"}
 
-## Data overflow
+## Estouro de dados {id="data-overflow"}
 
-Numeric types can represent only values within their defined ranges.
+Tipos numéricos só conseguem representar valores dentro dos intervalos definidos.
 
-If the result of an operation falls outside that range, overflow occurs. 
-If you convert a value to a smaller numeric type, the converted value may not preserve 
-the original numeric value.
+Se o resultado de uma operação ficar fora desse intervalo, ocorre um estouro (overflow). Se você converter um valor para um tipo numérico menor, o valor convertido pode não preservar 
+o valor numérico original.
 
-This behavior can affect the result of your code even when the compiler accepts it.
+Esse comportamento pode afetar o resultado do código mesmo quando o compilador o aceita.
 
-### Overflow in operations
+### Estouro em operações {id="overflow-in-operations"}
 
-Each integer type can store only values within its defined range. When the result of an
-arithmetic operation exceeds that range, _data overflow_ occurs:
+Cada tipo inteiro só consegue armazenar valores dentro do seu intervalo definido. Quando o resultado de uma operação aritmética ultrapassa esse intervalo, ocorre _estouro de dados_:
 
 ```kotlin
 fun main(){
@@ -377,16 +368,16 @@ fun main(){
 ```
 {kotlin-runnable="true"}
 
-Here, the result wraps around because the value no longer fits in `Int`.
+Aqui, o resultado volta ao início do intervalo, porque o valor não cabe mais em `Int`.
 
-> The compiler does not automatically produce an error when integer overflow occurs.
+> O compilador não gera erro automaticamente quando ocorre estouro de inteiros.
 >
 {style="note"}
 
-### Overflow in negation
+### Estouro na negação {id="overflow-in-negation"}
 
-Overflow can also occur during negation. 
-For example, you cannot represent the positive counterpart of `Int.MIN_VALUE` as an `Int`.
+O estouro também pode ocorrer na negação. 
+Por exemplo, você não consegue representar o equivalente positivo de `Int.MIN_VALUE` como `Int`.
 
 ```kotlin
 fun main(){
@@ -398,10 +389,10 @@ fun main(){
 ```
 {kotlin-runnable="true"}
 
-### Narrowing conversions
+### Conversões para tipos menores {id="narrowing-conversions"}
 
-When you convert a value to a smaller integer type, 
-the result may not preserve the original numeric value:
+Quando você converte um valor para um tipo inteiro menor, 
+o resultado pode não preservar o valor numérico original:
 
 ```kotlin
 fun main() {
@@ -415,8 +406,8 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-However, since floating-point types follow the
-[IEEE 754 Standard](https://en.wikipedia.org/wiki/IEEE_754), very large results can become `Infinity`:
+No entanto, como os tipos de ponto flutuante seguem o
+[padrão IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), resultados muito grandes podem se tornar `Infinity`:
 
 ```kotlin
 fun main() {
@@ -427,10 +418,9 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-## Bitwise operations
+## Operações bit a bit {id="bitwise-operations"}
 
-Kotlin provides _bitwise operations_ for `Int` and `Long`. These operations are represented by
-a set of [infix functions](functions.md#infix-notation) and `inv()`.
+O Kotlin oferece _operações bit a bit_ para `Int` e `Long`. Essas operações são representadas por um conjunto de [funções infixas](functions.md#infix-notation) e por `inv()`.
 
 ```kotlin
 fun main() {
@@ -444,36 +434,33 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Bitwise operations include:
+As operações bit a bit incluem:
 
-* `shl()` – signed shift left
-* `shr()` – signed shift right
-* `ushr()` – unsigned shift right
-* `and()` – bitwise AND
-* `or()` – bitwise OR
-* `xor()` – bitwise XOR
-* `inv()` – bitwise inversion
+* `shl()` – deslocamento à esquerda com sinal
+* `shr()` – deslocamento à direita com sinal
+* `ushr()` – deslocamento à direita sem sinal
+* `and()` – AND bit a bit
+* `or()` – OR bit a bit
+* `xor()` – XOR bit a bit
+* `inv()` – inversão bit a bit
 
-## Floating-point number comparison
+## Comparação de números de ponto flutuante {id="floating-point-number-comparison"}
 
-In Kotlin, floating-point comparison depends on the static type of the operands.
+No Kotlin, a comparação de ponto flutuante depende do tipo estático dos operandos.
 
-When the operands are statically known to be `Float` or `Double`,
-operations on the numbers and the range that they form
-follow the [IEEE 754 Standard for Floating-Point Arithmetic](https://en.wikipedia.org/wiki/IEEE_754).
+Quando os operandos são conhecidos estaticamente como `Float` ou `Double`,
+as operações sobre os números e o intervalo que eles formam seguem o [padrão IEEE 754 para aritmética de ponto flutuante](https://en.wikipedia.org/wiki/IEEE_754).
 
-However, in generic use cases (such as `Any`, `Comparable<...>`, or `Collection<T>`), behavior differs for
-operands that are not statically typed as floating-point numbers. In these cases, Kotlin
-uses the `equals()` and `compareTo()` implementations for `Float` and `Double`. 
+No entanto, em casos de uso genéricos (como `Any`, `Comparable<...>` ou `Collection<T>`), o comportamento muda para operandos que não são tipados estaticamente como números de ponto flutuante. Nesses casos, o Kotlin
+usa as implementações de `equals()` e `compareTo()` de `Float` e `Double`. 
 
-As a result:
+Como resultado:
 
-* `NaN` is considered equal to itself
-* `NaN` is considered greater than any other element including `POSITIVE_INFINITY`
-* `-0.0` is considered less than `0.0`
+* `NaN` é considerado igual a si mesmo
+* `NaN` é considerado maior que qualquer outro elemento, incluindo `POSITIVE_INFINITY`
+* `-0.0` é considerado menor que `0.0`
 
-The following example shows the difference between operands statically typed as floating-point numbers
-and operands used through generic types:
+O exemplo a seguir mostra a diferença entre operandos tipados estaticamente como números de ponto flutuante e operandos usados por meio de tipos genéricos:
 
 ```kotlin
 //sampleStart  
@@ -494,18 +481,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-numbers-floating-comp"}
 
-## Boxing and caching numbers on the JVM
+## Boxing e cache de números na JVM {id="boxing-and-caching-numbers-on-the-jvm"}
 
-On the JVM, non-nullable numeric values are usually stored using primitive types, such as `int`, `long`, or `double`.
-However, when you use [generic types](generics.md) or nullable numeric types like `Int?`, the value is boxed and
-represented as an object.
+Na JVM, valores numéricos não anuláveis normalmente são armazenados com tipos primitivos, como `int`, `long` ou `double`.
+No entanto, quando você usa [tipos genéricos](generics.md) ou tipos numéricos anuláveis como `Int?`, o valor passa por boxing e é representado como um objeto.
 
-The JVM applies a [memory optimization technique](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)
-to small numbers by caching their boxed representations. As a result,
-boxed numbers with the same value can be [referentially equal](equality.md#referential-equality).
+A JVM aplica uma [técnica de otimização de memória](https://docs.oracle.com/javase/specs/jls/se22/html/jls-5.html#jls-5.1.7)
+para números pequenos, armazenando em cache as representações boxed. Como resultado,
+números boxed com o mesmo valor podem ser [referencialmente iguais](equality.md#referential-equality).
 
-For example, the JVM caches boxed `Integer` values in the range `-128` to `127`. Therefore, the following
-code returns `true`:
+Por exemplo, a JVM armazena em cache valores `Integer` boxed no intervalo de `-128` a `127`. Por isso, o código a seguir retorna `true`:
 
 ```kotlin
 fun main() {
@@ -520,9 +505,9 @@ fun main() {
 ```
 {kotlin-runnable="true" validate="false"}
 
-For values outside the cached range, boxed values are separate objects. In that case,
-they are not referentially equal, even if their values are [structurally equal](equality.md#structural-equality).
-For this reason, use `==` to compare numeric values:
+Para valores fora do intervalo em cache, os valores boxed são objetos separados. Nesse caso,
+eles não são referencialmente iguais, mesmo que os valores sejam [estruturalmente iguais](equality.md#structural-equality).
+Por esse motivo, use `==` para comparar valores numéricos:
 
 ```kotlin
 fun main() {
@@ -537,3 +522,5 @@ fun main() {
 }
 ```
 {kotlin-runnable="true" validate="false"}
+
+<!-- ia-translate: true -->

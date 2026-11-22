@@ -1,51 +1,53 @@
-[//]: # (title: Types overview)
+[//]: # (title: Visão geral dos tipos)
 
-In Kotlin, everything is an object in the sense that you can call member functions and properties on any variable.
-Some types, such as numbers, characters, and booleans, have an optimized internal representation as primitive values at
-runtime, but they appear and behave like regular classes in Kotlin code.
+No Kotlin, tudo é um objeto no sentido de que você pode chamar funções e propriedades de membro em qualquer variável.
+Alguns tipos, como números, caracteres e booleanos, têm uma representação interna otimizada como valores primitivos em
+tempo de execução, mas se comportam e aparecem como classes comuns no código Kotlin.
 
-## Basic types
+## Tipos básicos {id="basic-types"}
 
-This section describes the basic types used in Kotlin:
+Esta seção descreve os tipos básicos usados no Kotlin:
 
-| **Category**                                              | **Basic types**                    | **Definition**                     |
+| **Categoria**                                             | **Tipos básicos**                  | **Definição**                      |
 |-----------------------------------------------------------|------------------------------------|------------------------------------|
-| [Integers](numbers.md#integer-types)                      | `Byte`, `Short`, `Int`, `Long`     | Whole numbers                      |
-| [Unsigned integers](unsigned-integer-types.md)            | `UByte`, `UShort`, `UInt`, `ULong` | Non-negative whole numbers         |
-| [Floating-point numbers](numbers.md#floating-point-types) | `Float`, `Double`                  | Numbers with a fractional part     |
-| [Booleans](booleans.md)                                   | `Boolean`                          | Logical values: `true` and `false` |
-| [Characters](characters.md)                               | `Char`                             | A single character                 |
-| [Strings](strings.md)                                     | `String`                           | A sequence of characters           |
-| [Arrays](arrays.md)                                       | `Array<T>`, primitive-type arrays  | A fixed-size sequence of values    |
+| [Inteiros](numbers.md#integer-types)                      | `Byte`, `Short`, `Int`, `Long`     | Números inteiros                   |
+| [Inteiros sem sinal](unsigned-integer-types.md)           | `UByte`, `UShort`, `UInt`, `ULong` | Números inteiros não negativos     |
+| [Números de ponto flutuante](numbers.md#floating-point-types) | `Float`, `Double`                  | Números com parte fracionária      |
+| [Booleanos](booleans.md)                                  | `Boolean`                          | Valores lógicos: `true` e `false`  |
+| [Caracteres](characters.md)                               | `Char`                             | Um único caractere                 |
+| [Strings](strings.md)                                     | `String`                           | Uma sequência de caracteres        |
+| [Arrays](arrays.md)                                       | `Array<T>`, arrays de tipos primitivos | Uma sequência de valores de tamanho fixo |
 
 
-> By default, every type is non-nullable. To allow `null` values, declare a variable with a `?` sign right after the variable
-> type. For example, `String?`. Learn more in [Null safety](null-safety.md#nullable-types-and-non-nullable-types).
+> Por padrão, todo tipo é não nulável. Para permitir valores `null`, declare uma variável com o sinal `?` logo após o tipo
+> da variável. Por exemplo, `String?`. Saiba mais em [Null safety](null-safety.md#nullable-types-and-non-nullable-types).
 > 
 {style="note"}
 
-To learn about other Kotlin types, such as `Nothing`, `Any`, and `Unit`, look through the Kotlin API reference:
+Para conhecer outros tipos do Kotlin, como `Nothing`, `Any` e `Unit`, consulte a referência da API do Kotlin:
 
-* [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/) – The root of the Kotlin class hierarchy.
-* [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html) – A type that has no values.
-* [`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/) – A type with only one value (`Unit`). The compiler infers it as the return type of functions with a block
-  body and no explicit return type. See [Unit-returning functions](functions.md#unit-returning-functions).
+* [`Any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/) – A raiz da hierarquia de classes do Kotlin.
+* [`Nothing`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html) – Um tipo que não tem valores.
+* [`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/) – Um tipo com apenas um valor (`Unit`). O compilador o infere como o tipo de retorno de funções com corpo em bloco
+  e sem tipo de retorno explícito. Veja [Funções que retornam Unit](functions.md#unit-returning-functions).
 
-## Non-denotable types
+## Tipos não denotáveis {id="non-denotable-types"}
 
-Kotlin also has non-denotable types. They are the types that you can't write directly in the Kotlin code. Instead, the
-compiler uses them internally, for example, for interoperability with other languages. Kotlin creates non-denotable
-types to represent type information that is more precise than what Kotlin source syntax allows.
+O Kotlin também tem tipos não denotáveis. São tipos que você não consegue escrever diretamente no código Kotlin. Em vez disso, o
+compilador os usa internamente, por exemplo, para interoperabilidade com outras linguagens. O Kotlin cria tipos não denotáveis
+para representar informações de tipo mais precisas do que a sintaxe de código-fonte do Kotlin permite.
 
-Even though you can't declare non-denotable types yourself, you may encounter them in compiler diagnostics, IDE
-tooltips, or inferred type displays. Learn more about non-denotable types in:
+Mesmo que você não consiga declarar tipos não denotáveis, pode encontrá-los em diagnósticos do compilador, em
+dicas de ferramentas da IDE ou nas exibições de tipos inferidos. Saiba mais sobre tipos não denotáveis em:
 
-* [Platform types](java-interop.md#null-safety-and-platform-types)
+* [Tipos de plataforma](java-interop.md#null-safety-and-platform-types)
 * [](typecasts.md#intersection-types)
 * [](numbers.md#integer-literal-types)
 * [](generics.md#captured-types)
-* [Kotlin language specification: Type system](https://kotlinlang.org/spec/type-system.html)
+* [Especificação da linguagem Kotlin: sistema de tipos](https://kotlinlang.org/spec/type-system.html)
 
-> [Learn how to perform type checks and casts in Kotlin](typecasts.md).
+> [Saiba como fazer verificações e conversões de tipo no Kotlin](typecasts.md).
 >
 {style="tip"}
+
+<!-- ia-translate: true -->

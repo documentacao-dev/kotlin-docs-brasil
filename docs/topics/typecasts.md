@@ -1,15 +1,15 @@
-[//]: # (title: Type checks and casts)
+[//]: # (title: Verificações de tipo e conversões)
 
-In Kotlin, you can do two things with types at runtime: check whether an object is a specific type, or convert it to another type.
-Type **checks** help you confirm the kind of object you're dealing with, while type **casts** attempt to convert the object to another type.
+No Kotlin, você pode fazer duas coisas com tipos em tempo de execução: verificar se um objeto é de um tipo específico ou convertê-lo para outro tipo.
+As **verificações** de tipo ajudam a confirmar o tipo de objeto com que você está lidando, enquanto as **conversões** de tipo tentam converter o objeto para outro tipo.
 
-> To learn specifically about **generics** type checks and casts, for example `List<T>`, `Map<K,V>`, see [Generics type checks and casts](generics.md#generics-type-checks-and-casts).
+> Para aprender especificamente sobre verificações e conversões de **generics**, por exemplo `List<T>`, `Map<K,V>`, veja [Verificações e conversões de generics](generics.md#generics-type-checks-and-casts).
 >
 {style="tip"}
 
-## Checks with `is` and `!is` operators {id="is-and-is-operators"}
+## Verificações com os operadores `is` e `!is` {id="is-and-is-operators"}
 
-Use the `is` operator (or `!is` to negate it) to check if an object matches a type at runtime:
+Use o operador `is` (ou `!is` para negá-lo) para verificar, em tempo de execução, se um objeto corresponde a um tipo:
 
 ```kotlin
 fun main() {
@@ -30,7 +30,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-is-operator"}
 
-You can also use `is` and `!is` operators to check if an object matches a subtype:
+Você também pode usar os operadores `is` e `!is` para verificar se um objeto corresponde a um subtipo:
 
 ```kotlin
 interface Animal {
@@ -85,28 +85,26 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-is-operator-subtype"}
 
-This example uses the `is` operator to check if the `Animal` class instance has subtype `Dog` or `Cat` to print the relevant
-care instructions.
+Este exemplo usa o operador `is` para verificar se a instância da classe `Animal` é um subtipo `Dog` ou `Cat`, para imprimir as instruções de cuidado correspondentes.
 
-You can check if an object is a supertype of its declared type, but it's not worthwhile because the answer is always true.
-Every class instance is already an instance of its supertypes.
+Você pode verificar se um objeto é um supertipo do seu tipo declarado, mas não vale a pena, porque a resposta é sempre verdadeira.
+Toda instância de classe já é uma instância dos seus supertipos.
 
-> To identify the type of an object at runtime, see [Reflection](reflection.md).
+> Para identificar o tipo de um objeto em tempo de execução, veja [Reflexão](reflection.md).
 > 
 {type="tip"}
 
-## Type casts
+## Conversões de tipo
 
-To convert the type of an object in Kotlin to another type is called **casting**.
+Converter o tipo de um objeto no Kotlin para outro tipo é chamado de **casting**.
 
-In some cases, the compiler automatically casts objects for you. This is called smart-casting.
+Em alguns casos, o compilador converte objetos automaticamente para você. Isso é chamado de smart-casting.
 
-If you need to explicitly cast a type, use `as?` or `as` [cast operators](#unsafe-cast-operator). 
+Se você precisar converter explicitamente um tipo, use os [operadores de conversão](#unsafe-cast-operator) `as?` ou `as`. 
 
 ## Smart casts
 
-The compiler tracks the type checks and [explicit casts](#unsafe-cast-operator) for immutable
-values and inserts implicit (safe) casts automatically:
+O compilador acompanha as verificações de tipo e as [conversões explícitas](#unsafe-cast-operator) para valores imutáveis e insere conversões implícitas (seguras) automaticamente:
 
 ```kotlin
 fun logMessage(data: Any) {
@@ -124,7 +122,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-smartcast"}
 
-The compiler is even smart enough to know that a cast is safe if a negative check leads to a return:
+O compilador é inteligente o suficiente para saber que uma conversão é segura se uma verificação negativa leva a um `return`:
 
 ```kotlin
 fun logMessage(data: Any) {
@@ -144,7 +142,7 @@ fun main() {
 
 ### Control flow
 
-Smart casts work not only for `if` conditional expressions, but also for [`when` expressions](control-flow.md#when-expressions-and-statements):
+Smart casts funcionam não só para expressões condicionais `if`, mas também para [expressões `when`](control-flow.md#when-expressions-and-statements):
 
 ```kotlin
 fun processInput(data: Any) {
@@ -169,7 +167,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-smartcast-when"}
 
-And for [`while` loops](control-flow.md#while-loops):
+E para [laços `while`](control-flow.md#while-loops):
 
 ```kotlin
 sealed interface Status
@@ -212,17 +210,15 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-smartcast-while"}
 
-In this example, the sealed interface `Status` has two implementations: the data class `Ok` and the data object `Error`.
-Only the `Ok` data class has the `currentRoom` property. When the `while` loop condition evaluates to true, the
-compiler smart casts the `status` variable to `Ok` type, making the `currentRoom` property accessible within the loop body.
+Neste exemplo, a sealed interface `Status` tem duas implementações: a data class `Ok` e o data object `Error`.
+Somente a data class `Ok` tem a propriedade `currentRoom`. Quando a condição do laço `while` é avaliada como verdadeira, o
+compilador faz o smart cast da variável `status` para o tipo `Ok`, tornando a propriedade `currentRoom` acessível dentro do corpo do laço.
 
-If you declare a variable of `Boolean` type before using it in your `if`, `when`, or `while` condition, any
-information collected by the compiler about the variable is accessible in the corresponding block for
-smart-casting.
+Se você declarar uma variável do tipo `Boolean` antes de usá-la na condição `if`, `when` ou `while`, qualquer informação que o
+compilador coletou sobre a variável fica acessível no bloco correspondente para o smart-casting.
 
-This can be useful when you want to do things like extract boolean conditions into variables. Then, you can give the
-variable a meaningful name, which improves your code readability and makes it possible to reuse the variable later
-in your code. For example:
+Isso pode ser útil quando você quer, por exemplo, extrair condições booleanas para variáveis. Assim, você pode dar à variável
+um nome significativo, o que melhora a legibilidade do código e permite reutilizar a variável depois no código. Por exemplo:
 
 ```kotlin
 class Cat {
@@ -251,9 +247,9 @@ fun main(){
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables" validate="false"}
 
-### Logical operators
+### Operadores lógicos
 
-The compiler can perform smart casts on the right-hand side of `&&` or `||` operators if there is a type check (regular or negative) on the left-hand side:
+O compilador pode fazer smart casts no lado direito dos operadores `&&` ou `||` se houver uma verificação de tipo (normal ou negativa) no lado esquerdo:
 
 ```kotlin
 // x is automatically cast to String on the right-hand side of `||`
@@ -265,10 +261,10 @@ if (x is String && x.length > 0) {
 }
 ```
 
-If you combine type checks for objects with an `and` operator (`&&`), the compiler smart-casts the object
-to all checked types simultaneously. Learn more in [Intersection types](#intersection-types).
+Se você combinar verificações de tipo para objetos com o operador `and` (`&&`), o compilador faz o smart cast do objeto
+para todos os tipos verificados simultaneamente. Saiba mais em [Tipos de interseção](#intersection-types).
 
-If you combine type checks for objects with an `or` operator (`||`), a smart cast is made to their closest common supertype:
+Se você combinar verificações de tipo para objetos com o operador `or` (`||`), é feito um smart cast para o supertipo comum mais próximo:
 
 ```kotlin
 interface Status {
@@ -287,15 +283,15 @@ fun signalCheck(signalStatus: Any) {
 }
 ```
 
-> The common supertype is an **approximation** of a [union type](https://en.wikipedia.org/wiki/Union_type). Union types
-> are [not currently supported in Kotlin](https://youtrack.jetbrains.com/issue/KT-13108/Denotable-union-and-intersection-types).
+> O supertipo comum é uma **aproximação** de um [tipo união](https://en.wikipedia.org/wiki/Union_type). Tipos união
+> não são [atualmente aceitos no Kotlin](https://youtrack.jetbrains.com/issue/KT-13108/Denotable-union-and-intersection-types).
 >
 {style="note"}
 
-### Intersection types
+### Tipos de interseção
 
-When the compiler smart-casts an object through multiple `&&` checks, it infers an [*intersection type*](https://kotlinlang.org/spec/type-system.html#intersection-types).
-This is an internal type that simultaneously satisfies all the checked constraints:
+Quando o compilador faz smart cast de um objeto por meio de várias verificações com `&&`, ele infere um [*tipo de interseção*](https://kotlinlang.org/spec/type-system.html#intersection-types).
+Trata-se de um tipo interno que satisfaz simultaneamente todas as restrições verificadas:
 
 ```kotlin
 interface Bird {
@@ -316,27 +312,25 @@ fun describe(animal: Any) {
 }
 ```
 
-Intersection types are non-denotable. They only exist in the compiler's internal type system to preserve type information
-during type checking. You can't write them directly in Kotlin code. You may encounter intersection types in
-compiler error messages and IDE tooltips, typically displayed as `A & B`.
-The one exception is `T & Any` that declares a [definitely non-nullable type](generics.md#definitely-non-nullable-types).
-This syntax is reserved specifically to combine a type parameter with `Any`.
+Tipos de interseção não são denotáveis. Eles existem apenas no sistema de tipos interno do compilador, para preservar informações de tipo
+durante a verificação de tipos. Você não pode escrevê-los diretamente no código Kotlin. Você pode encontrar tipos de interseção em
+mensagens de erro do compilador e em dicas de ferramentas da IDE, normalmente exibidos como `A & B`.
+A única exceção é `T & Any`, que declara um [tipo definitivamente não nulo](generics.md#definitely-non-nullable-types).
+Essa sintaxe é reservada especificamente para combinar um parâmetro de tipo com `Any`.
 
 ```kotlin
 fun  <T> T.assertNotNull(): T & Any = this ?: throw IllegalStateException("null value")
 ```
 
-### Inline functions
+### Funções inline
 
-The compiler can smart-cast variables captured within lambda functions that are passed to [inline functions](inline-functions.md).
+O compilador pode fazer smart cast de variáveis capturadas dentro de funções lambda passadas para [funções inline](inline-functions.md).
 
-Inline functions are treated as having an implicit [`callsInPlace`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.contracts/-contract-builder/calls-in-place.html)
-contract. This means that any lambda functions passed to an inline function are called in place. Since lambda functions
-are called in place, the compiler knows that a lambda function can't leak references to any variables contained within
-its function body.
+Funções inline são tratadas como tendo um contrato implícito [`callsInPlace`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.contracts/-contract-builder/calls-in-place.html).
+Isso significa que quaisquer funções lambda passadas para uma função inline são chamadas no próprio local. Como as funções lambda são chamadas no local, o compilador sabe que uma função lambda não pode vazar referências para variáveis contidas no corpo dessa função.
 
-The compiler uses this knowledge, along with other analyses, to decide whether it's safe to smart-cast any of the
-captured variables. For example:
+O compilador usa esse conhecimento, junto com outras análises, para decidir se é seguro fazer smart cast de qualquer uma das
+variáveis capturadas. Por exemplo:
 
 ```kotlin
 interface Processor {
@@ -368,10 +362,10 @@ fun runProcessor(): Processor? {
 }
 ```
 
-### Exception handling
+### Tratamento de exceções
 
-Smart cast information is passed on to `catch` and `finally` blocks. This makes your code safer
-as the compiler tracks whether your object has a nullable type. For example:
+As informações de smart cast são repassadas aos blocos `catch` e `finally`. Isso torna seu código mais seguro,
+pois o compilador acompanha se o objeto tem um tipo anulável. Por exemplo:
 
 ```kotlin
 //sampleStart
@@ -405,10 +399,10 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling"}
 
-### Smart cast prerequisites
+### Pré-requisitos do smart cast
 
-Smart casts work only when the compiler can guarantee that the variable won't change between the check and its usage.
-They can be used in the following conditions:
+Smart casts funcionam somente quando o compilador pode garantir que a variável não muda entre a verificação e o seu uso.
+Eles podem ser usados nas seguintes condições:
 
 <table style="none">
     <tr>
@@ -416,7 +410,7 @@ They can be used in the following conditions:
             <code>val</code> local variables
         </td>
         <td>
-            Always, except <a href="delegated-properties.md">local delegated properties</a>.
+            Sempre, exceto <a href="delegated-properties.md">propriedades delegadas locais</a>.
         </td>
     </tr>
     <tr>
@@ -424,7 +418,7 @@ They can be used in the following conditions:
             <code>val</code> properties
         </td>
         <td>
-            If the property is <code>private</code>, <code>internal</code>, or if the check is performed in the same <a href="visibility-modifiers.md#modules">module</a> where the property is declared. Smart casts can't be used on <code>open</code> properties or properties that have custom getters.
+            Se a propriedade for <code>private</code> ou <code>internal</code>, ou se a verificação for feita no mesmo <a href="visibility-modifiers.md#modules">módulo</a> onde a propriedade é declarada. Smart casts não podem ser usados em propriedades <code>open</code> nem em propriedades com getter personalizado.
         </td>
     </tr>
     <tr>
@@ -432,7 +426,7 @@ They can be used in the following conditions:
             <code>var</code> local variables
         </td>
         <td>
-            If the variable is not modified between the check and its usage, is not captured in a lambda that modifies it, and is not a local delegated property.
+            Se a variável não for modificada entre a verificação e o seu uso, não for capturada por uma lambda que a modifica e não for uma propriedade delegada local.
         </td>
     </tr>
     <tr>
@@ -440,17 +434,17 @@ They can be used in the following conditions:
             <code>var</code> properties
         </td>
         <td>
-            Never, because the variable can be modified at any time by other code.
+            Nunca, porque a variável pode ser modificada a qualquer momento por outro código.
         </td>
     </tr>
 </table>
 
-## `as` and `as?` cast operators {id="unsafe-cast-operator"}
+## Operadores de conversão `as` e `as?` {id="unsafe-cast-operator"}
 
-Kotlin has two cast operators: `as` and `as?`. You can use both to cast, but they have different behaviors.
+O Kotlin tem dois operadores de conversão: `as` e `as?`. Você pode usar ambos para converter, mas eles têm comportamentos diferentes.
 
-If a cast fails with the `as` operator, a `ClassCastException` is thrown at runtime. That's why it's also called the **unsafe** operator.
-You can use `as` when casting to a non-null type:
+Se uma conversão falhar com o operador `as`, uma `ClassCastException` é lançada em tempo de execução. Por isso ele também é chamado de operador **unsafe**.
+Você pode usar `as` ao converter para um tipo não nulo:
 
 ```kotlin
 fun main() {
@@ -469,8 +463,7 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-unsafe-cast-operator" validate="false"}
 
-If you use the `as?` operator instead, and the cast fails, the operator returns `null`. That's why it's also
-called the **safe** operator:
+Se você usar o operador `as?`, e a conversão falhar, o operador retorna `null`. Por isso ele também é chamado de operador **safe**:
 
 ```kotlin
 fun main() {
@@ -489,10 +482,10 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-safe-cast-operator"}
 
-To cast a nullable type safely, use the `as?` operator to prevent triggering a `ClassCastException` if the cast fails.
+Para converter um tipo anulável com segurança, use o operador `as?` para evitar uma `ClassCastException` se a conversão falhar.
 
-You _can_ use `as` with a nullable type. This allows the result to be `null`, but it still throws a `ClassCastException` 
-if the cast is unsuccessful. For this reason, `as?` is the safer option:
+Você _pode_ usar `as` com um tipo anulável. Isso permite que o resultado seja `null`, mas ainda assim lança uma `ClassCastException` 
+se a conversão não tiver sucesso. Por esse motivo, `as?` é a opção mais segura:
 
 ```kotlin
 fun main() {
@@ -525,9 +518,9 @@ fun main() {
 ```
 {kotlin-runnable="true" kotlin-min-compiler-version="2.0" id="kotlin-cast-nullable-types"}
 
-### Up and downcasting
+### Upcasting e downcasting
 
-In Kotlin, you can cast objects to supertypes and subtypes. 
+No Kotlin, você pode converter objetos para supertipos e subtipos. 
 
 Casting an object to an instance of its superclass is called **upcasting**. Upcasting doesn't need any special syntax or
 cast operators. For example:

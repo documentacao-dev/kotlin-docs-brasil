@@ -1,14 +1,14 @@
-[//]: # (title: Basic syntax overview)
+[//]: # (title: Visão geral da sintaxe básica)
 
-This is a collection of basic syntax elements with examples. At the end of every section, you'll find a link to
-a detailed description of the related topic.
+Esta é uma coleção de elementos básicos da sintaxe, com exemplos. No fim de cada seção, você encontra um link para
+uma descrição detalhada do tópico relacionado.
 
-You can also learn all the Kotlin essentials with the free [Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)
-by JetBrains Academy.
+Você também pode aprender todos os fundamentos do Kotlin com a gratuita [Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)
+da JetBrains Academy.
 
-## Package definition and imports
+## Definição de pacote e imports {id="package-definition-and-imports"}
 
-Package specification should be at the top of the source file:
+A especificação do pacote deve ficar no topo do arquivo de código-fonte:
 
 ```kotlin
 package my.demo
@@ -18,13 +18,13 @@ import kotlin.text.*
 // ...
 ```
 
-It is not required to match directories and packages: source files can be placed arbitrarily in the file system.
+Não é obrigatório que diretórios e pacotes correspondam: os arquivos de código-fonte podem ficar em qualquer lugar do sistema de arquivos.
 
-See [Packages](packages.md).
+Veja [Pacotes](packages.md).
 
-## Program entry point
+## Ponto de entrada do programa {id="program-entry-point"}
 
-An entry point of a Kotlin application is the `main` function:
+O ponto de entrada de uma aplicação Kotlin é a função `main`:
 
 ```kotlin
 fun main() {
@@ -33,7 +33,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-hello-world"}
 
-Another form of `main` accepts a variable number of `String` arguments: 
+Outra forma de `main` aceita um número variável de argumentos `String`: 
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -42,9 +42,9 @@ fun main(args: Array<String>) {
 ```
 {kotlin-runnable="true"}
 
-## Print to the standard output
+## Imprimir na saída padrão {id="print-to-the-standard-output"}
 
-`print` prints its argument to the standard output:
+`print` imprime o argumento na saída padrão:
 
 ```kotlin
 fun main() {
@@ -56,7 +56,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-print"}
 
-`println` prints its arguments and adds a line break, so that the next thing you print appears on the next line:
+`println` imprime os argumentos e adiciona uma quebra de linha, para que o próximo conteúdo impresso apareça na linha seguinte:
 
 ```kotlin
 fun main() {
@@ -68,12 +68,12 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-println"}
 
-## Read from the standard input
+## Ler da entrada padrão {id="read-from-the-standard-input"}
 
-The `readln()` function reads from the standard input. This function reads the entire line the user enters as a string.
+A função `readln()` lê da entrada padrão. Ela lê a linha inteira que o usuário digita, como uma string.
 
-You can use the `println()`, `readln()`, and `print()` functions together to print messages requesting 
-and showing user input:
+Você pode usar as funções `println()`, `readln()` e `print()` juntas para exibir mensagens que pedem 
+e mostrar a entrada do usuário:
 
 ```kotlin
 // Prints a message to request input
@@ -88,11 +88,11 @@ print(yourWord)
 // You entered the word: Happiness
 ```
 
-For more information, see [Read standard input](read-standard-input.md).
+Para mais informações, veja [Ler a entrada padrão](read-standard-input.md).
 
-## Functions
+## Funções {id="functions"}
 
-A function with two `Int` parameters and `Int` return type:
+Uma função com dois parâmetros `Int` e tipo de retorno `Int`:
 
 ```kotlin
 //sampleStart
@@ -108,7 +108,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-return-int"}
 
-A function body can be an expression. Its return type is inferred:
+O corpo de uma função pode ser uma expressão. O tipo de retorno é inferido:
 
 ```kotlin
 //sampleStart
@@ -121,7 +121,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-function-expression"}
 
-A function that returns no meaningful value:
+Uma função que não retorna um valor significativo:
 
 ```kotlin
 //sampleStart
@@ -136,7 +136,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-return-unit"}
 
-`Unit` return type can be omitted:
+O tipo de retorno `Unit` pode ser omitido:
 
 ```kotlin
 //sampleStart
@@ -151,14 +151,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-function-omit-unit"}
 
-See [Functions](functions.md).
+Veja [Funções](functions.md).
 
-## Variables
+## Variáveis {id="variables"}
 
-In Kotlin, you declare a variable starting with a keyword, `val` or `var`, followed by the name of the variable.
+No Kotlin, você declara uma variável começando com uma palavra-chave, `val` ou `var`, seguida do nome da variável.
 
-Use the `val` keyword to declare variables that are assigned a value only once. These are immutable, read-only local variables that can't be reassigned a different value
-after initialization: 
+Use a palavra-chave `val` para declarar variáveis que recebem um valor apenas uma vez. São variáveis locais imutáveis, somente leitura, que não podem receber outro valor
+depois da inicialização: 
 
 ```kotlin
 fun main() {
@@ -172,7 +172,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-val"}
 
-Use the `var` keyword to declare variables that can be reassigned. These are mutable variables, and you can change their values after initialization:
+Use a palavra-chave `var` para declarar variáveis que podem ser reatribuídas. São variáveis mutáveis, e você pode alterar seus valores depois da inicialização:
 
 ```kotlin
 fun main() {
@@ -188,7 +188,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-var"}
 
-Kotlin supports type inference and automatically identifies the data type of a declared variable. When declaring a variable, you can omit the type after the variable name:
+O Kotlin oferece inferência de tipos e identifica automaticamente o tipo de dado de uma variável declarada. Ao declarar uma variável, você pode omitir o tipo depois do nome dela:
 
 ```kotlin
 fun main() {
@@ -202,8 +202,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-inference"}
 
-You can use variables only after initializing them. You can either initialize a variable at the moment of declaration or declare a variable first and initialize it later. 
-In the second case, you must specify the data type:
+Você só pode usar variáveis depois de inicializá-las. Você pode inicializar uma variável no momento da declaração ou declará-la primeiro e inicializá-la depois. 
+No segundo caso, você deve especificar o tipo de dado:
 
 ```kotlin
 fun main() {
@@ -223,7 +223,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-initialize"}
 
-You can declare variables at the top level:
+Você pode declarar variáveis no nível superior:
 
 ```kotlin
 //sampleStart
@@ -247,16 +247,16 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-variable-top-level"}
 
-For information about declaring properties, see [Properties](properties.md).
+Para informações sobre como declarar propriedades, veja [Propriedades](properties.md).
 
-## Creating classes and instances
+## Criando classes e instâncias {id="creating-classes-and-instances"}
 
-To define a class, use the `class` keyword:
+Para definir uma classe, use a palavra-chave `class`:
 ```kotlin
 class Shape
 ```
 
-Properties of a class can be listed in its declaration or body: 
+As propriedades de uma classe podem ser listadas na sua declaração ou no corpo: 
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -264,7 +264,7 @@ class Rectangle(val height: Double, val length: Double) {
 }
 ```
 
-The default constructor with parameters listed in the class declaration is available automatically:
+O construtor padrão, com os parâmetros listados na declaração da classe, fica disponível automaticamente:
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -277,8 +277,8 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-class-constructor"}
 
-Inheritance between classes is declared by a colon (`:`). Classes are `final` by default; to make a class inheritable, 
-mark it as `open`:
+A herança entre classes é declarada com dois-pontos (`:`). As classes são `final` por padrão; para tornar uma classe herdável,
+marque-a como `open`:
 
 ```kotlin
 open class Shape
@@ -288,11 +288,11 @@ class Rectangle(val height: Double, val length: Double): Shape() {
 }
 ```
 
-For more information about constructors and inheritance, see [Classes](classes.md) and [Objects and instances](object-declarations.md).
+Para mais informações sobre construtores e herança, veja [Classes](classes.md) e [Objetos e instâncias](object-declarations.md).
 
-## Comments
+## Comentários {id="comments"}
 
-Just like most modern languages, Kotlin supports single-line (or _end-of-line_) and multi-line (_block_) comments:
+Como a maioria das linguagens modernas, o Kotlin oferece comentários de linha única (ou _fim de linha_) e de várias linhas (_bloco_):
 
 ```kotlin
 // This is an end-of-line comment
@@ -301,7 +301,7 @@ Just like most modern languages, Kotlin supports single-line (or _end-of-line_) 
    on multiple lines. */
 ```
 
-Block comments in Kotlin can be nested:
+Comentários de bloco no Kotlin podem ser aninhados:
 
 ```kotlin
 /* The comment starts here
@@ -309,9 +309,9 @@ Block comments in Kotlin can be nested:
 and ends here. */
 ```
 
-See [Documenting Kotlin Code](kotlin-doc.md) for information on the documentation comment syntax.
+Veja [Documentando código Kotlin](kotlin-doc.md) para informações sobre a sintaxe dos comentários de documentação.
 
-## String templates
+## Templates de string {id="string-templates"}
 
 ```kotlin
 fun main() {
@@ -329,9 +329,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-string-templates"}
 
-See [String templates](strings.md#string-templates) for details.
+Veja [Templates de string](strings.md#string-templates) para mais detalhes.
 
-## Conditional expressions
+## Expressões condicionais {id="conditional-expressions"}
 
 ```kotlin
 //sampleStart
@@ -350,7 +350,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-conditional-expressions"}
 
-In Kotlin, `if` can also be used as an expression:
+No Kotlin, `if` também pode ser usado como expressão:
 
 ```kotlin
 //sampleStart
@@ -363,9 +363,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-if-expression"}
 
-See [`if`-expressions](control-flow.md#if-expression).
+Veja [Expressões `if`](control-flow.md#if-expression).
 
-## for loop
+## Laço for {id="for-loop"}
 
 ```kotlin
 fun main() {
@@ -379,7 +379,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-for-loop"}
 
-or:
+ou:
 
 ```kotlin
 fun main() {
@@ -393,9 +393,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-for-loop-indices"}
 
-See [for loop](control-flow.md#for-loops).
+Veja [Laço for](control-flow.md#for-loops).
 
-## while loop
+## Laço while {id="while-loop"}
 
 ```kotlin
 fun main() {
@@ -411,9 +411,9 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-while-loop"}
 
-See [while loop](control-flow.md#while-loops).
+Veja [Laço while](control-flow.md#while-loops).
 
-## when expression
+## Expressão when {id="when-expression"}
 
 ```kotlin
 //sampleStart
@@ -437,11 +437,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-when-expression"}
 
-See [when expressions and statements](control-flow.md#when-expressions-and-statements).
+Veja [Expressões e instruções when](control-flow.md#when-expressions-and-statements).
 
-## Ranges
+## Intervalos {id="ranges"}
 
-Check if a number is within a range using `in` operator:
+Verifique se um número está dentro de um intervalo usando o operador `in`:
 
 ```kotlin
 fun main() {
@@ -456,7 +456,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-range-in"}
 
-Check if a number is out of range:
+Verifique se um número está fora do intervalo:
 
 ```kotlin
 fun main() {
@@ -474,7 +474,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-out-of-range"}
 
-Iterate over a range:
+Itere sobre um intervalo:
 
 ```kotlin
 fun main() {
@@ -487,7 +487,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-iterate-range"}
 
-Or over a progression:
+Ou sobre uma progressão:
 
 ```kotlin
 fun main() {
@@ -504,11 +504,11 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-iterate-progression"}
 
-See [Ranges and progressions](ranges.md).
+Veja [Intervalos e progressões](ranges.md).
 
-## Collections
+## Coleções {id="collections"}
 
-Iterate over a collection:
+Itere sobre uma coleção:
 
 ```kotlin
 fun main() {
@@ -522,7 +522,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-iterate-collection"}
 
-Check if a collection contains an object using `in` operator:
+Verifique se uma coleção contém um objeto usando o operador `in`:
 
 ```kotlin
 fun main() {
@@ -537,7 +537,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-collection-in"}
 
-Use [lambda expressions](lambdas.md) to filter and map collections:
+Use [expressões lambda](lambdas.md) para filtrar e mapear coleções:
 
 ```kotlin
 fun main() {
@@ -553,14 +553,14 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-collection-filter-map"}
 
-See [Collections overview](collections-overview.md).
+Veja [Visão geral das coleções](collections-overview.md).
 
-## Nullable values and null checks
+## Valores nuláveis e verificações de null {id="nullable-values-and-null-checks"}
 
-A reference must be explicitly marked as nullable when a `null` value is possible. Nullable type names have `?` at the end.
-For example, `Int?`.
+Uma referência deve ser marcada explicitamente como nulável quando um valor `null` for possível. Nomes de tipos nuláveis terminam com `?`.
+Por exemplo, `Int?`.
 
-Return `null` if `str` does not hold an integer:
+Retorna `null` se `str` não contiver um inteiro:
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -568,7 +568,7 @@ fun parseInt(str: String): Int? {
 }
 ```
 
-Use a function returning nullable value:
+Use uma função que retorna um valor nulável:
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -599,7 +599,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-function-nullable-value"}
 
-or:
+ou:
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -634,12 +634,12 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-function-null-check"}
 
-See [Null-safety](null-safety.md).
+Veja [Null safety](null-safety.md).
 
-## Type checks and automatic casts
+## Verificações de tipo e conversões automáticas {id="type-checks-and-automatic-casts"}
 
-The `is` operator checks if an expression is an instance of a type.
-If an immutable local variable or property is checked for a specific type, there's no need to cast it explicitly:
+O operador `is` verifica se uma expressão é uma instância de um tipo.
+Se uma variável local imutável ou uma propriedade for verificada para um tipo específico, não é preciso fazer uma conversão explícita:
 
 ```kotlin
 //sampleStart
@@ -665,7 +665,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-is-operator"}
 
-or:
+ou:
 
 ```kotlin
 //sampleStart
@@ -688,7 +688,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-is-operator-expression"}
 
-or even:
+ou até:
 
 ```kotlin
 //sampleStart
@@ -713,4 +713,6 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-basic-syntax-is-operator-logic"}
 
-See [Classes](classes.md) and [Type casts](typecasts.md).
+Veja [Classes](classes.md) e [Conversões de tipo](typecasts.md).
+
+<!-- ia-translate: true -->

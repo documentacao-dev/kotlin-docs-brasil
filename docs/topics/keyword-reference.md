@@ -1,177 +1,179 @@
-[//]: # (title: Keywords and operators)
+[//]: # (title: Palavras-chave e operadores)
 
-## Hard keywords
+## Palavras-chave reservadas {id="hard-keywords"}
 
-The following tokens are always interpreted as keywords and cannot be used as identifiers:
+Os tokens a seguir são sempre interpretados como palavras-chave e não podem ser usados como identificadores:
 
  * `as`
-     - is used for [type casts](typecasts.md#unsafe-cast-operator).
-     - specifies an [alias for an import](packages.md#imports)
- * `as?` is used for [safe type casts](typecasts.md#unsafe-cast-operator).
- * `break` [terminates the execution of a loop](returns.md).
- * `class` declares a [class](classes.md).
- * `continue` [proceeds to the next step of the nearest enclosing loop](returns.md).
- * `do` begins a [do/while loop](control-flow.md#while-loops) (a loop with a postcondition).
- * `else` defines the branch of an [if expression](control-flow.md#if-expression) that is executed when the condition is false.
- * `false` specifies the 'false' value of the [Boolean type](booleans.md).
- * `for` begins a [for loop](control-flow.md#for-loops).
- * `fun` declares a [function](functions.md).
- * `if` begins an [if expression](control-flow.md#if-expression).
+     - é usado para [conversões de tipo](typecasts.md#unsafe-cast-operator).
+     - especifica um [alias para um import](packages.md#imports)
+ * `as?` é usado para [conversões de tipo seguras](typecasts.md#unsafe-cast-operator).
+ * `break` [encerra a execução de um laço](returns.md).
+ * `class` declara uma [classe](classes.md).
+ * `continue` [passa para a próxima etapa do laço mais próximo que o envolve](returns.md).
+ * `do` inicia um [laço do/while](control-flow.md#while-loops) (um laço com pós-condição).
+ * `else` define o ramo de uma [expressão if](control-flow.md#if-expression) executado quando a condição é falsa.
+ * `false` especifica o valor 'false' do [tipo Boolean](booleans.md).
+ * `for` inicia um [laço for](control-flow.md#for-loops).
+ * `fun` declara uma [função](functions.md).
+ * `if` inicia uma [expressão if](control-flow.md#if-expression).
  * `in`
-     - specifies the object being iterated in a [for loop](control-flow.md#for-loops).
-     - is used as an infix operator to check that a value belongs to [a range](ranges.md),
-       a collection, or another entity that [defines a 'contains' method](operator-overloading.md#in-operator).
-     - is used in [when expressions](control-flow.md#when-expressions-and-statements) for the same purpose.
-     - marks a type parameter as [contravariant](generics.md#declaration-site-variance).
+     - especifica o objeto percorrido em um [laço for](control-flow.md#for-loops).
+     - é usado como operador infixo para verificar se um valor pertence a [um intervalo](ranges.md),
+       a uma coleção ou a outra entidade que [define um método 'contains'](operator-overloading.md#in-operator).
+     - é usado em [expressões when](control-flow.md#when-expressions-and-statements) com a mesma finalidade.
+     - marca um parâmetro de tipo como [contravariante](generics.md#declaration-site-variance).
  * `!in`
-     - is used as an operator to check that a value does NOT belong to [a range](ranges.md),
-       a collection, or another entity that [defines a 'contains' method](operator-overloading.md#in-operator).
-     - is used in [when expressions](control-flow.md#when-expressions-and-statements) for the same purpose.
- * `interface` declares an [interface](interfaces.md).
+     - é usado como operador para verificar se um valor NÃO pertence a [um intervalo](ranges.md),
+       a uma coleção ou a outra entidade que [define um método 'contains'](operator-overloading.md#in-operator).
+     - é usado em [expressões when](control-flow.md#when-expressions-and-statements) com a mesma finalidade.
+ * `interface` declara uma [interface](interfaces.md).
  * `is`
-     - checks that [a value has a certain type](typecasts.md#is-and-is-operators).
-     - is used in [when expressions](control-flow.md#when-expressions-and-statements) for the same purpose.
+     - verifica se [um valor tem determinado tipo](typecasts.md#is-and-is-operators).
+     - é usado em [expressões when](control-flow.md#when-expressions-and-statements) com a mesma finalidade.
  * `!is`
-     - checks that [a value does NOT have a certain type](typecasts.md#is-and-is-operators).
-     - is used in [when expressions](control-flow.md#when-expressions-and-statements) for the same purpose.
- * `null` is a constant representing an object reference that doesn't point to any object.
- * `object` declares [a class and its instance at the same time](object-declarations.md).
- * `package` specifies the [package for the current file](packages.md).
- * `return` [returns from the nearest enclosing function or anonymous function](returns.md).
+     - verifica se [um valor NÃO tem determinado tipo](typecasts.md#is-and-is-operators).
+     - é usado em [expressões when](control-flow.md#when-expressions-and-statements) com a mesma finalidade.
+ * `null` é uma constante que representa uma referência de objeto que não aponta para nenhum objeto.
+ * `object` declara [uma classe e a sua instância ao mesmo tempo](object-declarations.md).
+ * `package` especifica o [pacote do arquivo atual](packages.md).
+ * `return` [retorna da função ou função anônima mais próxima que a envolve](returns.md).
  * `super`
-     - [refers to the superclass implementation of a method or property](inheritance.md#calling-the-superclass-implementation).
-     - [calls the superclass constructor from a secondary constructor](classes.md#inheritance).
+     - [se refere à implementação da superclasse de um método ou propriedade](inheritance.md#calling-the-superclass-implementation).
+     - [chama o construtor da superclasse a partir de um construtor secundário](classes.md#inheritance).
  * `this`
-     - refers to [the current receiver](this-expressions.md).
-     - [calls another constructor of the same class from a secondary constructor](classes.md#constructors-and-initializer-blocks).
- * `throw` [throws an exception](exceptions.md).
- * `true` specifies the 'true' value of the [Boolean type](booleans.md).
- * `try` [begins an exception-handling block](exceptions.md).
- * `typealias` declares a [type alias](type-aliases.md).
- * `typeof` is reserved for future use.
- * `val` declares a read-only [property](properties.md) or [local variable](basic-syntax.md#variables).
- * `var` declares a mutable [property](properties.md) or [local variable](basic-syntax.md#variables).
- * `when` begins a [when expression](control-flow.md#when-expressions-and-statements) (executes one of the given branches).
- * `while` begins a [while loop](control-flow.md#while-loops) (a loop with a precondition).
+     - se refere [ao receiver atual](this-expressions.md).
+     - [chama outro construtor da mesma classe a partir de um construtor secundário](classes.md#constructors-and-initializer-blocks).
+ * `throw` [lança uma exceção](exceptions.md).
+ * `true` especifica o valor 'true' do [tipo Boolean](booleans.md).
+ * `try` [inicia um bloco de tratamento de exceções](exceptions.md).
+ * `typealias` declara um [alias de tipo](type-aliases.md).
+ * `typeof` é reservada para uso futuro.
+ * `val` declara uma [propriedade](properties.md) somente leitura ou uma [variável local](basic-syntax.md#variables).
+ * `var` declara uma [propriedade](properties.md) mutável ou uma [variável local](basic-syntax.md#variables).
+ * `when` inicia uma [expressão when](control-flow.md#when-expressions-and-statements) (executa um dos ramos informados).
+ * `while` inicia um [laço while](control-flow.md#while-loops) (um laço com pré-condição).
 
-## Soft keywords
+## Palavras-chave suaves {id="soft-keywords"}
 
-The following tokens act as keywords in the context in which they are applicable, and they can be used
-as identifiers in other contexts:
+Os tokens a seguir atuam como palavras-chave no contexto em que são aplicáveis, e podem ser usados
+como identificadores em outros contextos:
 
  * `by`
-     - [delegates the implementation of an interface to another object](delegation.md).
-     - [delegates the implementation of the accessors for a property to another object](delegated-properties.md).
- * `catch` begins a block that [handles a specific exception type](exceptions.md).
- * `constructor` declares a [primary or secondary constructor](classes.md#constructors-and-initializer-blocks).
- * `context` declares [context parameters](context-parameters.md) for functions and properties.
- * `delegate` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `dynamic` references a [dynamic type](dynamic-type.md) in Kotlin/JS code.
+     - [delega a implementação de uma interface a outro objeto](delegation.md).
+     - [delega a implementação dos acessores de uma propriedade a outro objeto](delegated-properties.md).
+ * `catch` inicia um bloco que [trata um tipo específico de exceção](exceptions.md).
+ * `constructor` declara um [construtor primário ou secundário](classes.md#constructors-and-initializer-blocks).
+ * `context` declara [parâmetros de contexto](context-parameters.md) para funções e propriedades.
+ * `delegate` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `dynamic` faz referência a um [tipo dinâmico](dynamic-type.md) em código Kotlin/JS.
  * `field`
-     - declares an [explicit backing field](properties.md#explicit-backing-fields).
-     - is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `file` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `finally` begins a block that [is always executed when a try block exits](exceptions.md).
+     - declara um [campo de apoio explícito](properties.md#explicit-backing-fields).
+     - é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `file` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `finally` inicia um bloco que [é sempre executado quando um bloco try é encerrado](exceptions.md).
  * `get`
-     - declares the [getter of a property](properties.md).
-     - is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `import` [imports a declaration from another package into the current file](packages.md).
- * `init` begins an [initializer block](classes.md#constructors-and-initializer-blocks).
- * `param` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `property` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
- * `receiver` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
+     - declara o [getter de uma propriedade](properties.md).
+     - é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `import` [importa uma declaração de outro pacote para o arquivo atual](packages.md).
+ * `init` inicia um [bloco de inicialização](classes.md#constructors-and-initializer-blocks).
+ * `param` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `property` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+ * `receiver` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
  * `set`
-     - declares the [setter of a property](properties.md).
-     - is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
-* `setparam` is used as an [annotation use-site target](annotations.md#annotation-use-site-targets).
-* `value` with the `class` keyword declares an [inline class](inline-classes.md).
-* `where` specifies the [constraints for a generic type parameter](generics.md#upper-bounds).
+     - declara o [setter de uma propriedade](properties.md).
+     - é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+* `setparam` é usado como [alvo de uso de anotação](annotations.md#annotation-use-site-targets).
+* `value` junto com a palavra-chave `class` declara uma [classe inline](inline-classes.md).
+* `where` especifica as [restrições para um parâmetro de tipo genérico](generics.md#upper-bounds).
 
-## Modifier keywords
+## Palavras-chave de modificador {id="modifier-keywords"}
 
-The following tokens act as keywords in modifier lists of declarations, and they can be used as identifiers
-in other contexts:
+Os tokens a seguir atuam como palavras-chave nas listas de modificadores das declarações, e podem ser usados como identificadores
+em outros contextos:
 
- * `abstract` marks a class or member as [abstract](classes.md#abstract-classes).
- * `actual` denotes a platform-specific implementation in [multiplatform projects](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html).
- * `annotation` declares an [annotation class](annotations.md).
- * `companion` declares a [companion object](object-declarations.md#companion-objects).
- * `const` marks a property as a [compile-time constant](properties.md#compile-time-constants).
- * `crossinline` forbids [non-local returns in a lambda passed to an inline function](inline-functions.md#returns).
- * `data` instructs the compiler to [generate canonical members for a class](data-classes.md).
- * `enum` declares an [enumeration](enum-classes.md).
- * `expect` marks a declaration as [platform-specific](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html), expecting an implementation in platform modules.
- * `external` marks a declaration as implemented outside of Kotlin (accessible through [JNI](java-interop.md#using-jni-with-kotlin) or in [JavaScript](js-interop.md#external-modifier)).
- * `final` forbids [overriding a member](inheritance.md#overriding-methods).
- * `infix` allows calling a function using [infix notation](functions.md#infix-notation).
- * `inline` tells the compiler to [inline a function and the lambdas passed to it at the call site](inline-functions.md).
- * `inner` allows referring to an outer class instance from a [nested class](nested-classes.md).
- * `internal` marks a declaration as [visible in the current module](visibility-modifiers.md).
- * `lateinit` allows initializing a [non-nullable property outside of a constructor](properties.md#late-initialized-properties-and-variables).
- * `noinline` turns off [inlining of a lambda passed to an inline function](inline-functions.md#noinline).
- * `open` allows [subclassing a class or overriding a member](classes.md#inheritance).
- * `operator` marks a function as [overloading an operator or implementing a convention](operator-overloading.md).
- * `out` marks a type parameter as [covariant](generics.md#declaration-site-variance).
- * `override` marks a member as an [override of a superclass member](inheritance.md#overriding-methods).
- * `private` marks a declaration as [visible in the current class or file](visibility-modifiers.md).
- * `protected` marks a declaration as [visible in the current class and its subclasses](visibility-modifiers.md).
- * `public` marks a declaration as [visible anywhere](visibility-modifiers.md).
- * `reified` marks a type parameter of an inline function as [accessible at runtime](inline-functions.md#reified-type-parameters).
- * `sealed` declares a [sealed class](sealed-classes.md) (a class with restricted subclassing).
- * `suspend` marks a function or lambda as suspending (usable as a [coroutine](coroutines-overview.md)).
- * `tailrec` marks a function as [tail-recursive](functions.md#tail-recursive-functions) (allowing the compiler to replace recursion with iteration).
- * `vararg` allows [passing a variable number of arguments for a parameter](functions.md#variable-number-of-arguments-varargs).
+ * `abstract` marca uma classe ou membro como [abstrato](classes.md#abstract-classes).
+ * `actual` indica uma implementação específica de plataforma em [projetos multiplataforma](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html).
+ * `annotation` declara uma [classe de anotação](annotations.md).
+ * `companion` declara um [companion object](object-declarations.md#companion-objects).
+ * `const` marca uma propriedade como [constante em tempo de compilação](properties.md#compile-time-constants).
+ * `crossinline` proíbe [retornos não locais em uma lambda passada para uma função inline](inline-functions.md#returns).
+ * `data` instrui o compilador a [gerar membros canônicos para uma classe](data-classes.md).
+ * `enum` declara uma [enumeração](enum-classes.md).
+ * `expect` marca uma declaração como [específica de plataforma](https://kotlinlang.org/docs/multiplatform/multiplatform-expect-actual.html), esperando uma implementação nos módulos de plataforma.
+ * `external` marca uma declaração como implementada fora do Kotlin (acessível por meio de [JNI](java-interop.md#using-jni-with-kotlin) ou em [JavaScript](js-interop.md#external-modifier)).
+ * `final` proíbe [sobrescrever um membro](inheritance.md#overriding-methods).
+ * `infix` permite chamar uma função usando [notação infixa](functions.md#infix-notation).
+ * `inline` instrui o compilador a [aplicar inline a uma função e às lambdas passadas a ela no local da chamada](inline-functions.md).
+ * `inner` permite referenciar a instância da classe externa a partir de uma [classe aninhada](nested-classes.md).
+ * `internal` marca uma declaração como [visível no módulo atual](visibility-modifiers.md).
+ * `lateinit` permite inicializar uma [propriedade não nulável fora de um construtor](properties.md#late-initialized-properties-and-variables).
+ * `noinline` desativa a [expansão inline de uma lambda passada para uma função inline](inline-functions.md#noinline).
+ * `open` permite [criar subclasses de uma classe ou sobrescrever um membro](classes.md#inheritance).
+ * `operator` marca uma função como [sobrecarga de operador ou implementação de uma convenção](operator-overloading.md).
+ * `out` marca um parâmetro de tipo como [covariante](generics.md#declaration-site-variance).
+ * `override` marca um membro como [sobrescrita de um membro da superclasse](inheritance.md#overriding-methods).
+ * `private` marca uma declaração como [visível na classe ou no arquivo atual](visibility-modifiers.md).
+ * `protected` marca uma declaração como [visível na classe atual e nas suas subclasses](visibility-modifiers.md).
+ * `public` marca uma declaração como [visível em qualquer lugar](visibility-modifiers.md).
+ * `reified` marca um parâmetro de tipo de uma função inline como [acessível em tempo de execução](inline-functions.md#reified-type-parameters).
+ * `sealed` declara uma [sealed class](sealed-classes.md) (uma classe com herança restrita).
+ * `suspend` marca uma função ou lambda como suspensa (utilizável como [coroutine](coroutines-overview.md)).
+ * `tailrec` marca uma função como [recursiva de cauda](functions.md#tail-recursive-functions) (permitindo que o compilador substitua a recursão por iteração).
+ * `vararg` permite [passar um número variável de argumentos para um parâmetro](functions.md#variable-number-of-arguments-varargs).
 
-## Special identifiers
+## Identificadores especiais {id="special-identifiers"}
 
-The following identifiers are defined by the compiler in specific contexts, and they can be used as regular
-identifiers in other contexts:
+Os identificadores a seguir são definidos pelo compilador em contextos específicos, e podem ser usados como identificadores comuns
+em outros contextos:
 
- * `field` is used inside a property accessor to refer to the [backing field of the property](properties.md#backing-fields).
- * `it` is used inside a lambda to [refer to its parameter implicitly](lambdas.md#it-implicit-name-of-a-single-parameter).
+ * `field` é usado dentro de um acessor de propriedade para se referir ao [campo de apoio da propriedade](properties.md#backing-fields).
+ * `it` é usado dentro de uma lambda para [se referir ao seu parâmetro implicitamente](lambdas.md#it-implicit-name-of-a-single-parameter).
 
-## Operators and special symbols
+## Operadores e símbolos especiais {id="operators-and-special-symbols"}
 
-Kotlin supports the following operators and special symbols:
+O Kotlin oferece os seguintes operadores e símbolos especiais:
 
- * `+`, `-`, `*`, `/`, `%` - mathematical operators
-     - `*` is also used to [pass an array to a vararg parameter](functions.md#variable-number-of-arguments-varargs).
+ * `+`, `-`, `*`, `/`, `%` - operadores matemáticos
+     - `*` também é usado para [passar um array para um parâmetro vararg](functions.md#variable-number-of-arguments-varargs).
  * `=`
-     - assignment operator.
-     - is used to specify [default values for parameters](functions.md#parameters-with-default-values).
- * `+=`, `-=`, `*=`, `/=`, `%=` - [augmented assignment operators](operator-overloading.md#augmented-assignments).
- * `++`, `--` - [increment and decrement operators](operator-overloading.md#increments-and-decrements).
- * `&&`, `||`, `!` - logical 'and', 'or', 'not' operators (for bitwise operations, use the corresponding [infix functions](numbers.md#bitwise-operations) instead).
- * `==`, `!=` - [equality operators](operator-overloading.md#equality-and-inequality-operators) (translated to calls of `equals()` for non-primitive types).
- * `===`, `!==` - [referential equality operators](equality.md#referential-equality).
- * `<`, `>`, `<=`, `>=` - [comparison operators](operator-overloading.md#comparison-operators) (translated to calls of `compareTo()` for non-primitive types).
- * `[`, `]` - [indexed access operator](operator-overloading.md#indexed-access-operator) (translated to calls of `get` and `set`).
- * `!!` [asserts that an expression is non-nullable](null-safety.md#not-null-assertion-operator).
- * `?.` performs a [safe call](null-safety.md#safe-call-operator) (calls a method or accesses a property if the receiver is non-nullable).
- * `?:` takes the right-hand value if the left-hand value is null (the [elvis operator](null-safety.md#elvis-operator)).
- * `::` creates a [member reference](lambdas.md#function-references) or a [class reference](reflection.md#obtain-a-runtime-class).
+     - operador de atribuição.
+     - é usado para especificar [valores padrão para parâmetros](functions.md#parameters-with-default-values).
+ * `+=`, `-=`, `*=`, `/=`, `%=` - [operadores de atribuição compostos](operator-overloading.md#augmented-assignments).
+ * `++`, `--` - [operadores de incremento e decremento](operator-overloading.md#increments-and-decrements).
+ * `&&`, `||`, `!` - operadores lógicos 'e', 'ou' e 'não' (para operações bit a bit, use as [funções infixas](numbers.md#bitwise-operations) correspondentes).
+ * `==`, `!=` - [operadores de igualdade](operator-overloading.md#equality-and-inequality-operators) (traduzidos para chamadas de `equals()` para tipos não primitivos).
+ * `===`, `!==` - [operadores de igualdade referencial](equality.md#referential-equality).
+ * `<`, `>`, `<=`, `>=` - [operadores de comparação](operator-overloading.md#comparison-operators) (traduzidos para chamadas de `compareTo()` para tipos não primitivos).
+ * `[`, `]` - [operador de acesso por índice](operator-overloading.md#indexed-access-operator) (traduzido para chamadas de `get` e `set`).
+ * `!!` [afirma que uma expressão não é nula](null-safety.md#not-null-assertion-operator).
+ * `?.` executa uma [chamada segura](null-safety.md#safe-call-operator) (chama um método ou acessa uma propriedade se o receiver não for nulo).
+ * `?:` usa o valor da direita se o valor da esquerda for null (o [operador elvis](null-safety.md#elvis-operator)).
+ * `::` cria uma [referência a membro](lambdas.md#function-references) ou uma [referência a classe](reflection.md#obtain-a-runtime-class).
  * `.`
-     - accesses [members](classes.md), including [nested classes](nested-classes.md) and [enum entries](enum-classes.md#working-with-enum-constants).
-     - defines and calls [extensions](extensions.md).
-     - qualifies names and [packages](packages.md).
-     - separates the integer and fractional parts of a [floating-point literal](numbers.md#floating-point-types).
- * `..`, `..<` create [ranges](ranges.md).
- * `:` separates a name from a type in a declaration.
- * `?` marks a type as [nullable](null-safety.md#nullable-types-and-non-nullable-types).
+     - acessa [membros](classes.md), incluindo [classes aninhadas](nested-classes.md) e [entradas de enum](enum-classes.md#working-with-enum-constants).
+     - define e chama [extensões](extensions.md).
+     - qualifica nomes e [pacotes](packages.md).
+     - separa a parte inteira e a fracionária de um [literal de ponto flutuante](numbers.md#floating-point-types).
+ * `..`, `..<` criam [intervalos](ranges.md).
+ * `:` separa um nome de um tipo em uma declaração.
+ * `?` marca um tipo como [nulável](null-safety.md#nullable-types-and-non-nullable-types).
  * `->`
-     - separates the parameters and body of a [lambda expression](lambdas.md#lambda-expression-syntax).
-     - separates the parameters and return type declaration in a [function type](lambdas.md#function-types).
-     - separates the condition and body of a [when expression](control-flow.md#when-expressions-and-statements) branch.
+     - separa os parâmetros e o corpo de uma [expressão lambda](lambdas.md#lambda-expression-syntax).
+     - separa os parâmetros e a declaração do tipo de retorno em um [tipo de função](lambdas.md#function-types).
+     - separa a condição e o corpo de um ramo de uma [expressão when](control-flow.md#when-expressions-and-statements).
  * `@`
-     - introduces an [annotation](annotations.md#usage).
-     - introduces or references a [loop label](returns.md#break-and-continue-labels).
-     - introduces or references a [lambda label](returns.md#return-to-labels).
-     - references a ['this' expression from an outer scope](this-expressions.md#qualified-this).
-     - references an [outer superclass](inheritance.md#calling-the-superclass-implementation).
- * `;` separates multiple statements on the same line.
- * `$` references a variable or expression in a [string template](strings.md#string-templates).
+     - introduz uma [anotação](annotations.md#usage).
+     - introduz ou referencia um [rótulo de laço](returns.md#break-and-continue-labels).
+     - introduz ou referencia um [rótulo de lambda](returns.md#return-to-labels).
+     - referencia uma [expressão 'this' de um escopo externo](this-expressions.md#qualified-this).
+     - referencia uma [superclasse externa](inheritance.md#calling-the-superclass-implementation).
+ * `;` separa várias instruções na mesma linha.
+ * `$` referencia uma variável ou expressão em um [template de string](strings.md#string-templates).
  * `_`
-     - substitutes an unused parameter in a [lambda expression](lambdas.md#underscore-for-unused-variables).
-     - substitutes an unused parameter in a [destructuring declaration](destructuring-declarations.md#underscore-for-unused-variables).
+     - substitui um parâmetro não utilizado em uma [expressão lambda](lambdas.md#underscore-for-unused-variables).
+     - substitui um parâmetro não utilizado em uma [declaração de desestruturação](destructuring-declarations.md#underscore-for-unused-variables).
 
-For operator precedence, see [this reference](https://kotlinlang.org/grammar/#expressions) in Kotlin grammar.
+Para a precedência dos operadores, veja [esta referência](https://kotlinlang.org/grammar/#expressions) na gramática do Kotlin.
+
+<!-- ia-translate: true -->
