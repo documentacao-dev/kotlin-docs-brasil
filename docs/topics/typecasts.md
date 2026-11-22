@@ -140,7 +140,7 @@ fun main() {
 ```
 {kotlin-runnable="true" id="kotlin-typecasts-smartcast-negative"}
 
-### Controle de fluxo
+### Controle de fluxo {id="control-flow"}
 
 Smart casts funcionam não só para expressões condicionais `if`, mas também para [expressões `when`](control-flow.md#when-expressions-and-statements):
 

@@ -3,7 +3,7 @@
 Esta é uma coleção de elementos básicos da sintaxe, com exemplos. No fim de cada seção, você encontra um link para
 uma descrição detalhada do tópico relacionado.
 
-Você também pode aprender todos os fundamentos do Kotlin com a gratuita [Kotlin Core track](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)
+Você também pode aprender todos os fundamentos do Kotlin com a gratuita [trilha Kotlin Core](https://hyperskill.org/tracks?category=4&utm_source=jbkotlin_hs&utm_medium=referral&utm_campaign=kotlinlang-docs&utm_content=button_1&utm_term=22.03.23)
 da JetBrains Academy.
 
 ## Definição de pacote e imports {id="package-definition-and-imports"}
@@ -72,7 +72,7 @@ fun main() {
 
 A função `readln()` lê da entrada padrão. Ela lê a linha inteira que o usuário digita, como uma string.
 
-Você pode usar as funções `println()`, `readln()` e `print()` juntas para exibir mensagens que pedem 
+Você pode usar as funções `println()`, `readln()` e `print()` juntas para exibir mensagens que solicitam 
 e mostrar a entrada do usuário:
 
 ```kotlin
@@ -256,7 +256,7 @@ Para definir uma classe, use a palavra-chave `class`:
 class Shape
 ```
 
-As propriedades de uma classe podem ser listadas na sua declaração ou no corpo: 
+As propriedades de uma classe podem ser listadas na declaração ou no corpo: 
 
 ```kotlin
 class Rectangle(val height: Double, val length: Double) {
@@ -560,7 +560,7 @@ Veja [Visão geral das coleções](collections-overview.md).
 Uma referência deve ser marcada explicitamente como nulável quando um valor `null` for possível. Nomes de tipos nuláveis terminam com `?`.
 Por exemplo, `Int?`.
 
-Retorna `null` se `str` não contiver um inteiro:
+Retorne `null` se `str` não contiver um inteiro:
 
 ```kotlin
 fun parseInt(str: String): Int? {
@@ -639,7 +639,7 @@ Veja [Null safety](null-safety.md).
 ## Verificações de tipo e conversões automáticas {id="type-checks-and-automatic-casts"}
 
 O operador `is` verifica se uma expressão é uma instância de um tipo.
-Se uma variável local imutável ou uma propriedade for verificada para um tipo específico, não é preciso fazer uma conversão explícita:
+Se uma variável local imutável ou uma propriedade for verificada quanto a um tipo específico, não é preciso fazer uma conversão explícita:
 
 ```kotlin
 //sampleStart

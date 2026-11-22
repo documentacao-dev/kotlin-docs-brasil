@@ -35,7 +35,7 @@ Os tokens a seguir são sempre interpretados como palavras-chave e não podem se
      - verifica se [um valor NÃO tem determinado tipo](typecasts.md#is-and-is-operators).
      - é usado em [expressões when](control-flow.md#when-expressions-and-statements) com a mesma finalidade.
  * `null` é uma constante que representa uma referência de objeto que não aponta para nenhum objeto.
- * `object` declara [uma classe e a sua instância ao mesmo tempo](object-declarations.md).
+ * `object` declara [uma classe e sua instância ao mesmo tempo](object-declarations.md).
  * `package` especifica o [pacote do arquivo atual](packages.md).
  * `return` [retorna da função ou função anônima mais próxima que a envolve](returns.md).
  * `super`
@@ -104,7 +104,7 @@ em outros contextos:
  * `external` marca uma declaração como implementada fora do Kotlin (acessível por meio de [JNI](java-interop.md#using-jni-with-kotlin) ou em [JavaScript](js-interop.md#external-modifier)).
  * `final` proíbe [sobrescrever um membro](inheritance.md#overriding-methods).
  * `infix` permite chamar uma função usando [notação infixa](functions.md#infix-notation).
- * `inline` instrui o compilador a [aplicar inline a uma função e às lambdas passadas a ela no local da chamada](inline-functions.md).
+ * `inline` instrui o compilador a [expandir inline a função e as lambdas passadas a ela no local da chamada](inline-functions.md).
  * `inner` permite referenciar a instância da classe externa a partir de uma [classe aninhada](nested-classes.md).
  * `internal` marca uma declaração como [visível no módulo atual](visibility-modifiers.md).
  * `lateinit` permite inicializar uma [propriedade não nulável fora de um construtor](properties.md#late-initialized-properties-and-variables).

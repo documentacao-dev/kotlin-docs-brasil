@@ -49,7 +49,7 @@ O nome do arquivo deve descrever o que o código nele faz. Por isso, evite usar 
 
 #### Projetos multiplataforma {id="multiplatform-projects"}
 
-Em projetos multiplataforma, arquivos com declarações de nível superior em source sets específicas de plataforma devem ter um sufixo associado ao nome do source set. Por exemplo:
+Em projetos multiplataforma, arquivos com declarações de nível superior em source sets específicos de plataforma devem ter um sufixo associado ao nome do source set. Por exemplo:
 
 * **jvm**Main/kotlin/Platform.**jvm**.kt
 * **android**Main/kotlin/Platform.**android**.kt
@@ -86,9 +86,9 @@ A forma mais simples de evitar isso é renomear um dos arquivos de acordo com a 
 
 ### Organização dos arquivos-fonte {id="source-file-organization"}
 
-Colocar várias declarações (classes, funções ou propriedades de nível superior) no mesmo arquivo-fonte Kotlin é encorajado, desde que essas declarações estejam semanticamente bem relacionadas entre si e o tamanho do arquivo continue razoável (não ultrapassando algumas centenas de linhas).
+Colocar várias declarações (classes, funções ou propriedades de nível superior) no mesmo arquivo-fonte Kotlin é recomendado, desde que essas declarações estejam semanticamente relacionadas entre si e o tamanho do arquivo continue razoável (não ultrapassando algumas centenas de linhas).
 
-Em particular, ao definir funções de extensão para uma classe que são relevantes para todos os clientes dessa classe, coloque-as no mesmo arquivo da própria classe. Ao definir funções de extensão que fazem sentido apenas para um cliente específico, coloque-as junto ao código desse cliente. Evite criar arquivos apenas para conter todas as extensões de alguma classe.
+Em particular, ao definir extension functions para uma classe que são relevantes para todos os clientes dessa classe, coloque-as no mesmo arquivo da própria classe. Ao definir extension functions que fazem sentido apenas para um cliente específico, coloque-as junto ao código desse cliente. Evite criar arquivos apenas para conter todas as extensões de alguma classe.
 
 ### Layout da classe {id="class-layout"}
 
@@ -99,7 +99,7 @@ O conteúdo de uma classe deve seguir esta ordem:
 3. Declarações de métodos
 4. Companion object
 
-Não ordene as declarações de métodos em ordem alfabética ou por visibilidade, e não separe métodos regulares de métodos de extensão. Em vez disso, mantenha itens relacionados juntos, para que quem lê a classe de cima para baixo consiga acompanhar a lógica do que está acontecendo. Escolha uma ordem (primeiro os itens de nível mais alto, ou o contrário) e mantenha-a.
+Não ordene as declarações de métodos em ordem alfabética ou por visibilidade, e não separe métodos regulares de extension methods. Em vez disso, mantenha itens relacionados juntos, para que quem lê a classe de cima para baixo consiga acompanhar a lógica do que está acontecendo. Escolha uma ordem (primeiro os itens de nível mais alto, ou o contrário) e mantenha-a.
 
 Coloque classes aninhadas junto ao código que as usa. Se as classes forem destinadas a uso externo e não forem referenciadas dentro da classe, coloque-as no final, depois do companion object.
 
@@ -117,7 +117,7 @@ As regras de nomenclatura de pacotes e classes em Kotlin são bastante simples:
 
 * Nomes de pacotes são sempre em letras minúsculas e não usam sublinhados (`org.example.project`). Usar nomes com várias palavras geralmente não é recomendado, mas, se você precisar usar várias palavras, pode concatená-las ou usar camel case (`org.example.myProject`).
 
-* Nomes de classes e objetos usam upper camel case:
+* Nomes de classes e objects usam upper camel case:
 
 ```kotlin
 open class DeclarationProcessor { /*...*/ }
@@ -207,7 +207,7 @@ class C {
 O nome de uma classe geralmente é um substantivo ou uma locução substantiva que explica o que a classe _é_: `List`, `PersonReader`.
 
 O nome de um método geralmente é um verbo ou uma locução verbal que diz o que o método _faz_: `close`, `readPersons`.
-O nome também deve sugerir se o método modifica o objeto ou retorna um novo. Por exemplo, `sort` ordena uma coleção no próprio lugar, enquanto `sorted` retorna uma cópia ordenada da coleção.
+O nome também deve sugerir se o método modifica o objeto ou retorna um novo. Por exemplo, `sort` ordena uma coleção diretamente (in place), enquanto `sorted` retorna uma cópia ordenada da coleção.
 
 Os nomes devem deixar claro qual é o propósito da entidade, por isso é melhor evitar palavras sem significado (`Manager`, `Wrapper`) nos nomes.
 
@@ -305,7 +305,7 @@ class Person(
 ) : Human(id, name) { /*...*/ }
 ```
 
-Para múltiplas interfaces, a chamada do construtor da superclasse deve vir primeiro, e cada interface deve ficar em uma linha diferente:
+Para várias interfaces, a chamada do construtor da superclasse deve vir primeiro, e cada interface deve ficar em uma linha diferente:
 
 ```kotlin
 class Person(
@@ -521,7 +521,7 @@ when (foo) {
 ### Chamadas de método {id="method-calls"}
 
 Em listas longas de argumentos, coloque uma quebra de linha depois do parêntese de abertura. Indente os argumentos em quatro espaços.
-Agrupe múltiplos argumentos intimamente relacionados na mesma linha.
+Agrupe vários argumentos intimamente relacionados na mesma linha.
 
 ```kotlin
 drawSquare(
@@ -811,7 +811,7 @@ fun abs(number: Int): Int { /*...*/ }
 
 ## Evite construções redundantes {id="avoid-redundant-constructs"}
 
-De modo geral, se uma certa construção sintática do Kotlin é opcional e destacada pela IDE como redundante, você deve omiti-la no seu código. Não deixe elementos sintáticos desnecessários no código apenas "para deixar mais claro".
+De modo geral, se uma certa construção sintática do Kotlin é opcional e destacada pela IDE como redundante, você deve omiti-la do código. Não deixe elementos sintáticos desnecessários no código apenas "para deixar mais claro".
 
 ### Tipo de retorno Unit {id="unit-return-type"}
 
@@ -1041,7 +1041,7 @@ fun main() {
 ```
 {kotlin-runnable="true"}
 
-Saiba a diferença entre [strings de múltiplas linhas em Java e Kotlin](java-to-kotlin-idioms-strings.md#use-multiline-strings).
+Saiba qual é a diferença entre as [strings de várias linhas em Java e em Kotlin](java-to-kotlin-idioms-strings.md#use-multiline-strings).
 
 ### Funções versus propriedades {id="functions-vs-properties"}
 
@@ -1053,9 +1053,9 @@ Prefira uma propriedade a uma função quando o algoritmo subjacente:
 * É barato de calcular (ou é armazenado em cache na primeira execução).
 * Retorna o mesmo resultado nas invocações, se o estado do objeto não tiver mudado.
 
-### Funções de extensão {id="extension-functions"}
+### Extension functions {id="extension-functions"}
 
-Use funções de extensão com liberdade. Sempre que tiver uma função que trabalha principalmente sobre um objeto, considere torná-la uma função de extensão que recebe esse objeto como receiver. Para minimizar a poluição da API, restrinja a visibilidade das funções de extensão na medida em que faça sentido. Quando necessário, use funções de extensão locais, funções de extensão de membro ou funções de extensão de nível superior com visibilidade `private`.
+Use extension functions com liberdade. Sempre que tiver uma função que trabalha principalmente sobre um objeto, considere torná-la uma extension function que recebe esse objeto como receiver. Para minimizar a poluição da API, restrinja a visibilidade das extension functions na medida em que faça sentido. Quando necessário, use extension functions locais, extension functions de membro ou extension functions de nível superior com visibilidade `private`.
 
 ### Funções infix {id="infix-functions"}
 
@@ -1080,13 +1080,13 @@ Se você tem um objeto com vários construtores sobrecarregados que não chamam 
 
 ### Tipos de plataforma {id="platform-types"}
 
-Uma função ou método público que retorna uma expressão de tipo de plataforma deve declarar explicitamente o seu tipo Kotlin:
+Uma função ou método público que retorna uma expressão de tipo de plataforma deve declarar explicitamente seu tipo Kotlin:
 
 ```kotlin
 fun apiCall(): String = MyJavaApi.getProperty("name")
 ```
 
-Qualquer propriedade (em nível de pacote ou de classe) inicializada com uma expressão de tipo de plataforma deve declarar explicitamente o seu tipo Kotlin:
+Qualquer propriedade (em nível de pacote ou de classe) inicializada com uma expressão de tipo de plataforma deve declarar explicitamente seu tipo Kotlin:
 
 ```kotlin
 class Person {
@@ -1106,7 +1106,7 @@ fun main() {
 ### Scope functions apply/with/run/also/let
 
 O Kotlin oferece um conjunto de funções para executar um bloco de código no contexto de um determinado objeto: `let`, `run`, `with`, `apply` e `also`.
-Para orientação sobre como escolher a função de escopo certa para o seu caso, consulte [Funções de escopo](scope-functions.md).
+Para orientação sobre como escolher a scope function certa para o seu caso, consulte [Scope functions](scope-functions.md).
 
 ## Convenções de código para bibliotecas {id="coding-conventions-for-libraries"}
 
@@ -1116,6 +1116,6 @@ Ao escrever bibliotecas, é recomendado seguir um conjunto adicional de regras p
  * Sempre especifique explicitamente os tipos de retorno das funções e os tipos das propriedades (para evitar alterar o tipo de retorno por acidente quando a implementação mudar).
  * Forneça comentários [KDoc](kotlin-doc.md) para todos os membros públicos, exceto para overrides que não exijam nova documentação (para viabilizar a geração de documentação da biblioteca).
 
-Saiba mais sobre boas práticas e ideias a considerar ao escrever uma API para a sua biblioteca em [Diretrizes para autores de bibliotecas](api-guidelines-introduction.md).
+Saiba mais sobre boas práticas e ideias a considerar ao escrever uma API para sua biblioteca em [Diretrizes para autores de bibliotecas](api-guidelines-introduction.md).
 
 <!-- ia-translate: true -->

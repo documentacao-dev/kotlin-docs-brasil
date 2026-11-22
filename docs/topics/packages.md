@@ -81,14 +81,14 @@ fun main() {
 ### O que você pode importar {id="what-you-can-import"}
 
 A palavra-chave `import` não se limita a classes. Você pode importar qualquer uma das entidades a seguir,
-seja ela de um pacote, de uma classe, de um objeto ou de um enum:
+seja ela de um pacote, de uma classe, de um `object` ou de um enum:
 
 * Funções e propriedades de nível superior declaradas diretamente dentro de um pacote:
     ```kotlin
     import org.example.printMessage // Top-level function
     import org.example.VERSION      // Top-level property
     ```
-* Funções e propriedades de [declarações de objeto](object-declarations.md#object-declarations-overview):
+* Funções e propriedades de [declarações de `object`](object-declarations.md#object-declarations-overview):
     ```kotlin
     import org.example.Config.DEFAULT_TIMEOUT // Property from an object
     import org.example.Config.loadSettings    // Function from an object
